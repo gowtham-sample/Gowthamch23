@@ -140,6 +140,7 @@ function App() {
       impact: "Improved water access for 50,000+ rural households",
       technologies: ["Terraform", "PostgreSQL", "Docker", "Kubernetes"],
       image: "https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg",
+      github: "#",
     },
     {
       title: "DWSS - Drinking Water & Sewerage System",
@@ -148,6 +149,7 @@ function App() {
       impact: "Enhanced water quality monitoring for 100,000+ residents",
       technologies: ["GitHub Actions", "Redis", "AWS", "Terraform"],
       image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg",
+      github: "#",
     }
   ];
 
@@ -161,7 +163,7 @@ function App() {
     {
       title: "DevOps & Cloud",
       icon: <Cloud className="w-6 h-6" />,
-      skills: ["GitHub Actions", "AWS", "Docker", "Kubernetes", "Terraform", "Jenkins",  "Ansible", "Prometheus"]
+      skills: ["GitHub Actions", "AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "Ansible", "Prometheus"]
     },
     {
       title: "Backend Development",
@@ -259,6 +261,7 @@ function App() {
                 <img
                   src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"//Profile image
                   alt="Profile"
+                  // Increased size from w-28 h-28 to w-76 h-76 and adjusted positioning
                   className="w-76 h-76 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
                 />
               </div>
@@ -295,13 +298,13 @@ function App() {
 
           {/* Social Links */}
           <div className="flex justify-center space-x-6">
-            <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+            <a href="https://github.com/gowtham-org" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
               <Github className="w-6 h-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+            <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
               <Linkedin className="w-6 h-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+            <a href="mailto:gowthamchowdam2001@gmail.com" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
               <Mail className="w-6 h-6" />
             </a>
           </div>
@@ -536,7 +539,6 @@ function App() {
                       <Github className="w-4 h-4" />
                       Code
                     </a>
-                    {/* Removed the 'Demo' button entirely */}
                   </div>
                 </div>
               </div>
@@ -592,13 +594,13 @@ function App() {
               <div className="mt-8">
                 <h4 className="font-semibold text-white mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
-                  <a href="#" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
+                  <a href="https://github.com/gowtham-org" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
                     <Github className="w-5 h-5" />
                   </a>
-                  <a href="#" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
+                  <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
                     <Linkedin className="w-5 h-5" />
                   </a>
-                  <a href="#" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
+                  <a href="mailto:gowthamchowdam2001@gmail.com" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
                     <Mail className="w-5 h-5" />
                   </a>
                 </div>
