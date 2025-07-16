@@ -265,6 +265,10 @@ function App() {
             </div>
           </div>
 
+
+
+
+          
           <h1 className="text-5xl lg:text-7xl font-bold mb-6">
             <span className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent">
               Data Scientist
