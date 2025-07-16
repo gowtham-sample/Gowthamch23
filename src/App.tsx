@@ -225,7 +225,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
         {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -253,13 +253,13 @@ function App() {
           <div className="mb-8">
             <div className="relative inline-block">
               {/* Profile picture container with spinning gradient */}
-              <div className="w-48 h-48 mx-auto mb-6 relative">
+              <div className="w-64 h-64 mx-auto mb-8 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-spin-slow"></div>
                 {/* Profile image */}
                 <img
                   src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"//Profile image
                   alt="Profile"
-                  className="w-44 h-44 rounded-full object-cover absolute top-2.5 left-2.5 border-4 border-slate-900"
+                  className="w-60 h-60 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
                 />
               </div>
             </div>
