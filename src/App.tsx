@@ -259,22 +259,12 @@ function App() {
                 <img
                   src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"//Profile image
                   alt="Profile"
-                  className="w-64 h-64 rounded-full object-cover absolute top-3.5 left-3.5 border-5 border-slate-900"
+                  className="w-44 h-44 rounded-full object-cover absolute top-2.5 left-2.5 border-4 border-slate-900"
                 />
               </div>
             </div>
           </div>
 
-
-
-
-
-
-
-
-
-
-          
           <h1 className="text-5xl lg:text-7xl font-bold mb-6">
             <span className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent">
               Data Scientist
