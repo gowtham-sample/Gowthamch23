@@ -298,7 +298,7 @@ function App() {
 
           {/* Social Links */}
           <div className="flex justify-center space-x-6">
-            <a href="https://github.com/gowtham-org" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+            <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
               <Github className="w-6 h-6" />
             </a>
             <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
@@ -594,7 +594,7 @@ function App() {
               <div className="mt-8">
                 <h4 className="font-semibold text-white mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
-                  <a href="https://github.com/gowtham-org" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
+                  <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
                     <Github className="w-5 h-5" />
                   </a>
                   <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
