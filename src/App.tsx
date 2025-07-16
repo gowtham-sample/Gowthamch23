@@ -99,33 +99,10 @@ function App() {
   // Projects data
   const projects = [
     {
-      title: "JJM - Jal Jeevan Mission Water Infrastructure",
-      description: "Comprehensive water supply infrastructure management system for rural areas. Implemented automated monitoring, predictive maintenance, and resource optimization using IoT sensors and machine learning algorithms.",
-      category: "Infrastructure",
-      status: "Completed",
-      impact: "Improved water access for 50,000+ rural households",
-      technologies: ["Python", "IoT", "Machine Learning", "PostgreSQL", "Docker", "Kubernetes"],
-      image: "https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg",
-      github: "#",
-       
-    },
-    {
-      title: "DWSS - Drinking Water & Sewerage System",
-      description: "Advanced sewerage management and water treatment monitoring system. Built real-time analytics dashboard for water quality monitoring and automated alert systems for maintenance scheduling.",
-      category: "Water Management",
-      status: "Active",
-      impact: "Enhanced water quality monitoring for 100,000+ residents",
-      technologies: ["React", "Node.js", "MongoDB", "Redis", "AWS", "Terraform"],
-      image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg",
-      github: "#",
-       
-    },
-    {
       title: "AI-Powered Construction Cost Estimation",
       description: "Machine learning model for accurate construction project cost prediction. Integrated historical data analysis with real-time market trends to provide precise cost estimates and risk assessments.",
       category: "AI/ML",
-      status: "Completed",
-      impact: "Reduced cost estimation errors by 40%",
+      impact: "Reduced cost estimation errors by 80%",
       technologies: ["Python", "TensorFlow", "Pandas", "FastAPI", "PostgreSQL", "Docker"],
       image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
       github: "https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning",
@@ -135,7 +112,6 @@ function App() {
       title: "Visual Question Answering System",
       description: "Deep learning system that answers questions about images using computer vision and natural language processing. Implemented attention mechanisms and transformer architectures for improved accuracy.",
       category: "Computer Vision",
-      status: "Research",
       impact: "Achieved 85% accuracy on VQA datasets",
       technologies: ["PyTorch", "OpenCV", "BERT", "Flask", "CUDA", "MLflow"],
       image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg",
@@ -143,25 +119,40 @@ function App() {
        
     },
     {
-      title: "Stock Market Forecasting with LSTM",
-      description: "Advanced time series forecasting model using LSTM neural networks for stock price prediction. Incorporated technical indicators and sentiment analysis for enhanced prediction accuracy.",
-      category: "Financial ML",
-      status: "Completed",
-      impact: "Improved prediction accuracy by 25%",
-      technologies: ["Python", "LSTM", "Keras", "Pandas"],
-      image: "https://images.pexels.com/photos/7567443/pexels-photo-7567443.jpeg",
-      github: "#",
+      title: "Image Quantization",
+      description: "To design a comprehensive, interactive system that demonstrates and visualizes the effects of systematically reducing the number of gray levels (quantization) and changing the resolution (spatial sampling rate) of images.",
+      category: "Image processing",
+      impact: "Improved theoretical foundations and implementation accuracy",
+      technologies: ["opencv-python-headless", "numpy", "matplotlib"],
+      image: "https://i.postimg.cc/C1ZtLgjt/image-quant2.png",
+      github: "https://github.com/gowtham-org/Quantization-and-Spatial-Resolution",
        
     },
     {
-      title: "Plant Disease Detection System",
-      description: "Computer vision application for early detection of plant diseases using convolutional neural networks. Deployed as mobile-friendly web application for farmers with offline capabilities.",
-      category: "AgriTech",
-      status: "Production",
-      impact: "Helped 1000+ farmers prevent crop losses",
-      technologies: ["TensorFlow", "CNN", "React Native", "Firebase", "Edge Computing"],
-      image: "https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg",
-      github: "#",
+      title: "Movie-Recommender-using-ML",
+      description: "project focuses on building an intelligent movie recommendation system that suggests personalized movie titles to users based on their preferences and past interactions. The goal is to emulate and enhance the recommendation capabilities of platforms like Netflix and Amazon Prime using machine learning algorithms.",
+      category: "Machine Learning",
+      technologies: ["Python", "pandas", "scikit-learn", "numpy"],
+      image: "https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp",
+      github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
+       
+    },
+    {
+      title: "JJM - Jal Jeevan Mission Water Infrastructure",
+      description: "Comprehensive water supply infrastructure management system for rural areas. Implemented automated monitoring, predictive maintenance, and resource optimization using IoT sensors and machine learning algorithms.",
+      category: "Infrastructure",
+      impact: "Improved water access for 50,000+ rural households",
+      technologies: ["Terraform", "PostgreSQL", "Docker", "Kubernetes"],
+      image: "https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg",
+       
+    },
+    {
+      title: "DWSS - Drinking Water & Sewerage System",
+      description: "Advanced sewerage management and water treatment monitoring system. Built real-time analytics dashboard for water quality monitoring and automated alert systems for maintenance scheduling.",
+      category: "Water Management",
+      impact: "Enhanced water quality monitoring for 100,000+ residents",
+      technologies: ["GitHub Actions", "Redis", "AWS", "Terraform"],
+      image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg",
        
     }
   ];
@@ -181,7 +172,7 @@ function App() {
     {
       title: "Backend Development",
       icon: <Server className="w-6 h-6" />,
-      skills: ["PostgreSQL", "MongoDB", "Redis", "Apache Kafka", "Microservices"]
+      skills: ["PostgreSQL", "Redis", "Apache Kafka", "Microservices"]
     },
     {
       title: "Frontend & Visualization",
@@ -270,7 +261,7 @@ function App() {
               <div className="w-32 h-32 mx-auto mb-6 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-spin-slow"></div>
                 <img 
-                  src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg" 
+                  src="https://i.postimg.cc/BZd9XDDY/Whats-App-Image-2025-07-10-at-10-17-15-AM.jpg" 
                   alt="Profile" 
                   className="w-28 h-28 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
                 />
@@ -347,11 +338,11 @@ function App() {
 
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-4 bg-slate-700/50 rounded-lg">
-                  <div className="text-3xl font-bold text-orange-400 mb-2">5+</div>
+                  <div className="text-3xl font-bold text-orange-400 mb-2">2+</div>
                   <div className="text-gray-300">Years Experience</div>
                 </div>
                 <div className="text-center p-4 bg-slate-700/50 rounded-lg">
-                  <div className="text-3xl font-bold text-orange-400 mb-2">20+</div>
+                  <div className="text-3xl font-bold text-orange-400 mb-2">5+</div>
                   <div className="text-gray-300">Projects Completed</div>
                 </div>
               </div>
