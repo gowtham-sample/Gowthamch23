@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
-import { 
-  Menu, 
-  X, 
-  Github, 
-  Linkedin, 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  Menu,
+  X,
+  Github,
+  Linkedin,
+  Mail,
+  Phone,
+  MapPin,
   Download,
   ExternalLink,
   Code,
@@ -57,7 +57,7 @@ function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       await emailjs.send(
         "YOUR_SERVICE_ID", // Replace with your service ID
@@ -68,7 +68,7 @@ function App() {
           message: formData.message,
         }
       );
-      
+
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
@@ -106,7 +106,7 @@ function App() {
       technologies: ["Python", "TensorFlow", "Pandas", "FastAPI", "PostgreSQL", "Docker"],
       image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
       github: "https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning",
-       
+      demo: "https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning" // Added demo
     },
     {
       title: "Visual Question Answering System",
@@ -116,7 +116,7 @@ function App() {
       technologies: ["PyTorch", "OpenCV", "BERT", "Flask", "CUDA", "MLflow"],
       image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg",
       github: "https://github.com/gowtham-org/MultiModal-VQA-and-Automated-Image-Captioning",
-       
+      demo: "https://github.com/gowtham-org/MultiModal-VQA-and-Automated-Image-Captioning" // Added demo
     },
     {
       title: "Image Quantization",
@@ -126,7 +126,7 @@ function App() {
       technologies: ["opencv-python-headless", "numpy", "matplotlib"],
       image: "https://i.postimg.cc/C1ZtLgjt/image-quant2.png",
       github: "https://github.com/gowtham-org/Quantization-and-Spatial-Resolution",
-       
+      demo: "https://github.com/gowtham-org/Quantization-and-Spatial-Resolution" // Added demo
     },
     {
       title: "Movie-Recommender-using-ML",
@@ -135,7 +135,7 @@ function App() {
       technologies: ["Python", "pandas", "scikit-learn", "numpy"],
       image: "https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp",
       github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
-       
+      demo: "https://github.com/gowtham-org/Movie-Recommender-using-ML" // Added demo
     },
     {
       title: "JJM - Jal Jeevan Mission Water Infrastructure",
@@ -144,7 +144,8 @@ function App() {
       impact: "Improved water access for 50,000+ rural households",
       technologies: ["Terraform", "PostgreSQL", "Docker", "Kubernetes"],
       image: "https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg",
-       
+      github: "#",
+      demo: "#" // Added demo
     },
     {
       title: "DWSS - Drinking Water & Sewerage System",
@@ -153,7 +154,8 @@ function App() {
       impact: "Enhanced water quality monitoring for 100,000+ residents",
       technologies: ["GitHub Actions", "Redis", "AWS", "Terraform"],
       image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg",
-       
+      github: "#",
+      demo: "#" // Added demo
     }
   ];
 
@@ -177,7 +179,7 @@ function App() {
     {
       title: "Frontend & Visualization",
       icon: <Monitor className="w-6 h-6" />,
-      skills: ["Power BI",  "Tableau", "Prometheus", "Kibana", "Streamlit", "Grafana"]
+      skills: ["Power BI", "Tableau", "Prometheus", "Kibana", "Streamlit", "Grafana"]
     }
   ];
 
@@ -190,7 +192,7 @@ function App() {
             <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
               Gowtham Chowdam
             </div>
-            
+
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
               {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((item) => (
@@ -258,12 +260,16 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="mb-8">
             <div className="relative inline-block">
-              <div className="w-32 h-32 mx-auto mb-6 relative">
+              {/* Profile picture container with spinning gradient */}
+              {/* Increased size from w-32 h-32 to w-48 h-48 */}
+              <div className="w-48 h-48 mx-auto mb-6 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-spin-slow"></div>
-                <img 
-                  src="https://i.postimg.cc/BZd9XDDY/Whats-App-Image-2025-07-10-at-10-17-15-AM.jpg" 
-                  alt="Profile" 
-                  className="w-28 h-28 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
+                {/* Profile image */}
+                {/* Increased size from w-28 h-28 to w-44 h-44 and adjusted positioning */}
+                <img
+                  src="https://i.postimg.cc/BZd9XDDY/Whats-App-Image-2025-07-10-at-10-17-15-AM.jpg"
+                  alt="Profile"
+                  className="w-44 h-44 rounded-full object-cover absolute top-2.5 left-2.5 border-4 border-slate-900"
                 />
               </div>
             </div>
@@ -276,20 +282,20 @@ function App() {
             <br />
             <span className="text-white">& DevOps Engineer</span>
           </h1>
-          
+
           <p className="text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Bridging the gap between data science and infrastructure engineering. 
+            Bridging the gap between data science and infrastructure engineering.
             Building scalable ML systems and robust deployment pipelines for real-world impact.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <button 
+            <button
               onClick={() => scrollToSection('projects')}
               className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
             >
               View My Work <ArrowUpRight className="w-5 h-5" />
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('contact')}
               className="px-8 py-4 border-2 border-orange-500 rounded-lg font-semibold hover:bg-orange-500 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
             >
@@ -326,13 +332,13 @@ function App() {
             <div>
               <h3 className="text-2xl font-bold text-white mb-6">My Journey</h3>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                As a Data Scientist and DevOps Engineer, I specialize in creating end-to-end machine learning solutions 
-                that not only deliver accurate predictions but are also production-ready and scalable. My expertise spans 
+                As a Data Scientist and DevOps Engineer, I specialize in creating end-to-end machine learning solutions
+                that not only deliver accurate predictions but are also production-ready and scalable. My expertise spans
                 from data exploration and model development to containerization, orchestration, and monitoring.
               </p>
               <p className="text-gray-300 mb-8 leading-relaxed">
-                I've worked on diverse projects ranging from water infrastructure management systems to AI-powered 
-                applications, always focusing on real-world impact and sustainable solutions. My approach combines 
+                I've worked on diverse projects ranging from water infrastructure management systems to AI-powered
+                applications, always focusing on real-world impact and sustainable solutions. My approach combines
                 rigorous data science methodologies with modern DevOps practices to deliver robust, maintainable systems.
               </p>
 
@@ -350,7 +356,7 @@ function App() {
 
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-white mb-6">Core Competencies</h3>
-              
+
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="p-2 bg-orange-500/20 rounded-lg">
@@ -430,7 +436,7 @@ function App() {
                   icon: <Target className="w-6 h-6" />
                 },
                 {
-                  step: "02", 
+                  step: "02",
                   title: "Design & Development",
                   description: "Creating ML models, designing system architecture, and developing CI/CD pipelines",
                   icon: <Code className="w-6 h-6" />
@@ -481,8 +487,8 @@ function App() {
               <div key={index} className="bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:scale-105 group">
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={project.image} 
+                  <img
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
@@ -491,6 +497,8 @@ function App() {
                     <span className="px-3 py-1 bg-orange-500/90 text-white text-xs font-medium rounded-full backdrop-blur-sm">
                       {project.category}
                     </span>
+                    {/* Only display status if it exists for the project */}
+                    {project.status && (
                     <span className={`px-2 py-1 text-white text-xs font-medium rounded-full backdrop-blur-sm ${
                       project.status === 'Completed' ? 'bg-green-500/90' :
                       project.status === 'Active' ? 'bg-blue-500/90' :
@@ -499,16 +507,20 @@ function App() {
                     }`}>
                       {project.status}
                     </span>
+                    )}
                   </div>
                 </div>
-                
+
                 {/* Project Content */}
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">{project.title}</h3>
                   <p className="text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">{project.description}</p>
-                  
+
                   <div className="mb-4">
-                    <p className="text-orange-400 font-medium text-sm mb-2">Impact: {project.impact}</p>
+                    {/* Only display impact if it exists for the project */}
+                    {project.impact && (
+                      <p className="text-orange-400 font-medium text-sm mb-2">Impact: {project.impact}</p>
+                    )}
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -525,20 +537,26 @@ function App() {
                   </div>
 
                   <div className="flex gap-3">
-                    <a 
+                    <a
                       href={project.github}
+                      target="_blank" // Open in new tab
+                      rel="noopener noreferrer" // Security best practice for target="_blank"
                       className="flex items-center gap-2 px-3 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm transition-colors duration-200"
                     >
                       <Github className="w-4 h-4" />
                       Code
                     </a>
-                    <a 
-                      href={project.demo}
-                      className="flex items-center gap-2 px-3 py-2 bg-orange-500 hover:bg-orange-600 rounded-lg text-sm transition-colors duration-200"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Demo
-                    </a>
+                    {project.demo && ( // Conditionally render demo link if demo property exists
+                      <a
+                        href={project.demo}
+                        target="_blank" // Open in new tab
+                        rel="noopener noreferrer" // Security best practice for target="_blank"
+                        className="flex items-center gap-2 px-3 py-2 bg-orange-500 hover:bg-orange-600 rounded-lg text-sm transition-colors duration-200"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -672,13 +690,13 @@ function App() {
                     </>
                   )}
                 </button>
-                
+
                 {submitStatus === 'success' && (
                   <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center">
                     Message sent successfully! I'll get back to you soon.
                   </div>
                 )}
-                
+
                 {submitStatus === 'error' && (
                   <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center">
                     Failed to send message. Please try again or contact me directly.
