@@ -161,7 +161,7 @@ function App() {
     {
       title: "DevOps & Cloud",
       icon: <Cloud className="w-6 h-6" />,
-      skills: ["GitHub Actions", "AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "GitLab CI", "Ansible", "Prometheus"]
+      skills: ["GitHub Actions", "AWS", "Docker", "Kubernetes", "Terraform", "Jenkins",  "Ansible", "Prometheus"]
     },
     {
       title: "Backend Development",
