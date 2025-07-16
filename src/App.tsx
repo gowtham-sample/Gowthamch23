@@ -259,7 +259,7 @@ function App() {
                 <img
                   src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"//Profile image
                   alt="Profile"
-                  className="w-60 h-60 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
+                  className="w-70 h-70 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
                 />
               </div>
             </div>
