@@ -106,7 +106,6 @@ function App() {
       technologies: ["Python", "TensorFlow", "Pandas", "FastAPI", "PostgreSQL", "Docker"],
       image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
       github: "https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning",
-      demo: "https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning" // Added demo
     },
     {
       title: "Visual Question Answering System",
@@ -116,7 +115,6 @@ function App() {
       technologies: ["PyTorch", "OpenCV", "BERT", "Flask", "CUDA", "MLflow"],
       image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg",
       github: "https://github.com/gowtham-org/MultiModal-VQA-and-Automated-Image-Captioning",
-      demo: "https://github.com/gowtham-org/MultiModal-VQA-and-Automated-Image-Captioning" // Added demo
     },
     {
       title: "Image Quantization",
@@ -126,7 +124,6 @@ function App() {
       technologies: ["opencv-python-headless", "numpy", "matplotlib"],
       image: "https://i.postimg.cc/C1ZtLgjt/image-quant2.png",
       github: "https://github.com/gowtham-org/Quantization-and-Spatial-Resolution",
-      demo: "https://github.com/gowtham-org/Quantization-and-Spatial-Resolution" // Added demo
     },
     {
       title: "Movie-Recommender-using-ML",
@@ -135,7 +132,6 @@ function App() {
       technologies: ["Python", "pandas", "scikit-learn", "numpy"],
       image: "https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp",
       github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
-      demo: "https://github.com/gowtham-org/Movie-Recommender-using-ML" // Added demo
     },
     {
       title: "JJM - Jal Jeevan Mission Water Infrastructure",
@@ -144,8 +140,6 @@ function App() {
       impact: "Improved water access for 50,000+ rural households",
       technologies: ["Terraform", "PostgreSQL", "Docker", "Kubernetes"],
       image: "https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg",
-      github: "#",
-      demo: "#" // Added demo
     },
     {
       title: "DWSS - Drinking Water & Sewerage System",
@@ -154,8 +148,6 @@ function App() {
       impact: "Enhanced water quality monitoring for 100,000+ residents",
       technologies: ["GitHub Actions", "Redis", "AWS", "Terraform"],
       image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg",
-      github: "#",
-      demo: "#" // Added demo
     }
   ];
 
@@ -261,11 +253,9 @@ function App() {
           <div className="mb-8">
             <div className="relative inline-block">
               {/* Profile picture container with spinning gradient */}
-              {/* Increased size from w-32 h-32 to w-48 h-48 */}
               <div className="w-48 h-48 mx-auto mb-6 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-spin-slow"></div>
                 {/* Profile image */}
-                {/* Increased size from w-28 h-28 to w-44 h-44 and adjusted positioning */}
                 <img
                   src="https://i.postimg.cc/BZd9XDDY/Whats-App-Image-2025-07-10-at-10-17-15-AM.jpg"
                   alt="Profile"
@@ -546,17 +536,7 @@ function App() {
                       <Github className="w-4 h-4" />
                       Code
                     </a>
-                    {project.demo && ( // Conditionally render demo link if demo property exists
-                      <a
-                        href={project.demo}
-                        target="_blank" // Open in new tab
-                        rel="noopener noreferrer" // Security best practice for target="_blank"
-                        className="flex items-center gap-2 px-3 py-2 bg-orange-500 hover:bg-orange-600 rounded-lg text-sm transition-colors duration-200"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Demo
-                      </a>
-                    )}
+                    {/* Removed the 'Demo' button entirely */}
                   </div>
                 </div>
               </div>
