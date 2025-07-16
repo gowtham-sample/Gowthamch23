@@ -253,13 +253,13 @@ function App() {
           <div className="mb-8">
             <div className="relative inline-block">
               {/* Profile picture container with spinning gradient */}
-              <div className="w-64 h-64 mx-auto mb-8 relative">
+              <div className="w-80 h-80 mx-auto mb-8 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-spin-slow"></div>
                 {/* Profile image */}
                 <img
                   src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"//Profile image
                   alt="Profile"
-                  className="w-70 h-70 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
+                  className="w-76 h-76 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
                 />
               </div>
             </div>
