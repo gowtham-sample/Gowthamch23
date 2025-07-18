@@ -185,7 +185,7 @@ function App() {
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center gap-3">
               <img 
-                src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg" 
+                src="/1.png" 
                 alt="Gowtham Chowdam Logo" 
                 className="w-10 h-10 rounded-full object-cover border-2 border-orange-400"
               />
