@@ -150,6 +150,15 @@ function App() {
       technologies: ["GitHub Actions", "Redis", "AWS", "Terraform"],
       image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg",
       github: "#",
+    },
+    {
+      title: "Cougar Cupboard Dashboard Using Power BI",
+      description: "Comprehensive analytics dashboard for food pantry operations management. Built interactive visualizations to track inventory, visitor demographics, and distribution patterns to optimize resource allocation and improve service delivery.",
+      category: "Data Analytics",
+      impact: "Improved operational efficiency and resource planning",
+      technologies: ["Power BI", "DAX", "SQL", "Excel", "Data Modeling"],
+      image: "https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg",
+      github: "https://github.com/gowtham-org/Cougar-Cupboard-Dashboard-Using-Power-BI",
     }
   ];
 
@@ -550,6 +559,66 @@ function App() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Volunteering Section */}
+      <section className="py-20 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Volunteering</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Contributing to community development and social impact initiatives
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-slate-800/50 p-8 rounded-xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300">
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                    <Users className="w-8 h-8 text-white" />
+                  </div>
+                </div>
+                
+                <div className="flex-grow">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-2">Campaign Volunteer</h3>
+                      <p className="text-orange-400 font-semibold mb-2">Unnat Bharat Abhiyan, IIT Roorkee</p>
+                      <p className="text-gray-300 text-sm">Mar 2020 - Mar 2023 · 3 yrs 1 mo</p>
+                    </div>
+                    <div className="mt-4 lg:mt-0">
+                      <span className="px-3 py-1 bg-green-500/20 text-green-400 text-sm font-medium rounded-full">
+                        Environment
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-300 leading-relaxed mb-6">
+                    Participated in rural development initiatives focused on sustainable development and community empowerment. 
+                    Contributed to various environmental and educational programs aimed at improving quality of life in rural areas 
+                    through technology adoption and awareness campaigns.
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-4">
+                    <div className="flex items-center gap-2 text-sm text-gray-300">
+                      <MapPin className="w-4 h-4 text-orange-400" />
+                      Rural Development Focus
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-300">
+                      <Calendar className="w-4 h-4 text-orange-400" />
+                      3 Years of Service
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-300">
+                      <Building className="w-4 h-4 text-orange-400" />
+                      IIT Roorkee Initiative
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
