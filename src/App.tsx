@@ -586,7 +586,7 @@ function App() {
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
                     <div>
                       <h3 className="text-2xl font-bold text-white mb-2">Campaign Volunteer</h3>
-                      <p className="text-orange-400 font-semibold mb-2">Unnat Bharat Abhiyan, IIT Roorkee</p>
+                      <p className="text-orange-400 font-semibold mb-2">Unnat Bharat Abhiyan, VelYech University</p>
                       <p className="text-gray-300 text-sm">Mar 2020 - Mar 2023 · 3 yrs 1 mo</p>
                     </div>
                     <div className="mt-4 lg:mt-0">
