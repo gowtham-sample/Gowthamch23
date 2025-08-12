@@ -193,9 +193,10 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center gap-3">
-                src="/profile-stylized.png"
+              <img 
                 src="/1.png" 
-                className="w-76 h-76 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900 shadow-2xl"
+                alt="Gowtham Chowdam Logo" 
+                className="w-10 h-10 rounded-full object-cover border-2 border-orange-400"
               />
               <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
                 Gowtham Chowdam
