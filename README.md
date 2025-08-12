@@ -55,10 +55,13 @@ npm run dev
 ### Customization
 
 1. **Personal Information**: Update contact details, social links, and bio in `src/App.tsx`
-2. **Projects**: Modify the `projects` array with your own projects
-3. **Skills**: Update the `skillCategories` array with your technical skills
-4. **Images**: Replace project images and profile photo with your own
-5. **Colors**: Customize the color scheme in `tailwind.config.js`
+2. **Profile Image**: Update the `profileImage` object in `src/App.tsx`:
+   - For local images: Place in `public/` folder and update `src: "/your-image.png"`
+   - For external URLs: Update the `src` property with your image URL
+3. **Projects**: Modify the `projects` array with your own projects
+4. **Skills**: Update the `skillCategories` array with your technical skills
+5. **Images**: Replace project images with your own
+6. **Colors**: Customize the color scheme in `tailwind.config.js`
 
 ## 📁 Project Structure
 
