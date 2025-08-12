@@ -190,13 +190,18 @@ function App() {
     <div className="min-h-screen bg-slate-900 text-white">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Floating particles in navigation */}
+          <div className="particle w-2 h-2 bg-orange-400 top-2 left-10 animate-float"></div>
+          <div className="particle w-1 h-1 bg-blue-400 top-4 right-20 animate-float delay-1000"></div>
+          <div className="particle w-1.5 h-1.5 bg-purple-400 top-6 left-1/3 animate-float delay-2000"></div>
+          
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center gap-3">
               <img 
                 src="/1.png" 
                 alt="Gowtham Chowdam Logo" 
-                className="w-10 h-10 rounded-full object-cover border-2 border-orange-400"
+                className="w-10 h-10 rounded-full object-cover border-2 border-orange-400 animate-pulse-glow hover:scale-110 transition-transform duration-300"
               />
               <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
                 Gowtham Chowdam
@@ -209,9 +214,10 @@ function App() {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className="text-gray-300 hover:text-orange-400 transition-colors duration-200 capitalize"
+                  className="text-gray-300 hover:text-orange-400 transition-all duration-300 capitalize relative group"
                 >
-                  {item}
+                  <span className="relative z-10">{item}</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-red-500/20 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
                 </button>
               ))}
             </div>
@@ -243,84 +249,93 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 perspective-1000">
         {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-orange-500/5 to-red-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl animate-pulse transform-3d"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000 transform-3d"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-orange-500/5 to-red-500/5 rounded-full blur-3xl animate-rotate-3d"></div>
+          
+          {/* 3D Geometric shapes */}
+          <div className="absolute top-1/4 left-1/4 w-20 h-20 bg-gradient-to-br from-orange-400/20 to-red-500/20 transform rotate-45 animate-bounce-slow"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-full animate-float delay-2000"></div>
+          <div className="absolute top-1/3 right-1/3 w-12 h-12 bg-gradient-to-br from-green-400/20 to-teal-500/20 transform rotate-12 animate-bounce-slow delay-1000"></div>
         </div>
 
         {/* Floating Tech Icons */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 animate-float">
+          <div className="absolute top-1/4 left-1/4 animate-float transform-3d">
             <Code className="w-8 h-8 text-orange-400/30" />
           </div>
-          <div className="absolute top-1/3 right-1/4 animate-float delay-1000">
+          <div className="absolute top-1/3 right-1/4 animate-float delay-1000 transform-3d">
             <Database className="w-8 h-8 text-blue-400/30" />
           </div>
-          <div className="absolute bottom-1/3 left-1/3 animate-float delay-2000">
+          <div className="absolute bottom-1/3 left-1/3 animate-float delay-2000 transform-3d">
             <Cloud className="w-8 h-8 text-green-400/30" />
           </div>
-          <div className="absolute bottom-1/4 right-1/3 animate-float delay-3000">
+          <div className="absolute bottom-1/4 right-1/3 animate-float delay-3000 transform-3d">
             <Brain className="w-8 h-8 text-purple-400/30" />
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 animate-fade-in">
           <div className="mb-8">
-            <div className="relative inline-block">
+            <div className="relative inline-block perspective-1000">
               {/* Profile picture container with spinning gradient */}
-              <div className="w-80 h-80 mx-auto mb-8 relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-spin-slow"></div>
+              <div className="w-80 h-80 mx-auto mb-8 relative transform-3d">
+                <div className="absolute inset-0 gradient-border rounded-full"></div>
                 {/* Profile image */}
                 <img
                   src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"//Profile image
                   alt="Profile"
                   // Increased size from w-28 h-28 to w-76 h-76 and adjusted positioning
-                  className="w-76 h-76 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900"
+                  className="w-76 h-76 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900 hover:scale-105 transition-transform duration-500 animate-pulse-glow"
                 />
+                {/* 3D floating elements around profile */}
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-full animate-bounce-slow opacity-80"></div>
+                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full animate-float delay-1000 opacity-80"></div>
+                <div className="absolute top-1/2 -right-8 w-4 h-4 bg-gradient-to-br from-green-400 to-teal-500 transform rotate-45 animate-bounce-slow delay-2000 opacity-80"></div>
               </div>
             </div>
           </div>
 
-          <h1 className="text-5xl lg:text-7xl font-bold mb-6">
+          <h1 className="text-5xl lg:text-7xl font-bold mb-6 animate-slide-up">
             <span className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent">
               Data Scientist
             </span>
             <br />
-            <span className="text-white">& DevOps Engineer</span>
+            <span className="text-white text-glow">& DevOps Engineer</span>
           </h1>
 
-          <p className="text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up delay-1000">
             Bridging the gap between data science and infrastructure engineering.
             Building scalable ML systems and robust deployment pipelines for real-world impact.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-slide-up delay-2000">
             <button
               onClick={() => scrollToSection('projects')}
-              className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+              className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg font-semibold magnetic-btn flex items-center gap-2 glass-effect border border-orange-500/30"
             >
               View My Work <ArrowUpRight className="w-5 h-5" />
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="px-8 py-4 border-2 border-orange-500 rounded-lg font-semibold hover:bg-orange-500 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+              className="px-8 py-4 border-2 border-orange-500 rounded-lg font-semibold magnetic-btn flex items-center gap-2 glass-effect hover:bg-orange-500/20"
             >
               Get In Touch <Mail className="w-5 h-5" />
             </button>
           </div>
 
           {/* Social Links */}
-          <div className="flex justify-center space-x-6">
-            <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+          <div className="flex justify-center space-x-6 animate-slide-up delay-3000">
+            <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 hover:scale-125 hover:rotate-12">
               <Github className="w-6 h-6" />
             </a>
-            <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+            <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 hover:scale-125 hover:rotate-12">
               <Linkedin className="w-6 h-6" />
             </a>
-            <a href="mailto:gowthamchowdam2001@gmail.com" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+            <a href="mailto:gowthamchowdam2001@gmail.com" className="text-gray-400 hover:text-orange-400 transition-all duration-300 hover:scale-125 hover:rotate-12">
               <Mail className="w-6 h-6" />
             </a>
           </div>
@@ -328,10 +343,16 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-slate-800/50">
+      <section id="about" className="py-20 bg-slate-800/50 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-orange-400/10 to-red-500/10 rounded-full blur-2xl animate-float"></div>
+          <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-br from-blue-400/10 to-purple-500/10 rounded-full blur-2xl animate-float delay-2000"></div>
+        </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">About Me</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">About Me</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Passionate about transforming data into actionable insights and building the infrastructure to scale them
             </p>
@@ -352,11 +373,11 @@ function App() {
               </p>
 
               <div className="grid grid-cols-2 gap-6">
-                <div className="text-center p-4 bg-slate-700/50 rounded-lg">
+                <div className="text-center p-4 glass-effect rounded-lg card-3d hover:bg-slate-700/70 transition-all duration-300">
                   <div className="text-3xl font-bold text-orange-400 mb-2">2+</div>
                   <div className="text-gray-300">Years Experience</div>
                 </div>
-                <div className="text-center p-4 bg-slate-700/50 rounded-lg">
+                <div className="text-center p-4 glass-effect rounded-lg card-3d hover:bg-slate-700/70 transition-all duration-300">
                   <div className="text-3xl font-bold text-orange-400 mb-2">5+</div>
                   <div className="text-gray-300">Projects Completed</div>
                 </div>
@@ -368,7 +389,7 @@ function App() {
 
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="p-2 bg-orange-500/20 rounded-lg">
+                  <div className="p-2 bg-orange-500/20 rounded-lg animate-pulse-glow">
                     <BarChart3 className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
@@ -378,7 +399,7 @@ function App() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-2 bg-blue-500/20 rounded-lg">
+                  <div className="p-2 bg-blue-500/20 rounded-lg animate-pulse-glow delay-1000">
                     <Layers className="w-6 h-6 text-blue-400" />
                   </div>
                   <div>
@@ -388,7 +409,7 @@ function App() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-2 bg-green-500/20 rounded-lg">
+                  <div className="p-2 bg-green-500/20 rounded-lg animate-pulse-glow delay-2000">
                     <Shield className="w-6 h-6 text-green-400" />
                   </div>
                   <div>
@@ -403,10 +424,19 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 bg-slate-900">
+      <section id="skills" className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Animated background grid */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="grid grid-cols-12 gap-4 h-full">
+            {Array.from({ length: 48 }).map((_, i) => (
+              <div key={i} className="bg-orange-400 animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}></div>
+            ))}
+          </div>
+        </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Technical Skills</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">Technical Skills</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               A comprehensive toolkit for building and deploying intelligent systems
             </p>
@@ -414,16 +444,16 @@ function App() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {skillCategories.map((category, index) => (
-              <div key={index} className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300">
+              <div key={index} className="glass-effect p-6 rounded-xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300 card-3d group">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-orange-500/20 rounded-lg text-orange-400">
+                  <div className="p-2 bg-orange-500/20 rounded-lg text-orange-400 group-hover:animate-bounce-slow">
                     {category.icon}
                   </div>
                   <h3 className="text-lg font-semibold text-white">{category.title}</h3>
                 </div>
                 <div className="space-y-2">
                   {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex} className="flex items-center gap-2">
+                    <div key={skillIndex} className="flex items-center gap-2 group-hover:translate-x-2 transition-transform duration-300" style={{ transitionDelay: `${skillIndex * 0.1}s` }}>
                       <CheckCircle className="w-4 h-4 text-green-400" />
                       <span className="text-gray-300 text-sm">{skill}</span>
                     </div>
@@ -435,7 +465,7 @@ function App() {
 
           {/* Working Process */}
           <div className="mt-20">
-            <h3 className="text-3xl font-bold text-white text-center mb-12">My Working Process</h3>
+            <h3 className="text-3xl font-bold text-white text-center mb-12 text-glow">My Working Process</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
@@ -463,12 +493,12 @@ function App() {
                   icon: <TrendingUp className="w-6 h-6" />
                 }
               ].map((process, index) => (
-                <div key={index} className="text-center">
+                <div key={index} className="text-center group">
                   <div className="relative mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:animate-bounce-slow animate-pulse-glow">
                       {process.icon}
                     </div>
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center text-sm font-bold text-orange-400">
+                    <div className="absolute -top-2 -right-2 w-8 h-8 glass-effect rounded-full flex items-center justify-center text-sm font-bold text-orange-400 group-hover:scale-110 transition-transform duration-300">
                       {process.step}
                     </div>
                   </div>
@@ -482,10 +512,17 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-slate-800/50">
+      <section id="projects" className="py-20 bg-slate-800/50 relative overflow-hidden">
+        {/* Floating geometric shapes */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 left-20 w-16 h-16 bg-gradient-to-br from-orange-400/20 to-red-500/20 transform rotate-45 animate-float"></div>
+          <div className="absolute bottom-20 right-20 w-12 h-12 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-full animate-bounce-slow"></div>
+          <div className="absolute top-1/2 left-10 w-8 h-8 bg-gradient-to-br from-green-400/20 to-teal-500/20 transform rotate-12 animate-float delay-2000"></div>
+        </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Featured Projects</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">Featured Projects</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Showcasing impactful solutions in Data Science, Machine Learning, and Infrastructure Engineering
             </p>
@@ -493,17 +530,17 @@ function App() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div key={index} className="bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:scale-105 group">
+              <div key={index} className="glass-effect rounded-xl overflow-hidden border border-slate-700 hover:border-orange-500/50 transition-all duration-500 card-3d group">
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent group-hover:from-slate-900/60 transition-all duration-300"></div>
                   <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="px-3 py-1 bg-orange-500/90 text-white text-xs font-medium rounded-full backdrop-blur-sm">
+                    <span className="px-3 py-1 bg-orange-500/90 text-white text-xs font-medium rounded-full backdrop-blur-sm animate-pulse-glow">
                       {project.category}
                     </span>
                     {/* Only display status if it exists for the project */}
@@ -521,7 +558,7 @@ function App() {
                 </div>
 
                 {/* Project Content */}
-                <div className="p-6">
+                <div className="p-6 group-hover:bg-slate-800/30 transition-all duration-300">
                   <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">{project.title}</h3>
                   <p className="text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">{project.description}</p>
 
@@ -534,12 +571,12 @@ function App() {
 
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                      <span key={techIndex} className="px-2 py-1 bg-slate-700 text-gray-300 text-xs rounded">
+                      <span key={techIndex} className="px-2 py-1 glass-effect text-gray-300 text-xs rounded group-hover:bg-slate-600/50 transition-all duration-300">
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span className="px-2 py-1 bg-slate-700 text-gray-300 text-xs rounded">
+                      <span className="px-2 py-1 glass-effect text-gray-300 text-xs rounded group-hover:bg-slate-600/50 transition-all duration-300">
                         +{project.technologies.length - 3} more
                       </span>
                     )}
@@ -550,7 +587,7 @@ function App() {
                       href={project.github}
                       target="_blank" // Open in new tab
                       rel="noopener noreferrer" // Security best practice for target="_blank"
-                      className="flex items-center gap-2 px-3 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm transition-colors duration-200"
+                      className="flex items-center gap-2 px-3 py-2 glass-effect hover:bg-slate-600/50 rounded-lg text-sm transition-all duration-300 magnetic-btn"
                     >
                       <Github className="w-4 h-4" />
                       Code
@@ -564,20 +601,25 @@ function App() {
       </section>
 
       {/* Volunteering Section */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-orange-400/10 via-transparent to-blue-400/10"></div>
+        </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Volunteering</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">Volunteering</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Contributing to community development and social impact initiatives
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="bg-slate-800/50 p-8 rounded-xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300">
+            <div className="glass-effect p-8 rounded-xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300 card-3d group">
               <div className="flex items-start gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center animate-pulse-glow group-hover:animate-bounce-slow">
                     <Users className="w-8 h-8 text-white" />
                   </div>
                 </div>
@@ -604,15 +646,15 @@ function App() {
                   
                   <div className="flex flex-wrap gap-4">
                     <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <MapPin className="w-4 h-4 text-orange-400" />
+                      <MapPin className="w-4 h-4 text-orange-400 group-hover:animate-bounce-slow" />
                       Rural Development Focus
                     </div>
                     <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <Calendar className="w-4 h-4 text-orange-400" />
+                      <Calendar className="w-4 h-4 text-orange-400 group-hover:animate-bounce-slow delay-1000" />
                       3 Years of Service
                     </div>
                     <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <Building className="w-4 h-4 text-orange-400" />
+                      <Building className="w-4 h-4 text-orange-400 group-hover:animate-bounce-slow delay-2000" />
                       VelTech Initiative
                     </div>
                   </div>
@@ -624,10 +666,16 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-slate-900">
+      <section id="contact" className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Contact background effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-orange-400/5 to-red-500/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-blue-400/5 to-purple-500/5 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Get In Touch</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">Get In Touch</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Ready to collaborate on your next data science or infrastructure project? Let's discuss how we can work together.
             </p>
@@ -635,11 +683,11 @@ function App() {
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Info */}
-            <div>
+            <div className="animate-slide-up">
               <h3 className="text-2xl font-bold text-white mb-8">Let's Connect</h3>
               <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-orange-500/20 rounded-lg">
+                <div className="flex items-center gap-4 group">
+                  <div className="p-3 bg-orange-500/20 rounded-lg group-hover:animate-bounce-slow animate-pulse-glow">
                     <Mail className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
@@ -648,7 +696,7 @@ function App() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-orange-500/20 rounded-lg">
+                  <div className="p-3 bg-orange-500/20 rounded-lg group-hover:animate-bounce-slow animate-pulse-glow delay-1000">
                     <Phone className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
@@ -657,7 +705,7 @@ function App() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-orange-500/20 rounded-lg">
+                  <div className="p-3 bg-orange-500/20 rounded-lg group-hover:animate-bounce-slow animate-pulse-glow delay-2000">
                     <MapPin className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
@@ -670,13 +718,13 @@ function App() {
               <div className="mt-8">
                 <h4 className="font-semibold text-white mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
-                  <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
+                  <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="p-3 glass-effect hover:bg-orange-500/20 rounded-lg transition-all duration-300 magnetic-btn">
                     <Github className="w-5 h-5" />
                   </a>
-                  <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
+                  <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="p-3 glass-effect hover:bg-orange-500/20 rounded-lg transition-all duration-300 magnetic-btn">
                     <Linkedin className="w-5 h-5" />
                   </a>
-                  <a href="mailto:gowthamchowdam2001@gmail.com" className="p-3 bg-slate-800 hover:bg-orange-500 rounded-lg transition-colors duration-200">
+                  <a href="mailto:gowthamchowdam2001@gmail.com" className="p-3 glass-effect hover:bg-orange-500/20 rounded-lg transition-all duration-300 magnetic-btn">
                     <Mail className="w-5 h-5" />
                   </a>
                 </div>
@@ -684,8 +732,8 @@ function App() {
             </div>
 
             {/* Contact Form */}
-            <div>
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="animate-slide-up delay-1000">
+              <form onSubmit={handleSubmit} className="space-y-6 glass-effect p-8 rounded-xl border border-slate-700">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                     Name
@@ -697,7 +745,7 @@ function App() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400"
+                    className="w-full px-4 py-3 glass-effect border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300"
                     placeholder="Your Name"
                   />
                 </div>
@@ -712,7 +760,7 @@ function App() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400"
+                    className="w-full px-4 py-3 glass-effect border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -727,14 +775,14 @@ function App() {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400 resize-none"
+                    className="w-full px-4 py-3 glass-effect border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400 resize-none transition-all duration-300"
                     placeholder="Tell me about your project..."
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg font-semibold magnetic-btn disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 glass-effect border border-orange-500/30"
                 >
                   {isSubmitting ? (
                     <>
@@ -750,13 +798,13 @@ function App() {
                 </button>
 
                 {submitStatus === 'success' && (
-                  <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center">
+                  <div className="p-4 glass-effect bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center animate-slide-up">
                     Message sent successfully! I'll get back to you soon.
                   </div>
                 )}
 
                 {submitStatus === 'error' && (
-                  <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center">
+                  <div className="p-4 glass-effect bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center animate-slide-up">
                     Failed to send message. Please try again or contact me directly.
                   </div>
                 )}
@@ -767,11 +815,13 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-slate-800 border-t border-slate-700">
+      <footer className="py-8 glass-effect border-t border-slate-700 relative overflow-hidden">
+        {/* Footer background effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-transparent to-red-500/5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-gray-400">
-              © 2024 Your Name. Built with React, TypeScript, and Tailwind CSS.
+              © 2024 Gowtham Chowdam. Built with React, TypeScript, and Tailwind CSS.
             </p>
           </div>
         </div>
