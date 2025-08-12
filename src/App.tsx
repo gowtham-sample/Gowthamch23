@@ -40,18 +40,6 @@ import {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  
-  // Profile image configuration - easy to update when you get your new image
-  const profileImage = {
-    // Option 1: Use local image (place in public folder)
-    // src: "/new-profile.png",
-    
-    // Option 2: Use external URL (current)
-    src: "https://i.postimg.cc/x8mLdspn/Profile-pic.jpg",
-    
-    alt: "Gowtham Chowdam - Professional Profile"
-  };
-  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -205,8 +193,8 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center gap-3">
-                src={profileImage.src}
-                alt={profileImage.alt}
+              <img 
+                src="/1.png" 
                 alt="Gowtham Chowdam Logo" 
                 className="w-10 h-10 rounded-full object-cover border-2 border-orange-400"
               />
