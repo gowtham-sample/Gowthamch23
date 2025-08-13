@@ -8,6 +8,7 @@ import {
   Mail,
   Phone,
   MapPin,
+  Download,
   ExternalLink,
   Code,
   Database,
@@ -15,18 +16,25 @@ import {
   Brain,
   Monitor,
   ChevronRight,
+  Award,
   Calendar,
   Building,
+  GraduationCap,
+  Briefcase,
+  Star,
+  ArrowUpRight,
+  Play,
   Users,
   TrendingUp,
+  Zap,
   Target,
   CheckCircle,
   Server,
+  GitBranch,
   BarChart3,
+  Cpu,
   Shield,
-  Layers,
-  ArrowUpRight,
-  Send
+  Layers
 } from 'lucide-react';
 
 function App() {
@@ -42,7 +50,7 @@ function App() {
 
   // Initialize EmailJS
   useEffect(() => {
-    emailjs.init("YOUR_PUBLIC_KEY");
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
   }, []);
 
   // Handle form submission
@@ -52,8 +60,8 @@ function App() {
 
     try {
       await emailjs.send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
+        "YOUR_SERVICE_ID", // Replace with your service ID
+        "YOUR_TEMPLATE_ID", // Replace with your template ID
         {
           from_name: formData.name,
           from_email: formData.email,
@@ -92,16 +100,16 @@ function App() {
   const projects = [
     {
       title: "AI-Powered Construction Cost Estimation",
-      description: "Advanced machine learning system that revolutionizes construction project cost prediction through intelligent data analysis and real-time market integration.",
-      category: "Artificial Intelligence",
-      impact: "Reduced estimation errors by 80%",
+      description: "Machine learning model for accurate construction project cost prediction. Integrated historical data analysis with real-time market trends to provide precise cost estimates and risk assessments.",
+      category: "AI/ML",
+      impact: "Reduced cost estimation errors by 80%",
       technologies: ["Python", "TensorFlow", "Pandas", "FastAPI", "PostgreSQL", "Docker"],
       image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
       github: "https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning",
     },
     {
       title: "Visual Question Answering System",
-      description: "Sophisticated deep learning architecture combining computer vision and natural language processing to understand and respond to visual queries with human-like accuracy.",
+      description: "Deep learning system that answers questions about images using computer vision and natural language processing. Implemented attention mechanisms and transformer architectures for improved accuracy.",
       category: "Computer Vision",
       impact: "Achieved 85% accuracy on VQA datasets",
       technologies: ["PyTorch", "OpenCV", "BERT", "Flask", "CUDA", "MLflow"],
@@ -109,46 +117,45 @@ function App() {
       github: "https://github.com/gowtham-org/MultiModal-VQA-and-Automated-Image-Captioning",
     },
     {
-      title: "Advanced Image Quantization System",
-      description: "Comprehensive interactive platform demonstrating the mathematical foundations of image processing through systematic quantization and spatial resolution analysis.",
-      category: "Image Processing",
-      impact: "Enhanced theoretical understanding and practical implementation",
-      technologies: ["OpenCV", "NumPy", "Matplotlib", "Python"],
+      title: "Image Quantization",
+      description: "To design a comprehensive, interactive system that demonstrates and visualizes the effects of systematically reducing the number of gray levels (quantization) and changing the resolution (spatial sampling rate) of images.",
+      category: "Image processing",
+      impact: "Improved theoretical foundations and implementation accuracy",
+      technologies: ["opencv-python-headless", "numpy", "matplotlib"],
       image: "https://i.postimg.cc/C1ZtLgjt/image-quant2.png",
       github: "https://github.com/gowtham-org/Quantization-and-Spatial-Resolution",
     },
     {
-      title: "Intelligent Movie Recommendation Engine",
-      description: "Sophisticated recommendation system leveraging collaborative filtering and content-based algorithms to deliver personalized movie suggestions with Netflix-level accuracy.",
+      title: "Movie-Recommender-using-ML",
+      description: "project focuses on building an intelligent movie recommendation system that suggests personalized movie titles to users based on their preferences and past interactions. The goal is to emulate and enhance the recommendation capabilities of platforms like Netflix and Amazon Prime using machine learning algorithms.",
       category: "Machine Learning",
-      impact: "Personalized recommendations for diverse user preferences",
-      technologies: ["Python", "Pandas", "Scikit-learn", "NumPy"],
+      technologies: ["Python", "pandas", "scikit-learn", "numpy"],
       image: "https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp",
       github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
     },
     {
-      title: "Jal Jeevan Mission Infrastructure",
-      description: "Comprehensive water supply infrastructure management system serving rural communities through IoT integration, predictive maintenance, and intelligent resource optimization.",
-      category: "Infrastructure Engineering",
-      impact: "Enhanced water access for 50,000+ rural households",
+      title: "JJM - Jal Jeevan Mission Water Infrastructure",
+      description: "Comprehensive water supply infrastructure management system for rural areas. Implemented automated monitoring, predictive maintenance, and resource optimization using IoT sensors and machine learning algorithms.",
+      category: "Infrastructure",
+      impact: "Improved water access for 50,000+ rural households",
       technologies: ["Terraform", "PostgreSQL", "Docker", "Kubernetes"],
       image: "https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg",
       github: "#",
     },
     {
-      title: "Smart Water Management System",
-      description: "Advanced sewerage management and water treatment monitoring platform featuring real-time analytics, quality assessment, and automated maintenance scheduling.",
-      category: "Environmental Technology",
-      impact: "Improved water quality monitoring for 100,000+ residents",
+      title: "DWSS - Drinking Water & Sewerage System",
+      description: "Advanced sewerage management and water treatment monitoring system. Built real-time analytics dashboard for water quality monitoring and automated alert systems for maintenance scheduling.",
+      category: "Water Management",
+      impact: "Enhanced water quality monitoring for 100,000+ residents",
       technologies: ["GitHub Actions", "Redis", "AWS", "Terraform"],
       image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg",
       github: "#",
     },
     {
-      title: "Cougar Cupboard Analytics Dashboard",
-      description: "Comprehensive business intelligence solution for food pantry operations, featuring advanced analytics, demographic insights, and operational optimization tools.",
+      title: "Cougar Cupboard Dashboard Using Power BI",
+      description: "Comprehensive analytics dashboard for food pantry operations management. Built interactive visualizations to track inventory, visitor demographics, and distribution patterns to optimize resource allocation and improve service delivery.",
       category: "Data Analytics",
-      impact: "Streamlined operations and enhanced resource allocation",
+      impact: "Improved operational efficiency and resource planning",
       technologies: ["Power BI", "DAX", "SQL", "Excel", "Data Modeling"],
       image: "https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg",
       github: "https://github.com/gowtham-org/Cougar-Cupboard-Dashboard-Using-Power-BI",
@@ -158,50 +165,59 @@ function App() {
   // Skills data
   const skillCategories = [
     {
-      title: "Data Science & Machine Learning",
+      title: "Data Science & ML",
       icon: <Brain className="w-6 h-6" />,
       skills: ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", "Jupyter", "MLflow"]
     },
     {
-      title: "Cloud & DevOps Engineering",
+      title: "DevOps & Cloud",
       icon: <Cloud className="w-6 h-6" />,
-      skills: ["AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "GitHub Actions", "Ansible", "Prometheus"]
+      skills: ["GitHub Actions", "AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "Ansible", "Prometheus"]
     },
     {
-      title: "Backend & Database Systems",
+      title: "Backend Development",
       icon: <Server className="w-6 h-6" />,
-      skills: ["PostgreSQL", "Redis", "Apache Kafka", "Microservices", "API Design"]
+      skills: ["PostgreSQL", "Redis", "Apache Kafka", "Microservices"]
     },
     {
-      title: "Analytics & Visualization",
-      icon: <BarChart3 className="w-6 h-6" />,
-      skills: ["Power BI", "Tableau", "Grafana", "Kibana", "Streamlit", "D3.js"]
+      title: "Frontend & Visualization",
+      icon: <Monitor className="w-6 h-6" />,
+      skills: ["Power BI", "Tableau", "Prometheus", "Kibana", "Streamlit", "Grafana"]
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-slate-900 text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md border-b border-gray-800 z-50">
-        <div className="container-custom">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-lg">
-                GC
+      <nav className="fixed top-0 w-full bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Floating particles in navigation */}
+          <div className="particle w-2 h-2 bg-orange-400 top-2 left-10 animate-float"></div>
+          <div className="particle w-1 h-1 bg-blue-400 top-4 right-20 animate-float delay-1000"></div>
+          <div className="particle w-1.5 h-1.5 bg-purple-400 top-6 left-1/3 animate-float delay-2000"></div>
+          
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center gap-3">
+              <img 
+                src="/1.png" 
+                alt="Gowtham Chowdam Logo" 
+                className="w-10 h-10 rounded-full object-cover border-2 border-orange-400 animate-pulse-glow hover:scale-110 transition-transform duration-300"
+              />
+              <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+                Gowtham Chowdam
               </div>
-              <div className="text-xl font-semibold">Gowtham Chowdam</div>
             </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Expertise', 'Projects', 'Contact'].map((item) => (
+              {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className="text-gray-300 hover:text-white transition-colors duration-300 font-medium relative group"
+                  className="text-gray-300 hover:text-orange-400 transition-all duration-300 capitalize relative group"
                 >
-                  {item}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+                  <span className="relative z-10">{item}</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-red-500/20 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
                 </button>
               ))}
             </div>
@@ -217,12 +233,12 @@ function App() {
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-800">
-              {['Home', 'About', 'Expertise', 'Projects', 'Contact'].map((item) => (
+            <div className="md:hidden py-4 border-t border-slate-800">
+              {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className="block w-full text-left py-3 text-gray-300 hover:text-white transition-colors duration-200"
+                  className="block w-full text-left py-2 text-gray-300 hover:text-orange-400 transition-colors duration-200 capitalize"
                 >
                   {item}
                 </button>
@@ -233,139 +249,172 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 perspective-1000">
         {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-float delay-300"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl animate-pulse transform-3d"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000 transform-3d"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-orange-500/5 to-red-500/5 rounded-full blur-3xl animate-rotate-3d"></div>
+          
+          {/* 3D Geometric shapes */}
+          <div className="absolute top-1/4 left-1/4 w-20 h-20 bg-gradient-to-br from-orange-400/20 to-red-500/20 transform rotate-45 animate-bounce-slow"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-full animate-float delay-2000"></div>
+          <div className="absolute top-1/3 right-1/3 w-12 h-12 bg-gradient-to-br from-green-400/20 to-teal-500/20 transform rotate-12 animate-bounce-slow delay-1000"></div>
         </div>
 
-        <div className="container-custom text-center relative z-10">
-          <div className="animate-fade-in-up">
-            <div className="mb-8">
-              <img
-                src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"
-                alt="Gowtham Chowdam"
-                className="w-32 h-32 rounded-full object-cover mx-auto mb-8 border-4 border-gray-700 shadow-2xl"
-              />
+        {/* Floating Tech Icons */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 animate-float transform-3d">
+            <Code className="w-8 h-8 text-orange-400/30" />
+          </div>
+          <div className="absolute top-1/3 right-1/4 animate-float delay-1000 transform-3d">
+            <Database className="w-8 h-8 text-blue-400/30" />
+          </div>
+          <div className="absolute bottom-1/3 left-1/3 animate-float delay-2000 transform-3d">
+            <Cloud className="w-8 h-8 text-green-400/30" />
+          </div>
+          <div className="absolute bottom-1/4 right-1/3 animate-float delay-3000 transform-3d">
+            <Brain className="w-8 h-8 text-purple-400/30" />
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 animate-fade-in">
+          <div className="mb-8">
+            <div className="relative inline-block perspective-1000">
+              {/* Profile picture container with spinning gradient */}
+              <div className="w-80 h-80 mx-auto mb-8 relative transform-3d">
+                <div className="absolute inset-0 gradient-border rounded-full"></div>
+                {/* Profile image */}
+                <img
+                  src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"//Profile image
+                  alt="Profile"
+                  // Increased size from w-28 h-28 to w-76 h-76 and adjusted positioning
+                  className="w-76 h-76 rounded-full object-cover absolute top-2 left-2 border-4 border-slate-900 hover:scale-105 transition-transform duration-500 animate-pulse-glow"
+                />
+                {/* 3D floating elements around profile */}
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-full animate-bounce-slow opacity-80"></div>
+                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full animate-float delay-1000 opacity-80"></div>
+                <div className="absolute top-1/2 -right-8 w-4 h-4 bg-gradient-to-br from-green-400 to-teal-500 transform rotate-45 animate-bounce-slow delay-2000 opacity-80"></div>
+              </div>
             </div>
+          </div>
 
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-balance">
-              <span className="gradient-text">Data Scientist</span>
-              <br />
-              <span className="text-white">& DevOps Engineer</span>
-            </h1>
+          <h1 className="text-5xl lg:text-7xl font-bold mb-6 animate-slide-up">
+            <span className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent">
+              Data Scientist
+            </span>
+            <br />
+            <span className="text-white text-glow">& DevOps Engineer</span>
+          </h1>
 
-            <p className="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed text-balance">
-              Transforming complex data into actionable insights while building the robust infrastructure 
-              to scale intelligent systems. Bridging the gap between advanced analytics and production-ready solutions.
-            </p>
+          <p className="text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up delay-1000">
+            Bridging the gap between data science and infrastructure engineering.
+            Building scalable ML systems and robust deployment pipelines for real-world impact.
+          </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-              <button
-                onClick={() => scrollToSection('projects')}
-                className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg font-semibold hover-lift flex items-center gap-2"
-              >
-                Explore My Work <ArrowUpRight className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="px-8 py-4 border-2 border-gray-600 rounded-lg font-semibold hover:border-indigo-500 transition-colors duration-300 flex items-center gap-2"
-              >
-                Get In Touch <Mail className="w-5 h-5" />
-              </button>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-slide-up delay-2000">
+            <button
+              onClick={() => scrollToSection('projects')}
+              className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg font-semibold magnetic-btn flex items-center gap-2 glass-effect border border-orange-500/30"
+            >
+              View My Work <ArrowUpRight className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="px-8 py-4 border-2 border-orange-500 rounded-lg font-semibold magnetic-btn flex items-center gap-2 glass-effect hover:bg-orange-500/20"
+            >
+              Get In Touch <Mail className="w-5 h-5" />
+            </button>
+          </div>
 
-            {/* Social Links */}
-            <div className="flex justify-center space-x-6">
-              <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-400 transition-colors duration-300">
-                <Github className="w-6 h-6" />
-              </a>
-              <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-400 transition-colors duration-300">
-                <Linkedin className="w-6 h-6" />
-              </a>
-              <a href="mailto:gowthamchowdam2001@gmail.com" className="text-gray-400 hover:text-indigo-400 transition-colors duration-300">
-                <Mail className="w-6 h-6" />
-              </a>
-            </div>
+          {/* Social Links */}
+          <div className="flex justify-center space-x-6 animate-slide-up delay-3000">
+            <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 hover:scale-125 hover:rotate-12">
+              <Github className="w-6 h-6" />
+            </a>
+            <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 hover:scale-125 hover:rotate-12">
+              <Linkedin className="w-6 h-6" />
+            </a>
+            <a href="mailto:gowthamchowdam2001@gmail.com" className="text-gray-400 hover:text-orange-400 transition-all duration-300 hover:scale-125 hover:rotate-12">
+              <Mail className="w-6 h-6" />
+            </a>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="section-padding bg-gray-800/50">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="animate-slide-in-left">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-balance">
-                Crafting Intelligence Through Data & Infrastructure
-              </h2>
-              <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
-                <p>
-                  As a Data Scientist and DevOps Engineer, I specialize in creating comprehensive machine learning 
-                  solutions that seamlessly transition from research to production. My expertise encompasses the 
-                  entire data science lifecycle, from initial exploration to scalable deployment.
-                </p>
-                <p>
-                  I've architected and deployed intelligent systems across diverse domains, including water 
-                  infrastructure management, construction cost optimization, and visual intelligence applications. 
-                  My approach combines rigorous analytical methodologies with modern engineering practices to 
-                  deliver sustainable, impactful solutions.
-                </p>
-                <p>
-                  My passion lies in solving complex real-world problems through the intersection of advanced 
-                  analytics, cloud infrastructure, and automated deployment pipelines, ensuring that innovative 
-                  solutions reach their full potential in production environments.
-                </p>
+      <section id="about" className="py-20 bg-slate-800/50 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-orange-400/10 to-red-500/10 rounded-full blur-2xl animate-float"></div>
+          <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-br from-blue-400/10 to-purple-500/10 rounded-full blur-2xl animate-float delay-2000"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">About Me</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Passionate about transforming data into actionable insights and building the infrastructure to scale them
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-6">My Journey</h3>
+              <p className="text-gray-300 mb-6 leading-relaxed">
+                As a Data Scientist and DevOps Engineer, I specialize in creating end-to-end machine learning solutions
+                that not only deliver accurate predictions but are also production-ready and scalable. My expertise spans
+                from data exploration and model development to containerization, orchestration, and monitoring.
+              </p>
+              <p className="text-gray-300 mb-8 leading-relaxed">
+                I've worked on diverse projects ranging from water infrastructure management systems to AI-powered
+                applications, always focusing on real-world impact and sustainable solutions. My approach combines
+                rigorous data science methodologies with modern DevOps practices to deliver robust, maintainable systems.
+              </p>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center p-4 glass-effect rounded-lg card-3d hover:bg-slate-700/70 transition-all duration-300">
+                  <div className="text-3xl font-bold text-orange-400 mb-2">2+</div>
+                  <div className="text-gray-300">Years Experience</div>
+                </div>
+                <div className="text-center p-4 glass-effect rounded-lg card-3d hover:bg-slate-700/70 transition-all duration-300">
+                  <div className="text-3xl font-bold text-orange-400 mb-2">5+</div>
+                  <div className="text-gray-300">Projects Completed</div>
+                </div>
               </div>
             </div>
 
-            <div className="animate-slide-in-right">
-              <div className="grid grid-cols-2 gap-8">
-                <div className="glass-card p-8 rounded-xl text-center hover-lift">
-                  <div className="text-4xl font-bold gradient-text mb-2">2+</div>
-                  <div className="text-gray-300 font-medium">Years of Experience</div>
-                </div>
-                <div className="glass-card p-8 rounded-xl text-center hover-lift">
-                  <div className="text-4xl font-bold gradient-text mb-2">7+</div>
-                  <div className="text-gray-300 font-medium">Projects Delivered</div>
-                </div>
-                <div className="glass-card p-8 rounded-xl text-center hover-lift">
-                  <div className="text-4xl font-bold gradient-text mb-2">150K+</div>
-                  <div className="text-gray-300 font-medium">Lives Impacted</div>
-                </div>
-                <div className="glass-card p-8 rounded-xl text-center hover-lift">
-                  <div className="text-4xl font-bold gradient-text mb-2">80%</div>
-                  <div className="text-gray-300 font-medium">Accuracy Improvement</div>
-                </div>
-              </div>
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-white mb-6">Core Competencies</h3>
 
-              <div className="mt-12 space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <BarChart3 className="w-6 h-6" />
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-orange-500/20 rounded-lg animate-pulse-glow">
+                    <BarChart3 className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-1">Advanced Analytics</h4>
-                    <p className="text-gray-400 text-sm">Machine learning, statistical modeling, and predictive analytics</p>
+                    <h4 className="font-semibold text-white mb-2">Data Science & Analytics</h4>
+                    <p className="text-gray-300 text-sm">Machine learning, statistical analysis, predictive modeling, and data visualization</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <Layers className="w-6 h-6" />
+
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-blue-500/20 rounded-lg animate-pulse-glow delay-1000">
+                    <Layers className="w-6 h-6 text-blue-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-1">MLOps & Infrastructure</h4>
-                    <p className="text-gray-400 text-sm">Model deployment, monitoring, and scalable cloud architecture</p>
+                    <h4 className="font-semibold text-white mb-2">MLOps & Infrastructure</h4>
+                    <p className="text-gray-300 text-sm">Model deployment, monitoring, CI/CD pipelines, and cloud infrastructure</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <Shield className="w-6 h-6" />
+
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-green-500/20 rounded-lg animate-pulse-glow delay-2000">
+                    <Shield className="w-6 h-6 text-green-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-1">System Architecture</h4>
-                    <p className="text-gray-400 text-sm">Scalable design, microservices, and performance optimization</p>
+                    <h4 className="font-semibold text-white mb-2">System Architecture</h4>
+                    <p className="text-gray-300 text-sm">Scalable system design, microservices, and performance optimization</p>
                   </div>
                 </div>
               </div>
@@ -375,28 +424,37 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="expertise" className="section-padding bg-gray-900">
-        <div className="container-custom">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 animate-fade-in-up">Technical Expertise</h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200">
-              A comprehensive technology stack for building and deploying intelligent systems at scale
+      <section id="skills" className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Animated background grid */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="grid grid-cols-12 gap-4 h-full">
+            {Array.from({ length: 48 }).map((_, i) => (
+              <div key={i} className="bg-orange-400 animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}></div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">Technical Skills</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              A comprehensive toolkit for building and deploying intelligent systems
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {skillCategories.map((category, index) => (
-              <div key={index} className={`glass-card p-8 rounded-xl hover-lift animate-scale-in delay-${(index + 1) * 100}`}>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white">
+              <div key={index} className="glass-effect p-6 rounded-xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300 card-3d group">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-orange-500/20 rounded-lg text-orange-400 group-hover:animate-bounce-slow">
                     {category.icon}
                   </div>
                   <h3 className="text-lg font-semibold text-white">{category.title}</h3>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex} className="flex items-center gap-3">
-                      <CheckCircle className="w-4 h-4 text-indigo-400 flex-shrink-0" />
+                    <div key={skillIndex} className="flex items-center gap-2 group-hover:translate-x-2 transition-transform duration-300" style={{ transitionDelay: `${skillIndex * 0.1}s` }}>
+                      <CheckCircle className="w-4 h-4 text-green-400" />
                       <span className="text-gray-300 text-sm">{skill}</span>
                     </div>
                   ))}
@@ -405,35 +463,42 @@ function App() {
             ))}
           </div>
 
-          {/* Process */}
-          <div className="text-center mb-16">
-            <h3 className="text-3xl font-bold mb-12 animate-fade-in-up">My Approach</h3>
+          {/* Working Process */}
+          <div className="mt-20">
+            <h3 className="text-3xl font-bold text-white text-center mb-12 text-glow">My Working Process</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
                   step: "01",
-                  title: "Discovery & Strategy",
-                  description: "Understanding business objectives, data landscape, and infrastructure requirements"
+                  title: "Discovery & Analysis",
+                  description: "Understanding business requirements, exploring data patterns, and assessing infrastructure needs",
+                  icon: <Target className="w-6 h-6" />
                 },
                 {
                   step: "02",
                   title: "Design & Development",
-                  description: "Creating robust ML models and designing scalable system architectures"
+                  description: "Creating ML models, designing system architecture, and developing CI/CD pipelines",
+                  icon: <Code className="w-6 h-6" />
                 },
                 {
                   step: "03",
                   title: "Implementation & Testing",
-                  description: "Deploying solutions with comprehensive testing and performance optimization"
+                  description: "Deploying solutions with automated testing, performance optimization, and security measures",
+                  icon: <Zap className="w-6 h-6" />
                 },
                 {
                   step: "04",
-                  title: "Monitoring & Evolution",
-                  description: "Continuous monitoring, model retraining, and system enhancement"
+                  title: "Monitoring & Maintenance",
+                  description: "Continuous monitoring, model retraining, system updates, and performance tracking",
+                  icon: <TrendingUp className="w-6 h-6" />
                 }
               ].map((process, index) => (
-                <div key={index} className={`text-center animate-fade-in-up delay-${(index + 1) * 200}`}>
+                <div key={index} className="text-center group">
                   <div className="relative mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                    <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:animate-bounce-slow animate-pulse-glow">
+                      {process.icon}
+                    </div>
+                    <div className="absolute -top-2 -right-2 w-8 h-8 glass-effect rounded-full flex items-center justify-center text-sm font-bold text-orange-400 group-hover:scale-110 transition-transform duration-300">
                       {process.step}
                     </div>
                   </div>
@@ -447,48 +512,71 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="section-padding bg-gray-800/50">
-        <div className="container-custom">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 animate-fade-in-up">Featured Projects</h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200">
-              Showcasing innovative solutions across data science, machine learning, and infrastructure engineering
+      <section id="projects" className="py-20 bg-slate-800/50 relative overflow-hidden">
+        {/* Floating geometric shapes */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 left-20 w-16 h-16 bg-gradient-to-br from-orange-400/20 to-red-500/20 transform rotate-45 animate-float"></div>
+          <div className="absolute bottom-20 right-20 w-12 h-12 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-full animate-bounce-slow"></div>
+          <div className="absolute top-1/2 left-10 w-8 h-8 bg-gradient-to-br from-green-400/20 to-teal-500/20 transform rotate-12 animate-float delay-2000"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">Featured Projects</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Showcasing impactful solutions in Data Science, Machine Learning, and Infrastructure Engineering
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div key={index} className={`glass-card rounded-xl overflow-hidden hover-lift animate-scale-in delay-${(index + 1) * 100}`}>
+              <div key={index} className="glass-effect rounded-xl overflow-hidden border border-slate-700 hover:border-orange-500/50 transition-all duration-500 card-3d group">
+                {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-indigo-600/90 text-white text-xs font-medium rounded-full backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent group-hover:from-slate-900/60 transition-all duration-300"></div>
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <span className="px-3 py-1 bg-orange-500/90 text-white text-xs font-medium rounded-full backdrop-blur-sm animate-pulse-glow">
                       {project.category}
                     </span>
+                    {/* Only display status if it exists for the project */}
+                    {project.status && (
+                    <span className={`px-2 py-1 text-white text-xs font-medium rounded-full backdrop-blur-sm ${
+                      project.status === 'Completed' ? 'bg-green-500/90' :
+                      project.status === 'Active' ? 'bg-blue-500/90' :
+                      project.status === 'Production' ? 'bg-purple-500/90' :
+                      'bg-yellow-500/90'
+                    }`}>
+                      {project.status}
+                    </span>
+                    )}
                   </div>
                 </div>
 
-                <div className="p-6">
+                {/* Project Content */}
+                <div className="p-6 group-hover:bg-slate-800/30 transition-all duration-300">
                   <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">{project.title}</h3>
                   <p className="text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">{project.description}</p>
 
-                  {project.impact && (
-                    <p className="text-indigo-400 font-medium text-sm mb-4">{project.impact}</p>
-                  )}
+                  <div className="mb-4">
+                    {/* Only display impact if it exists for the project */}
+                    {project.impact && (
+                      <p className="text-orange-400 font-medium text-sm mb-2">Impact: {project.impact}</p>
+                    )}
+                  </div>
 
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                      <span key={techIndex} className="px-2 py-1 bg-gray-700/50 text-gray-300 text-xs rounded">
+                      <span key={techIndex} className="px-2 py-1 glass-effect text-gray-300 text-xs rounded group-hover:bg-slate-600/50 transition-all duration-300">
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-700/50 text-gray-300 text-xs rounded">
+                      <span className="px-2 py-1 glass-effect text-gray-300 text-xs rounded group-hover:bg-slate-600/50 transition-all duration-300">
                         +{project.technologies.length - 3} more
                       </span>
                     )}
@@ -497,12 +585,12 @@ function App() {
                   <div className="flex gap-3">
                     <a
                       href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 rounded-lg text-sm transition-colors duration-300"
+                      target="_blank" // Open in new tab
+                      rel="noopener noreferrer" // Security best practice for target="_blank"
+                      className="flex items-center gap-2 px-3 py-2 glass-effect hover:bg-slate-600/50 rounded-lg text-sm transition-all duration-300 magnetic-btn"
                     >
                       <Github className="w-4 h-4" />
-                      View Code
+                      Code
                     </a>
                   </div>
                 </div>
@@ -513,20 +601,25 @@ function App() {
       </section>
 
       {/* Volunteering Section */}
-      <section className="section-padding bg-gray-900">
-        <div className="container-custom">
+      <section className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-orange-400/10 via-transparent to-blue-400/10"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 animate-fade-in-up">Community Impact</h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200">
-              Contributing to sustainable development and community empowerment initiatives
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">Volunteering</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Contributing to community development and social impact initiatives
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="glass-card p-8 rounded-xl hover-lift animate-scale-in">
+            <div className="glass-effect p-8 rounded-xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300 card-3d group">
               <div className="flex items-start gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center animate-pulse-glow group-hover:animate-bounce-slow">
                     <Users className="w-8 h-8 text-white" />
                   </div>
                 </div>
@@ -535,35 +628,34 @@ function App() {
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
                     <div>
                       <h3 className="text-2xl font-bold text-white mb-2">Campaign Volunteer</h3>
-                      <p className="text-indigo-400 font-semibold mb-2">Unnat Bharat Abhiyan, IIT Roorkee</p>
-                      <p className="text-gray-300 text-sm">March 2020 - March 2023 · 3 years 1 month</p>
+                      <p className="text-orange-400 font-semibold mb-2">Unnat Bharat Abhiyan, VelTech University</p>
+                      <p className="text-gray-300 text-sm">Mar 2020 - Mar 2023 · 3 yrs 1 mo</p>
                     </div>
                     <div className="mt-4 lg:mt-0">
-                      <span className="px-4 py-2 bg-green-500/20 text-green-400 text-sm font-medium rounded-full border border-green-500/30">
-                        Environmental Impact
+                      <span className="px-3 py-1 bg-green-500/20 text-green-400 text-sm font-medium rounded-full">
+                        Environment
                       </span>
                     </div>
                   </div>
                   
-                  <p className="text-gray-300 leading-relaxed mb-6 text-lg">
-                    Participated in comprehensive rural development initiatives focused on sustainable development 
-                    and community empowerment. Contributed to environmental conservation programs, educational 
-                    outreach, and technology adoption campaigns aimed at improving quality of life in rural 
-                    communities through innovative solutions and awareness building.
+                  <p className="text-gray-300 leading-relaxed mb-6">
+                    Participated in rural development initiatives focused on sustainable development and community empowerment. 
+                    Contributed to various environmental and educational programs aimed at improving quality of life in rural areas 
+                    through technology adoption and awareness campaigns.
                   </p>
                   
-                  <div className="flex flex-wrap gap-6">
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <MapPin className="w-5 h-5 text-indigo-400" />
-                      <span className="font-medium">Rural Development Focus</span>
+                  <div className="flex flex-wrap gap-4">
+                    <div className="flex items-center gap-2 text-sm text-gray-300">
+                      <MapPin className="w-4 h-4 text-orange-400 group-hover:animate-bounce-slow" />
+                      Rural Development Focus
                     </div>
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <Calendar className="w-5 h-5 text-indigo-400" />
-                      <span className="font-medium">3 Years of Dedicated Service</span>
+                    <div className="flex items-center gap-2 text-sm text-gray-300">
+                      <Calendar className="w-4 h-4 text-orange-400 group-hover:animate-bounce-slow delay-1000" />
+                      3 Years of Service
                     </div>
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <Building className="w-5 h-5 text-indigo-400" />
-                      <span className="font-medium">IIT Roorkee Initiative</span>
+                    <div className="flex items-center gap-2 text-sm text-gray-300">
+                      <Building className="w-4 h-4 text-orange-400 group-hover:animate-bounce-slow delay-2000" />
+                      VelTech Initiative
                     </div>
                   </div>
                 </div>
@@ -574,60 +666,65 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="section-padding bg-gray-800/50">
-        <div className="container-custom">
+      <section id="contact" className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Contact background effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-orange-400/5 to-red-500/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-blue-400/5 to-purple-500/5 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 animate-fade-in-up">Let's Collaborate</h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200">
-              Ready to transform your data into actionable insights? Let's discuss how we can work together 
-              to build intelligent solutions that drive real impact.
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-glow">Get In Touch</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Ready to collaborate on your next data science or infrastructure project? Let's discuss how we can work together.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-16">
+          <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Info */}
-            <div className="animate-slide-in-left">
-              <h3 className="text-2xl font-bold text-white mb-8">Get In Touch</h3>
-              <div className="space-y-6 mb-12">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-white" />
+            <div className="animate-slide-up">
+              <h3 className="text-2xl font-bold text-white mb-8">Let's Connect</h3>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 group">
+                  <div className="p-3 bg-orange-500/20 rounded-lg group-hover:animate-bounce-slow animate-pulse-glow">
+                    <Mail className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-1">Email</h4>
+                    <h4 className="font-semibold text-white">Email</h4>
                     <p className="text-gray-300">gowthamchowdam2001@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <Phone className="w-6 h-6 text-white" />
+                  <div className="p-3 bg-orange-500/20 rounded-lg group-hover:animate-bounce-slow animate-pulse-glow delay-1000">
+                    <Phone className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-1">Phone</h4>
+                    <h4 className="font-semibold text-white">Phone</h4>
                     <p className="text-gray-300">+1 (346) 599-8350</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-white" />
+                  <div className="p-3 bg-orange-500/20 rounded-lg group-hover:animate-bounce-slow animate-pulse-glow delay-2000">
+                    <MapPin className="w-6 h-6 text-orange-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-1">Location</h4>
+                    <h4 className="font-semibold text-white">Location</h4>
                     <p className="text-gray-300">Houston, Texas, United States</p>
                   </div>
                 </div>
               </div>
 
-              <div>
-                <h4 className="font-semibold text-white mb-4">Connect With Me</h4>
+              <div className="mt-8">
+                <h4 className="font-semibold text-white mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
-                  <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="w-12 h-12 glass-card hover:bg-indigo-500/20 rounded-lg flex items-center justify-center transition-colors duration-300">
+                  <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="p-3 glass-effect hover:bg-orange-500/20 rounded-lg transition-all duration-300 magnetic-btn">
                     <Github className="w-5 h-5" />
                   </a>
-                  <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 glass-card hover:bg-indigo-500/20 rounded-lg flex items-center justify-center transition-colors duration-300">
+                  <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="p-3 glass-effect hover:bg-orange-500/20 rounded-lg transition-all duration-300 magnetic-btn">
                     <Linkedin className="w-5 h-5" />
                   </a>
-                  <a href="mailto:gowthamchowdam2001@gmail.com" className="w-12 h-12 glass-card hover:bg-indigo-500/20 rounded-lg flex items-center justify-center transition-colors duration-300">
+                  <a href="mailto:gowthamchowdam2001@gmail.com" className="p-3 glass-effect hover:bg-orange-500/20 rounded-lg transition-all duration-300 magnetic-btn">
                     <Mail className="w-5 h-5" />
                   </a>
                 </div>
@@ -635,11 +732,11 @@ function App() {
             </div>
 
             {/* Contact Form */}
-            <div className="animate-slide-in-right">
-              <form onSubmit={handleSubmit} className="space-y-6 glass-card p-8 rounded-xl">
+            <div className="animate-slide-up delay-1000">
+              <form onSubmit={handleSubmit} className="space-y-6 glass-effect p-8 rounded-xl border border-slate-700">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    Full Name
+                    Name
                   </label>
                   <input
                     type="text"
@@ -648,13 +745,13 @@ function App() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300"
-                    placeholder="Your full name"
+                    className="w-full px-4 py-3 glass-effect border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300"
+                    placeholder="Your Name"
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email Address
+                    Email
                   </label>
                   <input
                     type="email"
@@ -663,13 +760,13 @@ function App() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300"
+                    className="w-full px-4 py-3 glass-effect border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300"
                     placeholder="your.email@example.com"
                   />
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Project Details
+                    Message
                   </label>
                   <textarea
                     id="message"
@@ -678,37 +775,37 @@ function App() {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-400 resize-none transition-all duration-300"
-                    placeholder="Tell me about your project requirements, goals, and how I can help..."
+                    className="w-full px-4 py-3 glass-effect border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400 resize-none transition-all duration-300"
+                    placeholder="Tell me about your project..."
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg font-semibold hover-lift disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg font-semibold magnetic-btn disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 glass-effect border border-orange-500/30"
                 >
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Sending Message...
+                      Sending...
                     </>
                   ) : (
                     <>
                       Send Message
-                      <Send className="w-5 h-5" />
+                      <Mail className="w-5 h-5" />
                     </>
                   )}
                 </button>
 
                 {submitStatus === 'success' && (
-                  <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center">
-                    Thank you for your message! I'll get back to you within 24 hours.
+                  <div className="p-4 glass-effect bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center animate-slide-up">
+                    Message sent successfully! I'll get back to you soon.
                   </div>
                 )}
 
                 {submitStatus === 'error' && (
-                  <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center">
-                    Sorry, there was an error sending your message. Please try again or contact me directly.
+                  <div className="p-4 glass-effect bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center animate-slide-up">
+                    Failed to send message. Please try again or contact me directly.
                   </div>
                 )}
               </form>
@@ -718,14 +815,13 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-gray-900 border-t border-gray-800">
-        <div className="container-custom">
+      <footer className="py-8 glass-effect border-t border-slate-700 relative overflow-hidden">
+        {/* Footer background effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-transparent to-red-500/5"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-gray-400 mb-4">
-              © 2024 Gowtham Chowdam. Crafted with precision using React, TypeScript, and Tailwind CSS.
-            </p>
-            <p className="text-gray-500 text-sm">
-              Transforming data into intelligence, one solution at a time.
+            <p className="text-gray-400">
+              © 2024 Gowtham Chowdam. Built with React, TypeScript, and Tailwind CSS.
             </p>
           </div>
         </div>
