@@ -151,15 +151,14 @@ code, .font-mono {
   /* Professional text effects */
   .text-glow-subtle {
     text-shadow: 
-      0 0 10px rgba(59, 130, 246, 0.3),
-      0 0 20px rgba(59, 130, 246, 0.2),
-      0 0 40px rgba(59, 130, 246, 0.1);
+      0 0 8px rgba(59, 130, 246, 0.2),
+      0 0 15px rgba(59, 130, 246, 0.1);
   }
   
   .text-glow-blue {
     text-shadow: 
-      0 0 10px rgba(99, 102, 241, 0.4),
-      0 0 20px rgba(99, 102, 241, 0.2);
+      0 0 8px rgba(99, 102, 241, 0.3),
+      0 0 15px rgba(99, 102, 241, 0.15);
   }
   
   .text-shadow-lg {
@@ -200,7 +199,7 @@ code, .font-mono {
   
   .professional-btn:hover {
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
   }
   
   /* Card 3D effects */
@@ -266,10 +265,10 @@ code, .font-mono {
 
 @keyframes pulse-subtle {
   0% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
   }
   100% {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.25), 0 0 30px rgba(59, 130, 246, 0.15);
   }
 }
 
@@ -355,12 +354,12 @@ code, .font-mono {
 
 @keyframes text-glow {
   0% {
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    text-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
   }
   100% {
     text-shadow: 
-      0 0 20px rgba(59, 130, 246, 0.5),
-      0 0 30px rgba(59, 130, 246, 0.3);
+      0 0 15px rgba(59, 130, 246, 0.3),
+      0 0 25px rgba(59, 130, 246, 0.2);
   }
 }
 
