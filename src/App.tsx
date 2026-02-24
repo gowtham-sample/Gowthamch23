@@ -99,6 +99,42 @@ function App() {
   // Projects data
   const projects = [
     {
+      title: "RBAC-Secured Internal AI Assistant",
+      description: "A secure, production-ready internal AI chatbot implementing Role-Based Access Control (RBAC) for enterprise environments. Uses Retrieval-Augmented Generation (RAG) with Google Gemini to provide department-specific information access, preventing internal data leakage across Finance, HR, Engineering, Marketing, and C-Level departments.",
+      category: "AI/ML, Security",
+      impact: "Secure role-based document access across 6 different role types with live demo deployment",
+      technologies: ["Python", "FastAPI", "Streamlit", "Google Gemini", "ChromaDB", "Kubernetes", "Docker", "Cloudflare"],
+      image: "https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg",
+      github: "https://github.com/gowtham-org/RBAC-Secured-Internal-AI-Assistant",
+    },
+    {
+      title: "Kubernetes Pod Status Alertmanager",
+      description: "A Kubernetes monitoring solution that tracks pod health and sends real-time alerts for CrashLoopBackOff errors and other pod failures. Provides proactive monitoring with dashboard visualization to help DevOps teams quickly identify and respond to container failures, reducing downtime.",
+      category: "DevOps, Monitoring",
+      impact: "Reduces mean time to detection (MTTD) for container failures with real-time alerting",
+      technologies: ["Kubernetes", "Minikube", "Python", "Helm", "SOPS", "Linux/WSL2"],
+      image: "https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg",
+      github: "https://github.com/gowtham-org/Kubernetes-Pod-Status-Alertmanager",
+    },
+    {
+      title: "IntelliMatch AI-ATS Resume Matcher",
+      description: "An Application Tracking System (ATS) companion tool that helps job seekers optimize their resumes using Google Gemini Pro LLM. Analyzes resumes against job descriptions, providing match percentages, identifying missing keywords, suggesting skills improvements, and generating customized interview preparation questions with OTP-verified email subscription.",
+      category: "AI/ML, Career Tools",
+      impact: "Helps job seekers improve their chances of passing ATS filters with AI-powered analysis",
+      technologies: ["Python", "Streamlit", "Google Gemini Pro", "PyPDF2", "SQLite", "RESTful APIs"],
+      image: "https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg",
+      github: "https://github.com/gowtham-org/ATSPro-Gemini-Resume-Matcher",
+    },
+    {
+      title: "Cell Viability Prediction",
+      description: "A bioinformatics machine learning project that predicts cell viability based on gene expression data from the DepMap portal. Implements multiple regression models including Random Forest, Ridge Regression, and XGBoost with comprehensive preprocessing and hyperparameter tuning for drug discovery and cancer research applications.",
+      category: "AI/ML, Bioinformatics",
+      impact: "Predicts cell viability from genomic data for pharmaceutical research and precision medicine",
+      technologies: ["Python", "Pandas", "Scikit-learn", "XGBoost", "GridSearchCV", "Jupyter"],
+      image: "https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg",
+      github: "https://github.com/gowtham-org/Cell-Viability-Prediction",
+    },
+    {
       title: "AI-Powered Construction Cost Estimation",
       description: "Machine learning model for accurate construction project cost prediction. Integrated historical data analysis with real-time market trends to provide precise cost estimates and risk assessments.",
       category: "AI/ML",
@@ -117,41 +153,6 @@ function App() {
       github: "https://github.com/gowtham-org/MultiModal-VQA-and-Automated-Image-Captioning",
     },
     {
-      title: "Image Quantization",
-      description: "To design a comprehensive, interactive system that demonstrates and visualizes the effects of systematically reducing the number of gray levels (quantization) and changing the resolution (spatial sampling rate) of images.",
-      category: "Image processing",
-      impact: "Improved theoretical foundations and implementation accuracy",
-      technologies: ["opencv-python-headless", "numpy", "matplotlib"],
-      image: "https://i.postimg.cc/C1ZtLgjt/image-quant2.png",
-      github: "https://github.com/gowtham-org/Quantization-and-Spatial-Resolution",
-    },
-    {
-      title: "Movie-Recommender-using-ML",
-      description: "project focuses on building an intelligent movie recommendation system that suggests personalized movie titles to users based on their preferences and past interactions. The goal is to emulate and enhance the recommendation capabilities of platforms like Netflix and Amazon Prime using machine learning algorithms.",
-      category: "Machine Learning",
-      technologies: ["Python", "pandas", "scikit-learn", "numpy"],
-      image: "https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp",
-      github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
-    },
-    {
-      title: "JJM - Jal Jeevan Mission Water Infrastructure",
-      description: "Comprehensive water supply infrastructure management system for rural areas. Implemented automated monitoring, predictive maintenance, and resource optimization using IoT sensors and machine learning algorithms.",
-      category: "Infrastructure",
-      impact: "Improved water access for 50,000+ rural households",
-      technologies: ["Terraform", "PostgreSQL", "Docker", "Kubernetes"],
-      image: "https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg",
-      github: "#",
-    },
-    {
-      title: "DWSS - Drinking Water & Sewerage System",
-      description: "Advanced sewerage management and water treatment monitoring system. Built real-time analytics dashboard for water quality monitoring and automated alert systems for maintenance scheduling.",
-      category: "Water Management",
-      impact: "Enhanced water quality monitoring for 100,000+ residents",
-      technologies: ["GitHub Actions", "Redis", "AWS", "Terraform"],
-      image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg",
-      github: "#",
-    },
-    {
       title: "Cougar Cupboard Dashboard Using Power BI",
       description: "Comprehensive analytics dashboard for food pantry operations management. Built interactive visualizations to track inventory, visitor demographics, and distribution patterns to optimize resource allocation and improve service delivery.",
       category: "Data Analytics",
@@ -167,22 +168,22 @@ function App() {
     {
       title: "Data Science & ML",
       icon: <Brain className="w-6 h-6" />,
-      skills: ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", "Jupyter", "MLflow"]
+      skills: ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", "XGBoost", "Google Gemini"]
     },
     {
       title: "DevOps & Cloud",
       icon: <Cloud className="w-6 h-6" />,
-      skills: ["GitHub Actions", "AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "Ansible", "Prometheus"]
+      skills: ["Kubernetes", "Docker", "Helm", "Minikube", "AWS", "Cloudflare", "GitHub Actions", "SOPS"]
     },
     {
-      title: "Backend Development",
+      title: "Backend & APIs",
       icon: <Server className="w-6 h-6" />,
-      skills: ["PostgreSQL", "Redis", "Apache Kafka", "Microservices"]
+      skills: ["FastAPI", "PostgreSQL", "SQLite", "ChromaDB", "Microservices", "RESTful APIs"]
     },
     {
       title: "Frontend & Visualization",
       icon: <Monitor className="w-6 h-6" />,
-      skills: ["Power BI", "Tableau", "Prometheus", "Kibana", "Streamlit", "Grafana"]
+      skills: ["Streamlit", "Power BI", "Tableau", "Prometheus", "Grafana", "Data Modeling"]
     }
   ];
 
@@ -367,9 +368,10 @@ function App() {
                 from data exploration and model development to containerization, orchestration, and monitoring.
               </p>
               <p className="text-slate-300 mb-8 leading-relaxed font-medium">
-                I've worked on diverse projects ranging from water infrastructure management systems to AI-powered
-                applications, always focusing on real-world impact and sustainable solutions. My approach combines
-                rigorous data science methodologies with modern DevOps practices to deliver robust, maintainable systems.
+                I've worked on diverse projects ranging from enterprise AI security systems and Kubernetes monitoring
+                solutions to bioinformatics applications and career tools, always focusing on real-world impact and
+                sustainable solutions. My approach combines rigorous data science methodologies with modern DevOps
+                practices to deliver robust, maintainable systems.
               </p>
 
               <div className="grid grid-cols-2 gap-6">
