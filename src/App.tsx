@@ -241,52 +241,80 @@ function App() {
 function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="mb-8">
-          <img
-            src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"
-            alt="Profile"
-            className="w-32 h-32 rounded-full object-cover mx-auto border-4 border-orange-500 shadow-lg"
-          />
-        </div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="order-2 lg:order-1 flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-transparent rounded-full blur-3xl"></div>
+              <img
+                src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"
+                alt="Profile"
+                className="w-64 h-64 lg:w-80 lg:h-80 rounded-full object-cover mx-auto border-4 border-orange-500 shadow-2xl relative z-10"
+              />
+            </div>
+          </div>
 
-        <h1 className="text-5xl lg:text-6xl font-bold mb-4 text-white">
-          DevOps Engineer <span className="text-orange-500">&</span> MLOps Specialist
-        </h1>
+          <div className="order-1 lg:order-2 text-center lg:text-left">
+            <div className="mb-6 inline-block lg:block">
+              <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full">
+                2+ Years of Professional Experience
+              </span>
+            </div>
 
-        <p className="text-lg text-slate-300 mb-4 max-w-2xl mx-auto">
-          Building scalable infrastructure for machine learning systems. Automating deployment pipelines and ensuring production-grade reliability for AI/ML workloads.
-        </p>
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+              DevOps Engineer <span className="text-orange-500">&</span> <br className="hidden lg:block" />MLOps Specialist
+            </h1>
 
-        <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-          Bridging the gap between data science and infrastructure engineering through MLOps practices.
-        </p>
+            <p className="text-lg text-slate-300 mb-6 max-w-2xl lg:max-w-none leading-relaxed">
+              Building scalable infrastructure for machine learning systems. Specializing in CI/CD pipelines, infrastructure automation, and cloud-native deployments with proven expertise in containerization, orchestration, and production reliability.
+            </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <button
-            onClick={() => onNavigate('projects')}
-            className="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
-          >
-            View Projects <ArrowUpRight className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => onNavigate('contact')}
-            className="px-8 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
-          >
-            Get In Touch <Mail className="w-4 h-4" />
-          </button>
-        </div>
+            <div className="space-y-4 mb-8">
+              <div className="flex items-start gap-3 lg:justify-start justify-center">
+                <span className="text-orange-500 font-bold text-xl">▸</span>
+                <span className="text-slate-300">Built and maintained CI/CD pipelines using GitHub Actions and Jenkins at eGovernments Foundation</span>
+              </div>
+              <div className="flex items-start gap-3 lg:justify-start justify-center">
+                <span className="text-orange-500 font-bold text-xl">▸</span>
+                <span className="text-slate-300">Automated infrastructure provisioning with Terraform and AWS cloud deployments</span>
+              </div>
+              <div className="flex items-start gap-3 lg:justify-start justify-center">
+                <span className="text-orange-500 font-bold text-xl">▸</span>
+                <span className="text-slate-300">Managed Kubernetes operations, Docker containerization, and system monitoring with Prometheus & Grafana</span>
+              </div>
+              <div className="flex items-start gap-3 lg:justify-start justify-center">
+                <span className="text-orange-500 font-bold text-xl">▸</span>
+                <span className="text-slate-300">Bridging data science with DevOps through MLOps practices for production ML systems</span>
+              </div>
+            </div>
 
-        <div className="flex justify-center gap-6">
-          <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-orange-500 transition-colors">
-            <Github className="w-6 h-6" />
-          </a>
-          <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-orange-500 transition-colors">
-            <Linkedin className="w-6 h-6" />
-          </a>
-          <a href="mailto:gowthamchowdam2001@gmail.com" className="text-slate-400 hover:text-orange-500 transition-colors">
-            <Mail className="w-6 h-6" />
-          </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+              <button
+                onClick={() => onNavigate('projects')}
+                className="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                View Projects <ArrowUpRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => onNavigate('contact')}
+                className="px-8 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                Get In Touch <Mail className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="flex justify-center lg:justify-start gap-6">
+              <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors">
+                <Github className="w-6 h-6" />
+              </a>
+              <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors">
+                <Linkedin className="w-6 h-6" />
+              </a>
+              <a href="mailto:gowthamchowdam2001@gmail.com" className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors">
+                <Mail className="w-6 h-6" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
