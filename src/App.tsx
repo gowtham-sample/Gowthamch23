@@ -242,8 +242,8 @@ function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 items-center">
-          <div className="flex justify-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center">
+          <div className="flex justify-center order-first">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-transparent rounded-full blur-3xl"></div>
               <img
