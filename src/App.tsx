@@ -247,7 +247,7 @@ function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-transparent rounded-full blur-3xl"></div>
               <img
-                src="https://i.postimg.cc/x8mLdspn/Profile-pic.jpg"
+                src="https://postimg.cc/ZCJmCTTq"
                 alt="Profile"
                 className="w-64 h-64 lg:w-80 lg:h-80 rounded-full object-cover mx-auto border-4 border-orange-500 shadow-2xl relative z-10"
               />
