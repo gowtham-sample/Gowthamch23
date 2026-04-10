@@ -257,7 +257,7 @@ function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
           <div className="text-center lg:text-left">
             <div className="mb-6 inline-block lg:block">
               <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full">
-                2+ Years of Professional Experience
+                3+ Years of Professional Experience
               </span>
             </div>
 
