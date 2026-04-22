@@ -408,7 +408,7 @@ export default function Chatbot() {
               placeholder="Type your message..."
               style={{
                 flex: 1, padding: '11px 16px', border: '2px solid #e5e7eb',
-                borderRadius: 25, fontSize: 14, outline: 'none', transition: 'border-color 0.2s',
+                borderRadius: 25, fontSize: 14, outline: 'none', transition: 'border-color 0.2s', color: '#111',
               }}
               onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = '#667eea'; }}
               onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = '#e5e7eb'; }}
