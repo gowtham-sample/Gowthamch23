@@ -1,3 +1,4 @@
+import Chatbot from './components/Chatbot';
 import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import {
