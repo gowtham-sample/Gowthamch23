@@ -152,6 +152,16 @@ function App() {
       github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
       priority: 8,
     },
+    {
+      title: "Todo Manager - Tkinter Desktop App",
+      description: "Feature-rich desktop todo application built with Python and Tkinter backed by SQLite. Provides intuitive task management with prioritization, color-coded status tracking, live search filtering, CSV export, and visual dashboard analytics. Includes dark mode and professional UI/UX.",
+      category: "Desktop App, Python",
+      impact: "Complete task management solution with data persistence and analytics",
+      technologies: ["Python 3.12", "Tkinter", "SQLite", "Matplotlib", "CSV Export"],
+      image: "https://images.pexels.com/photos/3998356/pexels-photo-3998356.jpeg",
+      github: "https://github.com/gowtham-org/tkinter-todo-app",
+      priority: 9,
+    },
   ];
 
   const sortedProjects = [...projects].sort((a, b) => a.priority - b.priority);
