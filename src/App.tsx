@@ -73,6 +73,26 @@ function App() {
 
   const projects = [
     {
+      title: "TriageIQ - AI-Powered IT Ticket Triage System",
+      description: "Intelligent IT ticket classification and prioritization system using multi-model AI pipeline. Classifies tickets into Bug/Feature/Task/Incident categories, predicts priority levels (P1-P5), and generates AI-powered summaries and root cause analysis using LLaMA 3.3-70B. Creates Jira tickets automatically with all insights.",
+      category: "AI/ML, DevOps",
+      impact: "98% classification accuracy with semantic search and SLA breach prediction",
+      technologies: ["Python", "FastAPI", "Streamlit", "BERT", "XGBoost", "ChromaDB", "Groq LLaMA", "Jira API", "Docker", "Kubernetes"],
+      image: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg",
+      github: "https://github.com/gowtham-org/TriageIQ-Ticketing-System",
+      priority: 1,
+    },
+    {
+      title: "GitOps with ArgoCD on k3d",
+      description: "Hands-on GitOps implementation demonstrating ArgoCD on local Kubernetes clusters using k3d. Showcases multi-cluster deployments, sync waves, lifecycle hooks, and production-ready GitOps patterns with GitHub as the single source of truth for infrastructure and applications.",
+      category: "DevOps, GitOps",
+      impact: "Multi-cluster setup with ordered deployment workflows and automatic synchronization",
+      technologies: ["ArgoCD", "Kubernetes", "k3d", "Docker", "Helm", "YAML", "GitHub", "WSL2"],
+      image: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg",
+      github: "https://github.com/gowtham-org/argocd-public-repo",
+      priority: 2,
+    },
+    {
       title: "RBAC-Secured Internal AI Assistant",
       description: "Secure, production-ready internal AI chatbot implementing Role-Based Access Control (RBAC) for enterprise environments. Uses Retrieval-Augmented Generation (RAG) with Google Gemini to provide department-specific information access.",
       category: "AI/ML, Security",
@@ -80,6 +100,7 @@ function App() {
       technologies: ["Python", "FastAPI", "Streamlit", "Google Gemini", "ChromaDB", "Kubernetes", "Docker"],
       image: "https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg",
       github: "https://github.com/gowtham-org/RBAC-Secured-Internal-AI-Assistant",
+      priority: 3,
     },
     {
       title: "Kubernetes Pod Status Alertmanager",
@@ -89,6 +110,7 @@ function App() {
       technologies: ["Kubernetes", "Minikube", "Python", "Helm", "SOPS"],
       image: "https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg",
       github: "https://github.com/gowtham-org/Kubernetes-Pod-Status-Alertmanager",
+      priority: 4,
     },
     {
       title: "IntelliMatch AI-ATS Resume Matcher",
@@ -98,24 +120,7 @@ function App() {
       technologies: ["Python", "Streamlit", "Google Gemini Pro", "PyPDF2", "SQLite"],
       image: "https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg",
       github: "https://github.com/gowtham-org/ATSPro-Gemini-Resume-Matcher",
-    },
-    {
-      title: "Cell Viability Prediction",
-      description: "Bioinformatics machine learning project that predicts cell viability based on gene expression data from the DepMap portal. Implements multiple regression models with comprehensive preprocessing.",
-      category: "AI/ML, Bioinformatics",
-      impact: "Predicts cell viability for pharmaceutical research",
-      technologies: ["Python", "Pandas", "Scikit-learn", "XGBoost", "GridSearchCV"],
-      image: "https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg",
-      github: "https://github.com/gowtham-org/Cell-Viability-Prediction",
-    },
-    {
-      title: "Movie-Recommender-using-ML",
-      description: "Intelligent movie recommendation system that suggests personalized movie titles based on user preferences and past interactions. Emulates and enhances the recommendation capabilities of Netflix and Amazon Prime.",
-      category: "Machine Learning",
-      impact: "Personalized recommendations with collaborative filtering",
-      technologies: ["Python", "Pandas", "Scikit-learn", "NumPy"],
-      image: "https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp",
-      github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
+      priority: 5,
     },
     {
       title: "AI-Powered Construction Cost Estimation",
@@ -125,8 +130,31 @@ function App() {
       technologies: ["Python", "TensorFlow", "Pandas", "FastAPI", "PostgreSQL"],
       image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
       github: "https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning",
+      priority: 6,
+    },
+    {
+      title: "Cell Viability Prediction",
+      description: "Bioinformatics machine learning project that predicts cell viability based on gene expression data from the DepMap portal. Implements multiple regression models with comprehensive preprocessing.",
+      category: "AI/ML, Bioinformatics",
+      impact: "Predicts cell viability for pharmaceutical research",
+      technologies: ["Python", "Pandas", "Scikit-learn", "XGBoost", "GridSearchCV"],
+      image: "https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg",
+      github: "https://github.com/gowtham-org/Cell-Viability-Prediction",
+      priority: 7,
+    },
+    {
+      title: "Movie-Recommender-using-ML",
+      description: "Intelligent movie recommendation system that suggests personalized movie titles based on user preferences and past interactions. Emulates and enhances the recommendation capabilities of Netflix and Amazon Prime.",
+      category: "Machine Learning",
+      impact: "Personalized recommendations with collaborative filtering",
+      technologies: ["Python", "Pandas", "Scikit-learn", "NumPy"],
+      image: "https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp",
+      github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
+      priority: 8,
     },
   ];
+
+  const sortedProjects = [...projects].sort((a, b) => a.priority - b.priority);
 
   const skills = [
     {
@@ -160,7 +188,7 @@ function App() {
       case 'skills':
         return <SkillsPage skills={skills} />;
       case 'projects':
-        return <ProjectsPage projects={projects} />;
+        return <ProjectsPage projects={sortedProjects} />;
       case 'contact':
         return <ContactPage formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} isSubmitting={isSubmitting} submitStatus={submitStatus} />;
       default:
@@ -418,56 +446,94 @@ function SkillsPage({ skills }: { skills: any[] }) {
 }
 
 function ProjectsPage({ projects }: { projects: any[] }) {
+  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
+
   return (
-    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold mb-4 text-white">Projects</h2>
-        <p className="text-slate-400 mb-12">Recent projects in DevOps, AI/ML, and Infrastructure</p>
+    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-10 w-72 h-72 bg-orange-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl"></div>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mb-12">
+          <h2 className="text-5xl font-bold mb-4 text-white">Featured Projects</h2>
+          <p className="text-lg text-slate-400">Organized by priority. Showcasing production-grade work in DevOps, AI/ML, and Infrastructure</p>
+        </div>
+
+        <div className="space-y-6">
           {projects.map((project, index) => (
-            <div key={index} className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden hover:border-orange-500/50 transition-colors group">
-              <div className="relative h-40 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent"></div>
-                <span className="absolute top-4 left-4 px-3 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
-                  {project.category}
-                </span>
-              </div>
+            <div
+              key={index}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className={`group relative transition-all duration-300 ${hoveredIndex === index ? 'scale-105' : ''}`}
+            >
+              <div className={`bg-slate-900/40 backdrop-blur-sm border rounded-xl overflow-hidden transition-all duration-300 ${
+                hoveredIndex === index
+                  ? 'border-orange-500/60 shadow-2xl shadow-orange-500/20'
+                  : 'border-slate-800 hover:border-slate-700'
+              }`}>
+                <div className="grid lg:grid-cols-3 gap-0">
+                  <div className="relative h-56 lg:h-full overflow-hidden lg:col-span-1">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/50 to-transparent lg:bg-gradient-to-r lg:from-slate-900/80 lg:to-slate-900/0"></div>
+                    <div className="absolute top-6 left-6 flex items-center gap-2">
+                      <span className="px-4 py-2 bg-orange-500 text-white text-sm font-bold rounded-full">
+                        #{index + 1}
+                      </span>
+                      <span className="px-3 py-2 bg-slate-800/80 backdrop-blur text-slate-200 text-xs font-semibold rounded-full">
+                        {project.category}
+                      </span>
+                    </div>
+                  </div>
 
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
-                <p className="text-slate-400 text-sm mb-4 line-clamp-3">{project.description}</p>
+                  <div className="p-8 lg:col-span-2 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="text-slate-300 text-base leading-relaxed mb-5">
+                        {project.description}
+                      </p>
 
-                {project.impact && (
-                  <p className="text-orange-500 text-sm font-semibold mb-4">Impact: {project.impact}</p>
-                )}
+                      {project.impact && (
+                        <div className="mb-6 p-4 bg-orange-500/10 border border-orange-500/30 rounded-lg">
+                          <p className="text-orange-400 font-semibold text-sm">
+                            <span className="text-orange-500">Impact:</span> {project.impact}
+                          </p>
+                        </div>
+                      )}
+                    </div>
 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.slice(0, 3).map((tech: string, idx: number) => (
-                    <span key={idx} className="px-2 py-1 bg-slate-800 text-slate-300 text-xs rounded">
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span className="px-2 py-1 bg-slate-800 text-slate-300 text-xs rounded">
-                      +{project.technologies.length - 3}
-                    </span>
-                  )}
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech: string, idx: number) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1.5 bg-slate-800/60 hover:bg-orange-500/20 text-slate-300 hover:text-orange-400 text-xs font-medium rounded-lg transition-all duration-300 backdrop-blur-sm"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 group/link w-fit"
+                      >
+                        View on GitHub
+                        <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                      </a>
+                    </div>
+                  </div>
                 </div>
-
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-orange-500 hover:text-orange-400 font-semibold transition-colors"
-                >
-                  View on GitHub <ExternalLink className="w-4 h-4" />
-                </a>
               </div>
             </div>
           ))}
