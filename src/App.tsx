@@ -1,5 +1,5 @@
 import Chatbot from './components/Chatbot';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import {
   Menu,
@@ -9,8 +9,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Code,
-  Database,
   Cloud,
   Brain,
   Monitor,
@@ -18,36 +16,32 @@ import {
   CheckCircle,
   Server,
   ExternalLink,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
+import { useTilt } from './hooks/useTilt';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
 
   useEffect(() => {
-    emailjs.init("YOUR_PUBLIC_KEY");
+    emailjs.init('YOUR_PUBLIC_KEY');
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await emailjs.send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-        }
-      );
+      await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+      });
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
@@ -59,10 +53,7 @@ function App() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const navigateTo = (page: string) => {
@@ -73,93 +64,102 @@ function App() {
 
   const projects = [
     {
-      title: "TriageIQ - AI-Powered IT Ticket Triage System",
-      description: "Intelligent IT ticket classification and prioritization system using multi-model AI pipeline. Classifies tickets into Bug/Feature/Task/Incident categories, predicts priority levels (P1-P5), and generates AI-powered summaries and root cause analysis using LLaMA 3.3-70B. Creates Jira tickets automatically with all insights.",
-      category: "AI/ML, DevOps",
-      impact: "98% classification accuracy with semantic search and SLA breach prediction",
-      technologies: ["Python", "FastAPI", "Streamlit", "BERT", "XGBoost", "ChromaDB", "Groq LLaMA", "Jira API", "Docker", "Kubernetes"],
-      image: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg",
-      github: "https://github.com/gowtham-org/TriageIQ-Ticketing-System",
+      title: 'TriageIQ - AI-Powered IT Ticket Triage System',
+      description:
+        'Intelligent IT ticket classification and prioritization system using multi-model AI pipeline. Classifies tickets into Bug/Feature/Task/Incident categories, predicts priority levels (P1-P5), and generates AI-powered summaries and root cause analysis using LLaMA 3.3-70B. Creates Jira tickets automatically with all insights.',
+      category: 'AI/ML, DevOps',
+      impact: '98% classification accuracy with semantic search and SLA breach prediction',
+      technologies: ['Python', 'FastAPI', 'Streamlit', 'BERT', 'XGBoost', 'ChromaDB', 'Groq LLaMA', 'Jira API', 'Docker', 'Kubernetes'],
+      image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg',
+      github: 'https://github.com/gowtham-org/TriageIQ-Ticketing-System',
       priority: 1,
     },
     {
-      title: "GitOps with ArgoCD on k3d",
-      description: "Hands-on GitOps implementation demonstrating ArgoCD on local Kubernetes clusters using k3d. Showcases multi-cluster deployments, sync waves, lifecycle hooks, and production-ready GitOps patterns with GitHub as the single source of truth for infrastructure and applications.",
-      category: "DevOps, GitOps",
-      impact: "Multi-cluster setup with ordered deployment workflows and automatic synchronization",
-      technologies: ["ArgoCD", "Kubernetes", "k3d", "Docker", "Helm", "YAML", "GitHub", "WSL2"],
-      image: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg",
-      github: "https://github.com/gowtham-org/argocd-public-repo",
+      title: 'GitOps with ArgoCD on k3d',
+      description:
+        'Hands-on GitOps implementation demonstrating ArgoCD on local Kubernetes clusters using k3d. Showcases multi-cluster deployments, sync waves, lifecycle hooks, and production-ready GitOps patterns with GitHub as the single source of truth for infrastructure and applications.',
+      category: 'DevOps, GitOps',
+      impact: 'Multi-cluster setup with ordered deployment workflows and automatic synchronization',
+      technologies: ['ArgoCD', 'Kubernetes', 'k3d', 'Docker', 'Helm', 'YAML', 'GitHub', 'WSL2'],
+      image: 'https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg',
+      github: 'https://github.com/gowtham-org/argocd-public-repo',
       priority: 2,
     },
     {
-      title: "RBAC-Secured Internal AI Assistant",
-      description: "Secure, production-ready internal AI chatbot implementing Role-Based Access Control (RBAC) for enterprise environments. Uses Retrieval-Augmented Generation (RAG) with Google Gemini to provide department-specific information access.",
-      category: "AI/ML, Security",
-      impact: "Secure role-based document access across 6 different role types",
-      technologies: ["Python", "FastAPI", "Streamlit", "Google Gemini", "ChromaDB", "Kubernetes", "Docker"],
-      image: "https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg",
-      github: "https://github.com/gowtham-org/RBAC-Secured-Internal-AI-Assistant",
+      title: 'RBAC-Secured Internal AI Assistant',
+      description:
+        'Secure, production-ready internal AI chatbot implementing Role-Based Access Control (RBAC) for enterprise environments. Uses Retrieval-Augmented Generation (RAG) with Google Gemini to provide department-specific information access.',
+      category: 'AI/ML, Security',
+      impact: 'Secure role-based document access across 6 different role types',
+      technologies: ['Python', 'FastAPI', 'Streamlit', 'Google Gemini', 'ChromaDB', 'Kubernetes', 'Docker'],
+      image: 'https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg',
+      github: 'https://github.com/gowtham-org/RBAC-Secured-Internal-AI-Assistant',
       priority: 3,
     },
     {
-      title: "Kubernetes Pod Status Alertmanager",
-      description: "Kubernetes monitoring solution that tracks pod health and sends real-time alerts for CrashLoopBackOff errors and other pod failures. Provides proactive monitoring with dashboard visualization.",
-      category: "DevOps, Monitoring",
-      impact: "Reduces mean time to detection (MTTD) for container failures",
-      technologies: ["Kubernetes", "Minikube", "Python", "Helm", "SOPS"],
-      image: "https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg",
-      github: "https://github.com/gowtham-org/Kubernetes-Pod-Status-Alertmanager",
+      title: 'Kubernetes Pod Status Alertmanager',
+      description:
+        'Kubernetes monitoring solution that tracks pod health and sends real-time alerts for CrashLoopBackOff errors and other pod failures. Provides proactive monitoring with dashboard visualization.',
+      category: 'DevOps, Monitoring',
+      impact: 'Reduces mean time to detection (MTTD) for container failures',
+      technologies: ['Kubernetes', 'Minikube', 'Python', 'Helm', 'SOPS'],
+      image: 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg',
+      github: 'https://github.com/gowtham-org/Kubernetes-Pod-Status-Alertmanager',
       priority: 4,
     },
     {
-      title: "IntelliMatch AI-ATS Resume Matcher",
-      description: "Application Tracking System (ATS) companion tool that helps job seekers optimize their resumes using Google Gemini Pro LLM. Analyzes resumes against job descriptions with AI-powered analysis.",
-      category: "AI/ML, Career Tools",
-      impact: "Helps job seekers improve chances of passing ATS filters",
-      technologies: ["Python", "Streamlit", "Google Gemini Pro", "PyPDF2", "SQLite"],
-      image: "https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg",
-      github: "https://github.com/gowtham-org/ATSPro-Gemini-Resume-Matcher",
+      title: 'IntelliMatch AI-ATS Resume Matcher',
+      description:
+        'Application Tracking System (ATS) companion tool that helps job seekers optimize their resumes using Google Gemini Pro LLM. Analyzes resumes against job descriptions with AI-powered analysis.',
+      category: 'AI/ML, Career Tools',
+      impact: 'Helps job seekers improve chances of passing ATS filters',
+      technologies: ['Python', 'Streamlit', 'Google Gemini Pro', 'PyPDF2', 'SQLite'],
+      image: 'https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg',
+      github: 'https://github.com/gowtham-org/ATSPro-Gemini-Resume-Matcher',
       priority: 5,
     },
     {
-      title: "AI-Powered Construction Cost Estimation",
-      description: "Machine learning model for accurate construction project cost prediction. Integrated historical data analysis with real-time market trends to provide precise cost estimates.",
-      category: "AI/ML",
-      impact: "Reduced cost estimation errors by 80%",
-      technologies: ["Python", "TensorFlow", "Pandas", "FastAPI", "PostgreSQL"],
-      image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
-      github: "https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning",
+      title: 'AI-Powered Construction Cost Estimation',
+      description:
+        'Machine learning model for accurate construction project cost prediction. Integrated historical data analysis with real-time market trends to provide precise cost estimates.',
+      category: 'AI/ML',
+      impact: 'Reduced cost estimation errors by 80%',
+      technologies: ['Python', 'TensorFlow', 'Pandas', 'FastAPI', 'PostgreSQL'],
+      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg',
+      github: 'https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning',
       priority: 6,
     },
     {
-      title: "Cell Viability Prediction",
-      description: "Bioinformatics machine learning project that predicts cell viability based on gene expression data from the DepMap portal. Implements multiple regression models with comprehensive preprocessing.",
-      category: "AI/ML, Bioinformatics",
-      impact: "Predicts cell viability for pharmaceutical research",
-      technologies: ["Python", "Pandas", "Scikit-learn", "XGBoost", "GridSearchCV"],
-      image: "https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg",
-      github: "https://github.com/gowtham-org/Cell-Viability-Prediction",
+      title: 'Cell Viability Prediction',
+      description:
+        'Bioinformatics machine learning project that predicts cell viability based on gene expression data from the DepMap portal. Implements multiple regression models with comprehensive preprocessing.',
+      category: 'AI/ML, Bioinformatics',
+      impact: 'Predicts cell viability for pharmaceutical research',
+      technologies: ['Python', 'Pandas', 'Scikit-learn', 'XGBoost', 'GridSearchCV'],
+      image: 'https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg',
+      github: 'https://github.com/gowtham-org/Cell-Viability-Prediction',
       priority: 7,
     },
     {
-      title: "Movie-Recommender-using-ML",
-      description: "Intelligent movie recommendation system that suggests personalized movie titles based on user preferences and past interactions. Emulates and enhances the recommendation capabilities of Netflix and Amazon Prime.",
-      category: "Machine Learning",
-      impact: "Personalized recommendations with collaborative filtering",
-      technologies: ["Python", "Pandas", "Scikit-learn", "NumPy"],
-      image: "https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp",
-      github: "https://github.com/gowtham-org/Movie-Recommender-using-ML",
+      title: 'Movie-Recommender-using-ML',
+      description:
+        'Intelligent movie recommendation system that suggests personalized movie titles based on user preferences and past interactions. Emulates and enhances the recommendation capabilities of Netflix and Amazon Prime.',
+      category: 'Machine Learning',
+      impact: 'Personalized recommendations with collaborative filtering',
+      technologies: ['Python', 'Pandas', 'Scikit-learn', 'NumPy'],
+      image: 'https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp',
+      github: 'https://github.com/gowtham-org/Movie-Recommender-using-ML',
       priority: 8,
     },
     {
-      title: "Todo Manager - Tkinter Desktop App",
-      description: "Feature-rich desktop todo application built with Python and Tkinter backed by SQLite. Provides intuitive task management with prioritization, color-coded status tracking, live search filtering, CSV export, and visual dashboard analytics. Includes dark mode and professional UI/UX.",
-      category: "Desktop App, Python",
-      impact: "Complete task management solution with data persistence and analytics",
-      technologies: ["Python 3.12", "Tkinter", "SQLite", "Matplotlib", "CSV Export"],
-      image: "https://images.pexels.com/photos/3998356/pexels-photo-3998356.jpeg",
-      github: "https://github.com/gowtham-org/tkinter-todo-app",
+      title: 'Todo Manager - Tkinter Desktop App',
+      description:
+        'Feature-rich desktop todo application built with Python and Tkinter backed by SQLite. Provides intuitive task management with prioritization, color-coded status tracking, live search filtering, CSV export, and visual dashboard analytics. Includes dark mode and professional UI/UX.',
+      category: 'Desktop App, Python',
+      impact: 'Complete task management solution with data persistence and analytics',
+      technologies: ['Python 3.12', 'Tkinter', 'SQLite', 'Matplotlib', 'CSV Export'],
+      image: 'https://images.pexels.com/photos/3998356/pexels-photo-3998356.jpeg',
+      github: 'https://github.com/gowtham-org/tkinter-todo-app',
       priority: 9,
     },
   ];
@@ -168,25 +168,29 @@ function App() {
 
   const skills = [
     {
-      title: "DevOps & Infrastructure",
+      title: 'DevOps & Infrastructure',
       icon: <Cloud className="w-6 h-6" />,
-      skills: ["Kubernetes", "Docker", "Helm", "Minikube", "AWS", "GitHub Actions", "SOPS", "Terraform"]
+      skills: ['Kubernetes', 'Docker', 'Helm', 'Minikube', 'AWS', 'GitHub Actions', 'SOPS', 'Terraform'],
+      color: 'from-orange-500 to-red-500',
     },
     {
-      title: "Data Science & ML",
+      title: 'Data Science & ML',
       icon: <Brain className="w-6 h-6" />,
-      skills: ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "XGBoost", "Google Gemini"]
+      skills: ['Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas', 'XGBoost', 'Google Gemini'],
+      color: 'from-cyan-500 to-blue-500',
     },
     {
-      title: "Backend & Databases",
+      title: 'Backend & Databases',
       icon: <Server className="w-6 h-6" />,
-      skills: ["FastAPI", "PostgreSQL", "SQLite", "ChromaDB", "Redis", "Microservices"]
+      skills: ['FastAPI', 'PostgreSQL', 'SQLite', 'ChromaDB', 'Redis', 'Microservices'],
+      color: 'from-emerald-500 to-teal-500',
     },
     {
-      title: "Monitoring & Visualization",
+      title: 'Monitoring & Visualization',
       icon: <Monitor className="w-6 h-6" />,
-      skills: ["Prometheus", "Grafana", "Streamlit", "Power BI", "Tableau"]
-    }
+      skills: ['Prometheus', 'Grafana', 'Streamlit', 'Power BI', 'Tableau'],
+      color: 'from-amber-500 to-orange-500',
+    },
   ];
 
   const renderPage = () => {
@@ -200,23 +204,37 @@ function App() {
       case 'projects':
         return <ProjectsPage projects={sortedProjects} />;
       case 'contact':
-        return <ContactPage formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} isSubmitting={isSubmitting} submitStatus={submitStatus} />;
+        return (
+          <ContactPage
+            formData={formData}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
+            submitStatus={submitStatus}
+          />
+        );
       default:
         return <HomePage onNavigate={navigateTo} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <nav className="fixed top-0 w-full bg-slate-950/95 backdrop-blur-md border-b border-slate-800 z-50">
+    <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
+      <nav className="fixed top-0 w-full bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/60 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <button onClick={() => navigateTo('home')} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <img
-                src="/1.png"
-                alt="Logo"
-                className="w-10 h-10 rounded-full object-cover border-2 border-orange-500"
-              />
+            <button
+              onClick={() => navigateTo('home')}
+              className="flex items-center gap-3 hover:opacity-80 transition-opacity group"
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-orange-500/40 rounded-full blur-md group-hover:bg-orange-500/60 transition-colors" />
+                <img
+                  src="/1.png"
+                  alt="Logo"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-orange-500 relative z-10"
+                />
+              </div>
               <div className="text-xl font-bold text-orange-500">Gowtham Chowdam</div>
             </button>
 
@@ -236,10 +254,7 @@ function App() {
               ))}
             </div>
 
-            <button
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
@@ -260,97 +275,266 @@ function App() {
         </div>
       </nav>
 
-      <main className="pt-20">
-        {renderPage()}
-      </main>
+      <main className="pt-20">{renderPage()}</main>
 
       <footer className="border-t border-slate-800 bg-slate-950 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-slate-400">
-              © 2024 <span className="text-orange-500 font-semibold">Gowtham Chowdam</span>. Built with React, TypeScript, and Tailwind CSS.
-            </p>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-slate-400">
+            © 2024 <span className="text-orange-500 font-semibold">Gowtham Chowdam</span>. Built with
+            React, TypeScript, and Tailwind CSS.
+          </p>
         </div>
       </footer>
-      <Chatbot /> 
+      <Chatbot />
     </div>
   );
 }
 
+/* ── Parallax background orbs ──────────────────────────────────────────────── */
+
+function ParallaxOrbs() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      if (!ref.current) return;
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      const orbs = ref.current.querySelectorAll<HTMLDivElement>('.parallax-orb');
+      orbs.forEach((orb, i) => {
+        const depth = (i + 1) * 0.4;
+        orb.style.transform = `translate3d(${x * depth}px, ${y * depth}px, 0)`;
+      });
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
+
+  return (
+    <div ref={ref} className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div
+        className="parallax-orb orb animate-float"
+        style={{ width: 400, height: 400, background: 'rgba(249,115,22,0.25)', top: '5%', left: '10%' }}
+      />
+      <div
+        className="parallax-orb orb animate-float delay-500"
+        style={{ width: 300, height: 300, background: 'rgba(6,182,212,0.2)', top: '40%', right: '8%' }}
+      />
+      <div
+        className="parallax-orb orb animate-float delay-1000"
+        style={{ width: 350, height: 350, background: 'rgba(239,68,68,0.15)', bottom: '5%', left: '30%' }}
+      />
+    </div>
+  );
+}
+
+/* ── Holographic rings around hero image ──────────────────────────────────── */
+
+function HoloRings() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div
+        className="holo-ring animate-spin-slow"
+        style={{ width: '110%', height: '110%', borderColor: 'rgba(249,115,22,0.25)' }}
+      />
+      <div
+        className="holo-ring animate-spin-slow"
+        style={{
+          width: '125%',
+          height: '125%',
+          borderColor: 'rgba(6,182,212,0.15)',
+          animationDirection: 'reverse',
+        }}
+      />
+      <div
+        className="holo-ring animate-spin-slow"
+        style={{ width: '140%', height: '140%', borderColor: 'rgba(249,115,22,0.1)' }}
+      />
+    </div>
+  );
+}
+
+/* ── Reusable 3D tilt wrapper ──────────────────────────────────────────────── */
+
+function TiltCard({
+  children,
+  className = '',
+  glare = true,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  glare?: boolean;
+}) {
+  const { ref, handleMove, handleLeave } = useTilt<HTMLDivElement>();
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      className={`tilt-card ${className}`}
+    >
+      {glare && <div className="tilt-glare" />}
+      {children}
+    </div>
+  );
+}
+
+/* ── Reveal wrapper ────────────────────────────────────────────────────────── */
+
+function Reveal3D({
+  children,
+  variant = 'center',
+  delay = 0,
+  className = '',
+}: {
+  children: React.ReactNode;
+  variant?: 'center' | 'left' | 'right';
+  delay?: number;
+  className?: string;
+}) {
+  const { ref, visible } = useScrollReveal<HTMLDivElement>();
+  const cls = variant === 'left' ? 'reveal-3d-left' : variant === 'right' ? 'reveal-3d-right' : 'reveal-3d';
+  return (
+    <div
+      ref={ref}
+      className={`${cls} ${visible ? 'is-visible' : ''} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ── Home Page ────────────────────────────────────────────────────────────── */
+
 function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      setParallax({ x, y });
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <ParallaxOrbs />
+      <div className="absolute inset-0 bg-grid opacity-40" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center">
-          <div className="flex justify-center order-first">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-transparent rounded-full blur-3xl"></div>
+          {/* 3D profile image with parallax */}
+          <div
+            ref={heroRef}
+            className="flex justify-center order-first perspective-2000"
+            style={{ transform: `rotateY(${parallax.x * 0.5}deg) rotateX(${-parallax.y * 0.5}deg)` }}
+          >
+            <div className="relative preserve-3d" style={{ width: 320, height: 320 }}>
+              <HoloRings />
+              <div
+                className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-cyan-500/20 rounded-full blur-3xl"
+                style={{ transform: 'translateZ(-40px)' }}
+              />
               <img
                 src="https://i.postimg.cc/HkWsY2jY/ca3985cb-4b38-48d8-bc3b-19dc58a89fdb.jpg"
                 alt="Profile"
-                className="w-64 h-64 lg:w-80 lg:h-80 rounded-full object-cover mx-auto border-4 border-orange-500 shadow-2xl relative z-10"
+                className="w-72 h-72 lg:w-80 lg:h-80 rounded-full object-cover mx-auto border-4 border-orange-500 shadow-2xl relative z-10"
+                style={{ transform: 'translateZ(40px)' }}
               />
+              {/* Floating badges */}
+              <div
+                className="absolute -top-2 -right-2 px-3 py-1.5 bg-slate-900/90 border border-orange-500/50 rounded-lg text-orange-400 text-xs font-bold flex items-center gap-1.5 backdrop-blur-md"
+                style={{ transform: 'translateZ(80px) rotate(-8deg)' }}
+              >
+                <Zap className="w-3 h-3" /> DevOps
+              </div>
+              <div
+                className="absolute -bottom-2 -left-4 px-3 py-1.5 bg-slate-900/90 border border-cyan-500/50 rounded-lg text-cyan-400 text-xs font-bold flex items-center gap-1.5 backdrop-blur-md"
+                style={{ transform: 'translateZ(80px) rotate(8deg)' }}
+              >
+                <Brain className="w-3 h-3" /> MLOps
+              </div>
             </div>
           </div>
 
-          <div className="text-center lg:text-left">
+          {/* Text content with parallax depth */}
+          <div
+            className="text-center lg:text-left"
+            style={{ transform: `translate3d(${parallax.x * 0.3}px, ${parallax.y * 0.3}px, 0)` }}
+          >
             <div className="mb-6 inline-block lg:block">
-              <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full">
-                3+ Years of Professional Experience
+              <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full inline-flex items-center gap-2">
+                <Sparkles className="w-4 h-4" /> 3+ Years of Professional Experience
               </span>
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
-              DevOps Engineer <span className="text-orange-500">&</span> <br className="hidden lg:block" />MLOps Specialist
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-white leading-tight">
+              DevOps Engineer <span className="text-orange-500 text-3d">&</span>
+              <br className="hidden lg:block" />
+              <span className="gradient-text"> MLOps Specialist</span>
             </h1>
 
             <p className="text-lg text-slate-300 mb-6 max-w-2xl lg:max-w-none leading-relaxed">
-              Building scalable infrastructure for machine learning systems. Specializing in CI/CD pipelines, infrastructure automation, and cloud-native deployments with proven expertise in containerization, orchestration, and production reliability.
+              Building scalable infrastructure for machine learning systems. Specializing in CI/CD
+              pipelines, infrastructure automation, and cloud-native deployments with proven expertise
+              in containerization, orchestration, and production reliability.
             </p>
 
             <div className="space-y-4 mb-8">
-              <div className="flex items-start gap-3 lg:justify-start justify-center">
-                <span className="text-orange-500 font-bold text-xl">▸</span>
-                <span className="text-slate-300">Built and maintained CI/CD pipelines using GitHub Actions and Jenkins at eGovernments Foundation</span>
-              </div>
-              <div className="flex items-start gap-3 lg:justify-start justify-center">
-                <span className="text-orange-500 font-bold text-xl">▸</span>
-                <span className="text-slate-300">Automated infrastructure provisioning with Terraform and AWS cloud deployments</span>
-              </div>
-              <div className="flex items-start gap-3 lg:justify-start justify-center">
-                <span className="text-orange-500 font-bold text-xl">▸</span>
-                <span className="text-slate-300">Managed Kubernetes operations, Docker containerization, and system monitoring with Prometheus & Grafana</span>
-              </div>
-              <div className="flex items-start gap-3 lg:justify-start justify-center">
-                <span className="text-orange-500 font-bold text-xl">▸</span>
-                <span className="text-slate-300">Bridging data science with DevOps through MLOps practices for production ML systems</span>
-              </div>
+              {[
+                'Built and maintained CI/CD pipelines using GitHub Actions and Jenkins at eGovernments Foundation',
+                'Automated infrastructure provisioning with Terraform and AWS cloud deployments',
+                'Managed Kubernetes operations, Docker containerization, and system monitoring with Prometheus & Grafana',
+                'Bridging data science with DevOps through MLOps practices for production ML systems',
+              ].map((text, i) => (
+                <div key={i} className="flex items-start gap-3 lg:justify-start justify-center">
+                  <span className="text-orange-500 font-bold text-xl">▸</span>
+                  <span className="text-slate-300">{text}</span>
+                </div>
+              ))}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
               <button
                 onClick={() => onNavigate('projects')}
-                className="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="magnetic-btn px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"
               >
                 View Projects <ArrowUpRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => onNavigate('contact')}
-                className="px-8 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="magnetic-btn px-8 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold rounded-lg flex items-center justify-center gap-2"
               >
                 Get In Touch <Mail className="w-4 h-4" />
               </button>
             </div>
 
             <div className="flex justify-center lg:justify-start gap-6">
-              <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors">
+              <a
+                href="https://github.com/orgs/gowtham-org/repositories"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors"
+              >
                 <Github className="w-6 h-6" />
               </a>
-              <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors">
+              <a
+                href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors"
+              >
                 <Linkedin className="w-6 h-6" />
               </a>
-              <a href="mailto:gowthamchowdam2001@gmail.com" className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors">
+              <a
+                href="mailto:gowthamchowdam2001@gmail.com"
+                className="p-3 bg-slate-900/50 hover:bg-orange-500/20 rounded-lg transition-colors"
+              >
                 <Mail className="w-6 h-6" />
               </a>
             </div>
@@ -361,61 +545,86 @@ function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
   );
 }
 
+/* ── About Page ───────────────────────────────────────────────────────────── */
+
 function AboutPage() {
   return (
-    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold mb-12 text-white">About Me</h2>
+    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <ParallaxOrbs />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <Reveal3D>
+          <h2 className="text-5xl font-bold mb-12 text-white">About Me</h2>
+        </Reveal3D>
 
         <div className="space-y-6 text-slate-300 leading-relaxed">
-          <p className="text-lg">
-            I'm a <span className="text-orange-500 font-semibold">DevOps Engineer</span> and <span className="text-orange-500 font-semibold">MLOps Specialist</span> with a strong focus on building scalable infrastructure for machine learning systems. My career is centered on bridging the gap between data science and infrastructure engineering.
-          </p>
+          <Reveal3D delay={100}>
+            <p className="text-lg">
+              I'm a <span className="text-orange-500 font-semibold">DevOps Engineer</span> and{' '}
+              <span className="text-orange-500 font-semibold">MLOps Specialist</span> with a strong focus
+              on building scalable infrastructure for machine learning systems. My career is centered on
+              bridging the gap between data science and infrastructure engineering.
+            </p>
+          </Reveal3D>
 
-          <p className="text-lg">
-            While I have a solid foundation in data science and machine learning, my primary expertise lies in <span className="text-orange-500 font-semibold">DevOps practices and infrastructure automation</span>. I completed a comprehensive data science course to deeply understand how to integrate DevOps with data science, which led me to specialize in <span className="text-orange-500 font-semibold">MLOps</span> — the practice of automating, managing, and monitoring machine learning workflows in production environments.
-          </p>
+          <Reveal3D delay={200}>
+            <p className="text-lg">
+              While I have a solid foundation in data science and machine learning, my primary expertise
+              lies in <span className="text-orange-500 font-semibold">DevOps practices and infrastructure
+              automation</span>. I completed a comprehensive data science course to deeply understand how
+              to integrate DevOps with data science, which led me to specialize in{' '}
+              <span className="text-orange-500 font-semibold">MLOps</span> — the practice of automating,
+              managing, and monitoring machine learning workflows in production environments.
+            </p>
+          </Reveal3D>
 
-          <p className="text-lg">
-            My expertise spans:
-          </p>
+          <Reveal3D delay={300}>
+            <p className="text-lg">My expertise spans:</p>
+          </Reveal3D>
 
-          <ul className="space-y-3 ml-6">
-            <li className="flex items-start gap-3">
-              <span className="text-orange-500 font-bold">•</span>
-              <span><span className="text-orange-500 font-semibold">Kubernetes Orchestration:</span> Deploying and managing containerized ML applications at scale</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-orange-500 font-bold">•</span>
-              <span><span className="text-orange-500 font-semibold">CI/CD Pipelines:</span> Automating deployment workflows for ML models and applications</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-orange-500 font-bold">•</span>
-              <span><span className="text-orange-500 font-semibold">Infrastructure as Code:</span> Using Terraform and other tools to manage cloud infrastructure</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-orange-500 font-bold">•</span>
-              <span><span className="text-orange-500 font-semibold">Monitoring & Observability:</span> Implementing real-time monitoring systems for model performance and infrastructure health</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-orange-500 font-bold">•</span>
-              <span><span className="text-orange-500 font-semibold">Security & Access Control:</span> Designing secure systems with role-based access and encryption</span>
-            </li>
-          </ul>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              ['Kubernetes Orchestration', 'Deploying and managing containerized ML applications at scale'],
+              ['CI/CD Pipelines', 'Automating deployment workflows for ML models and applications'],
+              ['Infrastructure as Code', 'Using Terraform and other tools to manage cloud infrastructure'],
+              ['Monitoring & Observability', 'Real-time monitoring for model performance and infra health'],
+              ['Security & Access Control', 'Designing secure systems with role-based access and encryption'],
+            ].map(([title, desc], i) => (
+              <Reveal3D key={i} variant={i % 2 === 0 ? 'left' : 'right'} delay={400 + i * 100}>
+                <TiltCard className="p-5 bg-slate-900/60 border border-slate-800 rounded-xl backdrop-blur-sm h-full">
+                  <div className="flex items-start gap-3">
+                    <span className="text-orange-500 font-bold text-xl">•</span>
+                    <div>
+                      <span className="text-orange-500 font-semibold">{title}:</span>{' '}
+                      <span className="text-slate-300 text-sm">{desc}</span>
+                    </div>
+                  </div>
+                </TiltCard>
+              </Reveal3D>
+            ))}
+          </div>
 
-          <p className="text-lg">
-            I have worked on diverse projects including enterprise AI security systems, Kubernetes monitoring solutions, and bioinformatics applications. My approach combines rigorous engineering practices with modern DevOps tools to deliver robust, scalable, and maintainable systems that perform reliably in production.
-          </p>
+          <Reveal3D delay={900}>
+            <p className="text-lg">
+              I have worked on diverse projects including enterprise AI security systems, Kubernetes
+              monitoring solutions, and bioinformatics applications. My approach combines rigorous
+              engineering practices with modern DevOps tools to deliver robust, scalable, and
+              maintainable systems that perform reliably in production.
+            </p>
+          </Reveal3D>
 
-          <div className="grid grid-cols-2 gap-6 mt-8">
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-lg">
-              <div className="text-3xl font-bold text-orange-500 mb-2">3+</div>
-              <div className="text-slate-300">Years of Professional Experience</div>
-            </div>
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-lg">
-              <div className="text-3xl font-bold text-orange-500 mb-2">8+</div>
-              <div className="text-slate-300">Projects Completed</div>
-            </div>
+          <div className="grid grid-cols-2 gap-6 mt-8 perspective-1000">
+            <Reveal3D variant="left" delay={1000}>
+              <TiltCard className="p-6 bg-slate-900 border border-slate-800 rounded-xl text-center h-full">
+                <div className="text-4xl font-bold gradient-text mb-2">3+</div>
+                <div className="text-slate-300">Years of Professional Experience</div>
+              </TiltCard>
+            </Reveal3D>
+            <Reveal3D variant="right" delay={1100}>
+              <TiltCard className="p-6 bg-slate-900 border border-slate-800 rounded-xl text-center h-full">
+                <div className="text-4xl font-bold gradient-text mb-2">8+</div>
+                <div className="text-slate-300">Projects Completed</div>
+              </TiltCard>
+            </Reveal3D>
           </div>
         </div>
       </div>
@@ -423,31 +632,64 @@ function AboutPage() {
   );
 }
 
-function SkillsPage({ skills }: { skills: any[] }) {
-  return (
-    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold mb-4 text-white">Technical Skills</h2>
-        <p className="text-slate-400 mb-12">Core competencies across DevOps, Data Science, and MLOps</p>
+/* ── Skills Page with 3D flip cards ───────────────────────────────────────── */
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+function SkillsPage({ skills }: { skills: any[] }) {
+  const [flipped, setFlipped] = useState<number | null>(null);
+
+  return (
+    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <ParallaxOrbs />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <Reveal3D>
+          <h2 className="text-5xl font-bold mb-4 text-white">Technical Skills</h2>
+        </Reveal3D>
+        <Reveal3D delay={100}>
+          <p className="text-slate-400 mb-12">
+            Core competencies across DevOps, Data Science, and MLOps — hover or tap to flip
+          </p>
+        </Reveal3D>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 perspective-1000">
           {skills.map((category, index) => (
-            <div key={index} className="p-6 bg-slate-900 border border-slate-800 rounded-lg hover:border-orange-500/50 transition-colors">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-orange-500/20 rounded-lg text-orange-500">
-                  {category.icon}
+            <Reveal3D key={index} delay={index * 150}>
+              <div
+                className={`flip-card h-64 cursor-pointer ${flipped === index ? 'flipped' : ''}`}
+                onClick={() => setFlipped(flipped === index ? null : index)}
+              >
+                <div className="flip-card-inner">
+                  {/* Front */}
+                  <div className="flip-card-face">
+                    <div className="h-full p-6 bg-slate-900/80 border border-slate-800 rounded-xl backdrop-blur-md flex flex-col items-center justify-center text-center gap-4 hover:border-orange-500/50 transition-colors">
+                      <div
+                        className={`p-4 rounded-2xl bg-gradient-to-br ${category.color} text-white shadow-lg`}
+                        style={{ transform: 'translateZ(20px)' }}
+                      >
+                        {category.icon}
+                      </div>
+                      <h3 className="font-bold text-white text-lg">{category.title}</h3>
+                      <span className="text-xs text-slate-500">Tap to reveal skills</span>
+                    </div>
+                  </div>
+                  {/* Back */}
+                  <div className="flip-card-face flip-card-back">
+                    <div className="h-full p-6 bg-slate-900/80 border border-orange-500/40 rounded-xl backdrop-blur-md flex flex-col justify-center">
+                      <h3 className="font-bold text-orange-400 text-sm mb-3 text-center">
+                        {category.title}
+                      </h3>
+                      <ul className="space-y-2">
+                        {category.skills.map((skill: string, si: number) => (
+                          <li key={si} className="flex items-center gap-2 text-slate-300">
+                            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                            <span className="text-sm">{skill}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-bold text-white">{category.title}</h3>
               </div>
-              <ul className="space-y-2">
-                {category.skills.map((skill: string, skillIndex: number) => (
-                  <li key={skillIndex} className="flex items-center gap-2 text-slate-300">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="text-sm">{skill}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            </Reveal3D>
           ))}
         </div>
       </div>
@@ -455,45 +697,37 @@ function SkillsPage({ skills }: { skills: any[] }) {
   );
 }
 
-function ProjectsPage({ projects }: { projects: any[] }) {
-  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
+/* ── Projects Page with 3D tilt cards ─────────────────────────────────────── */
 
+function ProjectsPage({ projects }: { projects: any[] }) {
   return (
     <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-orange-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl"></div>
-      </div>
+      <ParallaxOrbs />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mb-12">
+        <Reveal3D>
           <h2 className="text-5xl font-bold mb-4 text-white">Featured Projects</h2>
-          <p className="text-lg text-slate-400">Organized by priority. Showcasing production-grade work in DevOps, AI/ML, and Infrastructure</p>
-        </div>
+        </Reveal3D>
+        <Reveal3D delay={100}>
+          <p className="text-lg text-slate-400 mb-12">
+            Organized by priority. Showcasing production-grade work in DevOps, AI/ML, and Infrastructure
+          </p>
+        </Reveal3D>
 
-        <div className="space-y-6">
+        <div className="space-y-8 perspective-2000">
           {projects.map((project, index) => (
-            <div
-              key={index}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className={`group relative transition-all duration-300 ${hoveredIndex === index ? 'scale-105' : ''}`}
-            >
-              <div className={`bg-slate-900/40 backdrop-blur-sm border rounded-xl overflow-hidden transition-all duration-300 ${
-                hoveredIndex === index
-                  ? 'border-orange-500/60 shadow-2xl shadow-orange-500/20'
-                  : 'border-slate-800 hover:border-slate-700'
-              }`}>
+            <Reveal3D key={index} variant={index % 2 === 0 ? 'left' : 'right'} delay={index * 80}>
+              <TiltCard className="bg-slate-900/40 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden hover:border-orange-500/60 hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-300">
                 <div className="grid lg:grid-cols-3 gap-0">
                   <div className="relative h-56 lg:h-full overflow-hidden lg:col-span-1">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/50 to-transparent lg:bg-gradient-to-r lg:from-slate-900/80 lg:to-slate-900/0"></div>
-                    <div className="absolute top-6 left-6 flex items-center gap-2">
-                      <span className="px-4 py-2 bg-orange-500 text-white text-sm font-bold rounded-full">
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/50 to-transparent" />
+                    <div className="absolute top-6 left-6 flex items-center gap-2" style={{ transform: 'translateZ(40px)' }}>
+                      <span className="px-4 py-2 bg-orange-500 text-white text-sm font-bold rounded-full shadow-lg">
                         #{index + 1}
                       </span>
                       <span className="px-3 py-2 bg-slate-800/80 backdrop-blur text-slate-200 text-xs font-semibold rounded-full">
@@ -502,9 +736,9 @@ function ProjectsPage({ projects }: { projects: any[] }) {
                     </div>
                   </div>
 
-                  <div className="p-8 lg:col-span-2 flex flex-col justify-between">
+                  <div className="p-8 lg:col-span-2 flex flex-col justify-between" style={{ transform: 'translateZ(30px)' }}>
                     <div>
-                      <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">
+                      <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3">
                         {project.title}
                       </h3>
                       <p className="text-slate-300 text-base leading-relaxed mb-5">
@@ -536,16 +770,16 @@ function ProjectsPage({ projects }: { projects: any[] }) {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 group/link w-fit"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 w-fit"
                       >
                         View on GitHub
-                        <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                        <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </TiltCard>
+            </Reveal3D>
           ))}
         </div>
       </div>
@@ -553,124 +787,140 @@ function ProjectsPage({ projects }: { projects: any[] }) {
   );
 }
 
+/* ── Contact Page ──────────────────────────────────────────────────────────── */
+
 function ContactPage({ formData, handleInputChange, handleSubmit, isSubmitting, submitStatus }: any) {
   return (
-    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold mb-4 text-white">Get In Touch</h2>
-        <p className="text-slate-400 mb-12">Let's discuss how we can work together on your next project.</p>
+    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <ParallaxOrbs />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <Reveal3D>
+          <h2 className="text-5xl font-bold mb-4 text-white">Get In Touch</h2>
+        </Reveal3D>
+        <Reveal3D delay={100}>
+          <p className="text-slate-400 mb-12">
+            Let's discuss how we can work together on your next project.
+          </p>
+        </Reveal3D>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
+        <div className="grid lg:grid-cols-2 gap-12 perspective-1000">
+          <Reveal3D variant="left">
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
 
-            <div className="flex items-start gap-4">
-              <Mail className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />
-              <div>
-                <h4 className="font-semibold text-white">Email</h4>
-                <p className="text-slate-400">gowthamchowdam2001@gmail.com</p>
+              {[
+                [<Mail key="m" className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />, 'Email', 'gowthamchowdam2001@gmail.com'],
+                [<Phone key="p" className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />, 'Phone', '+1 (346) 599-8350'],
+                [<MapPin key="mp" className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />, 'Location', 'Houston, Texas, United States'],
+              ].map(([icon, label, value], i) => (
+                <TiltCard key={i} className="flex items-start gap-4 p-4 bg-slate-900/60 border border-slate-800 rounded-xl backdrop-blur-sm">
+                  {icon}
+                  <div>
+                    <h4 className="font-semibold text-white">{label}</h4>
+                    <p className="text-slate-400">{value}</p>
+                  </div>
+                </TiltCard>
+              ))}
+
+              <div className="mt-8 pt-8 border-t border-slate-800">
+                <h4 className="font-semibold text-white mb-4">Follow Me</h4>
+                <div className="flex gap-4">
+                  <a
+                    href="https://github.com/orgs/gowtham-org/repositories"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-slate-900 hover:bg-orange-500/20 rounded-lg transition-colors"
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-slate-900 hover:bg-orange-500/20 rounded-lg transition-colors"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                </div>
               </div>
             </div>
+          </Reveal3D>
 
-            <div className="flex items-start gap-4">
-              <Phone className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />
-              <div>
-                <h4 className="font-semibold text-white">Phone</h4>
-                <p className="text-slate-400">+1 (346) 599-8350</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <MapPin className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />
-              <div>
-                <h4 className="font-semibold text-white">Location</h4>
-                <p className="text-slate-400">Houston, Texas, United States</p>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-8 border-t border-slate-800">
-              <h4 className="font-semibold text-white mb-4">Follow Me</h4>
-              <div className="flex gap-4">
-                <a href="https://github.com/orgs/gowtham-org/repositories" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900 hover:bg-orange-500/20 rounded-lg transition-colors">
-                  <Github className="w-5 h-5" />
-                </a>
-                <a href="https://www.linkedin.com/in/gowtham-chowdam-35ba96185/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900 hover:bg-orange-500/20 rounded-lg transition-colors">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-6 bg-slate-900 p-8 rounded-lg border border-slate-800">
-            <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                placeholder="Your Name"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                placeholder="your.email@example.com"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Message</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                rows={5}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
-                placeholder="Tell me about your project..."
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+          <Reveal3D variant="right" delay={150}>
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6 bg-slate-900/80 p-8 rounded-2xl border border-slate-800 backdrop-blur-md"
             >
-              {isSubmitting ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <span>Send Message</span>
-                  <Mail className="w-5 h-5" />
-                </>
+              <div>
+                <label className="block text-sm font-semibold text-slate-300 mb-2">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  placeholder="Your Name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-300 mb-2">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-300 mb-2">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
+                  placeholder="Tell me about your project..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <span>Send Message</span>
+                    <Mail className="w-5 h-5" />
+                  </>
+                )}
+              </button>
+
+              {submitStatus === 'success' && (
+                <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center">
+                  Message sent successfully! I'll get back to you soon.
+                </div>
               )}
-            </button>
 
-            {submitStatus === 'success' && (
-              <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center">
-                Message sent successfully! I'll get back to you soon.
-              </div>
-            )}
-
-            {submitStatus === 'error' && (
-              <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center">
-                Failed to send message. Please try again.
-              </div>
-            )}
-          </form>
+              {submitStatus === 'error' && (
+                <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center">
+                  Failed to send message. Please try again.
+                </div>
+              )}
+            </form>
+          </Reveal3D>
         </div>
       </div>
     </section>
