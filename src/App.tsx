@@ -17,14 +17,150 @@ import {
   Server,
   ExternalLink,
   Sparkles,
-  Zap,
 } from 'lucide-react';
 import { useTilt } from './hooks/useTilt';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
+const NAV_ITEMS = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const PROJECTS = [
+  {
+    title: 'TriageIQ - AI-Powered IT Ticket Triage System',
+    description:
+      'Intelligent IT ticket classification and prioritization system using multi-model AI pipeline. Classifies tickets into Bug/Feature/Task/Incident categories, predicts priority levels (P1-P5), and generates AI-powered summaries and root cause analysis using LLaMA 3.3-70B. Creates Jira tickets automatically with all insights.',
+    category: 'AI/ML, DevOps',
+    impact: '98% classification accuracy with semantic search and SLA breach prediction',
+    technologies: ['Python', 'FastAPI', 'Streamlit', 'BERT', 'XGBoost', 'ChromaDB', 'Groq LLaMA', 'Jira API', 'Docker', 'Kubernetes'],
+    image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg',
+    github: 'https://github.com/gowtham-org/TriageIQ-Ticketing-System',
+    priority: 1,
+  },
+  {
+    title: 'GitOps with ArgoCD on k3d',
+    description:
+      'Hands-on GitOps implementation demonstrating ArgoCD on local Kubernetes clusters using k3d. Showcases multi-cluster deployments, sync waves, lifecycle hooks, and production-ready GitOps patterns with GitHub as the single source of truth for infrastructure and applications.',
+    category: 'DevOps, GitOps',
+    impact: 'Multi-cluster setup with ordered deployment workflows and automatic synchronization',
+    technologies: ['ArgoCD', 'Kubernetes', 'k3d', 'Docker', 'Helm', 'YAML', 'GitHub', 'WSL2'],
+    image: 'https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg',
+    github: 'https://github.com/gowtham-org/argocd-public-repo',
+    priority: 2,
+  },
+  {
+    title: 'RBAC-Secured Internal AI Assistant',
+    description:
+      'Secure, production-ready internal AI chatbot implementing Role-Based Access Control (RBAC) for enterprise environments. Uses Retrieval-Augmented Generation (RAG) with Google Gemini to provide department-specific information access.',
+    category: 'AI/ML, Security',
+    impact: 'Secure role-based document access across 6 different role types',
+    technologies: ['Python', 'FastAPI', 'Streamlit', 'Google Gemini', 'ChromaDB', 'Kubernetes', 'Docker'],
+    image: 'https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg',
+    github: 'https://github.com/gowtham-org/RBAC-Secured-Internal-AI-Assistant',
+    priority: 3,
+  },
+  {
+    title: 'Kubernetes Pod Status Alertmanager',
+    description:
+      'Kubernetes monitoring solution that tracks pod health and sends real-time alerts for CrashLoopBackOff errors and other pod failures. Provides proactive monitoring with dashboard visualization.',
+    category: 'DevOps, Monitoring',
+    impact: 'Reduces mean time to detection (MTTD) for container failures',
+    technologies: ['Kubernetes', 'Minikube', 'Python', 'Helm', 'SOPS'],
+    image: 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg',
+    github: 'https://github.com/gowtham-org/Kubernetes-Pod-Status-Alertmanager',
+    priority: 4,
+  },
+  {
+    title: 'IntelliMatch AI-ATS Resume Matcher',
+    description:
+      'Application Tracking System (ATS) companion tool that helps job seekers optimize their resumes using Google Gemini Pro LLM. Analyzes resumes against job descriptions with AI-powered analysis.',
+    category: 'AI/ML, Career Tools',
+    impact: 'Helps job seekers improve chances of passing ATS filters',
+    technologies: ['Python', 'Streamlit', 'Google Gemini Pro', 'PyPDF2', 'SQLite'],
+    image: 'https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg',
+    github: 'https://github.com/gowtham-org/ATSPro-Gemini-Resume-Matcher',
+    priority: 5,
+  },
+  {
+    title: 'AI-Powered Construction Cost Estimation',
+    description:
+      'Machine learning model for accurate construction project cost prediction. Integrated historical data analysis with real-time market trends to provide precise cost estimates.',
+    category: 'AI/ML',
+    impact: 'Reduced cost estimation errors by 80%',
+    technologies: ['Python', 'TensorFlow', 'Pandas', 'FastAPI', 'PostgreSQL'],
+    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg',
+    github: 'https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning',
+    priority: 6,
+  },
+  {
+    title: 'Cell Viability Prediction',
+    description:
+      'Bioinformatics machine learning project that predicts cell viability based on gene expression data from the DepMap portal. Implements multiple regression models with comprehensive preprocessing.',
+    category: 'AI/ML, Bioinformatics',
+    impact: 'Predicts cell viability for pharmaceutical research',
+    technologies: ['Python', 'Pandas', 'Scikit-learn', 'XGBoost', 'GridSearchCV'],
+    image: 'https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg',
+    github: 'https://github.com/gowtham-org/Cell-Viability-Prediction',
+    priority: 7,
+  },
+  {
+    title: 'Movie-Recommender-using-ML',
+    description:
+      'Intelligent movie recommendation system that suggests personalized movie titles based on user preferences and past interactions. Emulates and enhances the recommendation capabilities of Netflix and Amazon Prime.',
+    category: 'Machine Learning',
+    impact: 'Personalized recommendations with collaborative filtering',
+    technologies: ['Python', 'Pandas', 'Scikit-learn', 'NumPy'],
+    image: 'https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp',
+    github: 'https://github.com/gowtham-org/Movie-Recommender-using-ML',
+    priority: 8,
+  },
+  {
+    title: 'Todo Manager - Tkinter Desktop App',
+    description:
+      'Feature-rich desktop todo application built with Python and Tkinter backed by SQLite. Provides intuitive task management with prioritization, color-coded status tracking, live search filtering, CSV export, and visual dashboard analytics. Includes dark mode and professional UI/UX.',
+    category: 'Desktop App, Python',
+    impact: 'Complete task management solution with data persistence and analytics',
+    technologies: ['Python 3.12', 'Tkinter', 'SQLite', 'Matplotlib', 'CSV Export'],
+    image: 'https://images.pexels.com/photos/3998356/pexels-photo-3998356.jpeg',
+    github: 'https://github.com/gowtham-org/tkinter-todo-app',
+    priority: 9,
+  },
+];
+
+const SKILLS = [
+  {
+    title: 'DevOps & Infrastructure',
+    icon: <Cloud className="w-6 h-6" />,
+    skills: ['Kubernetes', 'Docker', 'Helm', 'Minikube', 'AWS', 'GitHub Actions', 'SOPS', 'Terraform'],
+    color: 'from-orange-500 to-red-500',
+  },
+  {
+    title: 'Data Science & ML',
+    icon: <Brain className="w-6 h-6" />,
+    skills: ['Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas', 'XGBoost', 'Google Gemini'],
+    color: 'from-cyan-500 to-blue-500',
+  },
+  {
+    title: 'Backend & Databases',
+    icon: <Server className="w-6 h-6" />,
+    skills: ['FastAPI', 'PostgreSQL', 'SQLite', 'ChromaDB', 'Redis', 'Microservices'],
+    color: 'from-emerald-500 to-teal-500',
+  },
+  {
+    title: 'Monitoring & Visualization',
+    icon: <Monitor className="w-6 h-6" />,
+    skills: ['Prometheus', 'Grafana', 'Streamlit', 'Power BI', 'Tableau'],
+    color: 'from-amber-500 to-orange-500',
+  },
+];
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState('home');
+  const [activeSection, setActiveSection] = useState('home');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
@@ -32,6 +168,27 @@ function App() {
   useEffect(() => {
     emailjs.init('YOUR_PUBLIC_KEY');
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+    NAV_ITEMS.forEach((item) => {
+      const el = document.getElementById(item.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    setIsMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,167 +213,7 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const navigateTo = (page: string) => {
-    setCurrentPage(page);
-    setIsMenuOpen(false);
-    window.scrollTo(0, 0);
-  };
-
-  const projects = [
-    {
-      title: 'TriageIQ - AI-Powered IT Ticket Triage System',
-      description:
-        'Intelligent IT ticket classification and prioritization system using multi-model AI pipeline. Classifies tickets into Bug/Feature/Task/Incident categories, predicts priority levels (P1-P5), and generates AI-powered summaries and root cause analysis using LLaMA 3.3-70B. Creates Jira tickets automatically with all insights.',
-      category: 'AI/ML, DevOps',
-      impact: '98% classification accuracy with semantic search and SLA breach prediction',
-      technologies: ['Python', 'FastAPI', 'Streamlit', 'BERT', 'XGBoost', 'ChromaDB', 'Groq LLaMA', 'Jira API', 'Docker', 'Kubernetes'],
-      image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg',
-      github: 'https://github.com/gowtham-org/TriageIQ-Ticketing-System',
-      priority: 1,
-    },
-    {
-      title: 'GitOps with ArgoCD on k3d',
-      description:
-        'Hands-on GitOps implementation demonstrating ArgoCD on local Kubernetes clusters using k3d. Showcases multi-cluster deployments, sync waves, lifecycle hooks, and production-ready GitOps patterns with GitHub as the single source of truth for infrastructure and applications.',
-      category: 'DevOps, GitOps',
-      impact: 'Multi-cluster setup with ordered deployment workflows and automatic synchronization',
-      technologies: ['ArgoCD', 'Kubernetes', 'k3d', 'Docker', 'Helm', 'YAML', 'GitHub', 'WSL2'],
-      image: 'https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg',
-      github: 'https://github.com/gowtham-org/argocd-public-repo',
-      priority: 2,
-    },
-    {
-      title: 'RBAC-Secured Internal AI Assistant',
-      description:
-        'Secure, production-ready internal AI chatbot implementing Role-Based Access Control (RBAC) for enterprise environments. Uses Retrieval-Augmented Generation (RAG) with Google Gemini to provide department-specific information access.',
-      category: 'AI/ML, Security',
-      impact: 'Secure role-based document access across 6 different role types',
-      technologies: ['Python', 'FastAPI', 'Streamlit', 'Google Gemini', 'ChromaDB', 'Kubernetes', 'Docker'],
-      image: 'https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg',
-      github: 'https://github.com/gowtham-org/RBAC-Secured-Internal-AI-Assistant',
-      priority: 3,
-    },
-    {
-      title: 'Kubernetes Pod Status Alertmanager',
-      description:
-        'Kubernetes monitoring solution that tracks pod health and sends real-time alerts for CrashLoopBackOff errors and other pod failures. Provides proactive monitoring with dashboard visualization.',
-      category: 'DevOps, Monitoring',
-      impact: 'Reduces mean time to detection (MTTD) for container failures',
-      technologies: ['Kubernetes', 'Minikube', 'Python', 'Helm', 'SOPS'],
-      image: 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg',
-      github: 'https://github.com/gowtham-org/Kubernetes-Pod-Status-Alertmanager',
-      priority: 4,
-    },
-    {
-      title: 'IntelliMatch AI-ATS Resume Matcher',
-      description:
-        'Application Tracking System (ATS) companion tool that helps job seekers optimize their resumes using Google Gemini Pro LLM. Analyzes resumes against job descriptions with AI-powered analysis.',
-      category: 'AI/ML, Career Tools',
-      impact: 'Helps job seekers improve chances of passing ATS filters',
-      technologies: ['Python', 'Streamlit', 'Google Gemini Pro', 'PyPDF2', 'SQLite'],
-      image: 'https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg',
-      github: 'https://github.com/gowtham-org/ATSPro-Gemini-Resume-Matcher',
-      priority: 5,
-    },
-    {
-      title: 'AI-Powered Construction Cost Estimation',
-      description:
-        'Machine learning model for accurate construction project cost prediction. Integrated historical data analysis with real-time market trends to provide precise cost estimates.',
-      category: 'AI/ML',
-      impact: 'Reduced cost estimation errors by 80%',
-      technologies: ['Python', 'TensorFlow', 'Pandas', 'FastAPI', 'PostgreSQL'],
-      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg',
-      github: 'https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning',
-      priority: 6,
-    },
-    {
-      title: 'Cell Viability Prediction',
-      description:
-        'Bioinformatics machine learning project that predicts cell viability based on gene expression data from the DepMap portal. Implements multiple regression models with comprehensive preprocessing.',
-      category: 'AI/ML, Bioinformatics',
-      impact: 'Predicts cell viability for pharmaceutical research',
-      technologies: ['Python', 'Pandas', 'Scikit-learn', 'XGBoost', 'GridSearchCV'],
-      image: 'https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg',
-      github: 'https://github.com/gowtham-org/Cell-Viability-Prediction',
-      priority: 7,
-    },
-    {
-      title: 'Movie-Recommender-using-ML',
-      description:
-        'Intelligent movie recommendation system that suggests personalized movie titles based on user preferences and past interactions. Emulates and enhances the recommendation capabilities of Netflix and Amazon Prime.',
-      category: 'Machine Learning',
-      impact: 'Personalized recommendations with collaborative filtering',
-      technologies: ['Python', 'Pandas', 'Scikit-learn', 'NumPy'],
-      image: 'https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp',
-      github: 'https://github.com/gowtham-org/Movie-Recommender-using-ML',
-      priority: 8,
-    },
-    {
-      title: 'Todo Manager - Tkinter Desktop App',
-      description:
-        'Feature-rich desktop todo application built with Python and Tkinter backed by SQLite. Provides intuitive task management with prioritization, color-coded status tracking, live search filtering, CSV export, and visual dashboard analytics. Includes dark mode and professional UI/UX.',
-      category: 'Desktop App, Python',
-      impact: 'Complete task management solution with data persistence and analytics',
-      technologies: ['Python 3.12', 'Tkinter', 'SQLite', 'Matplotlib', 'CSV Export'],
-      image: 'https://images.pexels.com/photos/3998356/pexels-photo-3998356.jpeg',
-      github: 'https://github.com/gowtham-org/tkinter-todo-app',
-      priority: 9,
-    },
-  ];
-
-  const sortedProjects = [...projects].sort((a, b) => a.priority - b.priority);
-
-  const skills = [
-    {
-      title: 'DevOps & Infrastructure',
-      icon: <Cloud className="w-6 h-6" />,
-      skills: ['Kubernetes', 'Docker', 'Helm', 'Minikube', 'AWS', 'GitHub Actions', 'SOPS', 'Terraform'],
-      color: 'from-orange-500 to-red-500',
-    },
-    {
-      title: 'Data Science & ML',
-      icon: <Brain className="w-6 h-6" />,
-      skills: ['Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas', 'XGBoost', 'Google Gemini'],
-      color: 'from-cyan-500 to-blue-500',
-    },
-    {
-      title: 'Backend & Databases',
-      icon: <Server className="w-6 h-6" />,
-      skills: ['FastAPI', 'PostgreSQL', 'SQLite', 'ChromaDB', 'Redis', 'Microservices'],
-      color: 'from-emerald-500 to-teal-500',
-    },
-    {
-      title: 'Monitoring & Visualization',
-      icon: <Monitor className="w-6 h-6" />,
-      skills: ['Prometheus', 'Grafana', 'Streamlit', 'Power BI', 'Tableau'],
-      color: 'from-amber-500 to-orange-500',
-    },
-  ];
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage onNavigate={navigateTo} />;
-      case 'about':
-        return <AboutPage />;
-      case 'skills':
-        return <SkillsPage skills={skills} />;
-      case 'projects':
-        return <ProjectsPage projects={sortedProjects} />;
-      case 'contact':
-        return (
-          <ContactPage
-            formData={formData}
-            handleInputChange={handleInputChange}
-            handleSubmit={handleSubmit}
-            isSubmitting={isSubmitting}
-            submitStatus={submitStatus}
-          />
-        );
-      default:
-        return <HomePage onNavigate={navigateTo} />;
-    }
-  };
+  const sortedProjects = [...PROJECTS].sort((a, b) => a.priority - b.priority);
 
   return (
     <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
@@ -224,7 +221,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <button
-              onClick={() => navigateTo('home')}
+              onClick={() => scrollToSection('home')}
               className="flex items-center gap-3 hover:opacity-80 transition-opacity group"
             >
               <div className="relative">
@@ -239,17 +236,17 @@ function App() {
             </button>
 
             <div className="hidden md:flex space-x-8">
-              {['home', 'about', 'skills', 'projects', 'contact'].map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <button
-                  key={item}
-                  onClick={() => navigateTo(item)}
-                  className={`capitalize font-medium transition-all duration-300 ${
-                    currentPage === item
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`font-medium transition-all duration-300 ${
+                    activeSection === item.id
                       ? 'text-orange-500 border-b-2 border-orange-500 pb-1'
                       : 'text-slate-300 hover:text-orange-400'
                   }`}
                 >
-                  {item}
+                  {item.label}
                 </button>
               ))}
             </div>
@@ -261,13 +258,13 @@ function App() {
 
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-slate-800 space-y-2">
-              {['home', 'about', 'skills', 'projects', 'contact'].map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <button
-                  key={item}
-                  onClick={() => navigateTo(item)}
-                  className="block w-full text-left py-2 capitalize text-slate-300 hover:text-orange-400 transition-colors"
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="block w-full text-left py-2 text-slate-300 hover:text-orange-400 transition-colors"
                 >
-                  {item}
+                  {item.label}
                 </button>
               ))}
             </div>
@@ -275,7 +272,19 @@ function App() {
         </div>
       </nav>
 
-      <main className="pt-20">{renderPage()}</main>
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection projects={sortedProjects} />
+        <ContactSection
+          formData={formData}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+          submitStatus={submitStatus}
+        />
+      </main>
 
       <footer className="border-t border-slate-800 bg-slate-950 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -405,9 +414,9 @@ function Reveal3D({
   );
 }
 
-/* ── Home Page ────────────────────────────────────────────────────────────── */
+/* ── Hero Section ─────────────────────────────────────────────────────────── */
 
-function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
+function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
@@ -421,14 +430,21 @@ function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);
 
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden pt-20"
+    >
       <ParallaxOrbs />
       <div className="absolute inset-0 bg-grid opacity-40" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center">
-          {/* 3D profile image with parallax */}
+          {/* 3D profile image with parallax — badges removed */}
           <div
             ref={heroRef}
             className="flex justify-center order-first perspective-2000"
@@ -446,19 +462,6 @@ function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
                 className="w-72 h-72 lg:w-80 lg:h-80 rounded-full object-cover mx-auto border-4 border-orange-500 shadow-2xl relative z-10"
                 style={{ transform: 'translateZ(40px)' }}
               />
-              {/* Floating badges */}
-              <div
-                className="absolute -top-2 -right-2 px-3 py-1.5 bg-slate-900/90 border border-orange-500/50 rounded-lg text-orange-400 text-xs font-bold flex items-center gap-1.5 backdrop-blur-md"
-                style={{ transform: 'translateZ(80px) rotate(-8deg)' }}
-              >
-                <Zap className="w-3 h-3" /> DevOps
-              </div>
-              <div
-                className="absolute -bottom-2 -left-4 px-3 py-1.5 bg-slate-900/90 border border-cyan-500/50 rounded-lg text-cyan-400 text-xs font-bold flex items-center gap-1.5 backdrop-blur-md"
-                style={{ transform: 'translateZ(80px) rotate(8deg)' }}
-              >
-                <Brain className="w-3 h-3" /> MLOps
-              </div>
             </div>
           </div>
 
@@ -501,13 +504,13 @@ function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
               <button
-                onClick={() => onNavigate('projects')}
+                onClick={() => scrollToSection('projects')}
                 className="magnetic-btn px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"
               >
                 View Projects <ArrowUpRight className="w-4 h-4" />
               </button>
               <button
-                onClick={() => onNavigate('contact')}
+                onClick={() => scrollToSection('contact')}
                 className="magnetic-btn px-8 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold rounded-lg flex items-center justify-center gap-2"
               >
                 Get In Touch <Mail className="w-4 h-4" />
@@ -545,11 +548,14 @@ function HomePage({ onNavigate }: { onNavigate: (page: string) => void }) {
   );
 }
 
-/* ── About Page ───────────────────────────────────────────────────────────── */
+/* ── About Section ────────────────────────────────────────────────────────── */
 
-function AboutPage() {
+function AboutSection() {
   return (
-    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <section
+      id="about"
+      className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden"
+    >
       <ParallaxOrbs />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <Reveal3D>
@@ -632,13 +638,16 @@ function AboutPage() {
   );
 }
 
-/* ── Skills Page with 3D flip cards ───────────────────────────────────────── */
+/* ── Skills Section with 3D flip cards ─────────────────────────────────────── */
 
-function SkillsPage({ skills }: { skills: any[] }) {
+function SkillsSection() {
   const [flipped, setFlipped] = useState<number | null>(null);
 
   return (
-    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <section
+      id="skills"
+      className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden"
+    >
       <ParallaxOrbs />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <Reveal3D>
@@ -651,7 +660,7 @@ function SkillsPage({ skills }: { skills: any[] }) {
         </Reveal3D>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 perspective-1000">
-          {skills.map((category, index) => (
+          {SKILLS.map((category, index) => (
             <Reveal3D key={index} delay={index * 150}>
               <div
                 className={`flip-card h-64 cursor-pointer ${flipped === index ? 'flipped' : ''}`}
@@ -697,11 +706,14 @@ function SkillsPage({ skills }: { skills: any[] }) {
   );
 }
 
-/* ── Projects Page with 3D tilt cards ─────────────────────────────────────── */
+/* ── Projects Section with 3D tilt cards ──────────────────────────────────── */
 
-function ProjectsPage({ projects }: { projects: any[] }) {
+function ProjectsSection({ projects }: { projects: typeof PROJECTS }) {
   return (
-    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <section
+      id="projects"
+      className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden"
+    >
       <ParallaxOrbs />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -787,11 +799,14 @@ function ProjectsPage({ projects }: { projects: any[] }) {
   );
 }
 
-/* ── Contact Page ──────────────────────────────────────────────────────────── */
+/* ── Contact Section ───────────────────────────────────────────────────────── */
 
-function ContactPage({ formData, handleInputChange, handleSubmit, isSubmitting, submitStatus }: any) {
+function ContactSection({ formData, handleInputChange, handleSubmit, isSubmitting, submitStatus }: any) {
   return (
-    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <section
+      id="contact"
+      className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden"
+    >
       <ParallaxOrbs />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <Reveal3D>
@@ -816,8 +831,8 @@ function ContactPage({ formData, handleInputChange, handleSubmit, isSubmitting, 
                 <TiltCard key={i} className="flex items-start gap-4 p-4 bg-slate-900/60 border border-slate-800 rounded-xl backdrop-blur-sm">
                   {icon}
                   <div>
-                    <h4 className="font-semibold text-white">{label}</h4>
-                    <p className="text-slate-400">{value}</p>
+                    <h4 className="font-semibold text-white">{label as string}</h4>
+                    <p className="text-slate-400">{value as string}</p>
                   </div>
                 </TiltCard>
               ))}
