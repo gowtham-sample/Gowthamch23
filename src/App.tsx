@@ -17,6 +17,9 @@ import {
   Server,
   ExternalLink,
   Sparkles,
+  Briefcase,
+  Calendar,
+  Building2,
 } from 'lucide-react';
 import { useTilt } from './hooks/useTilt';
 import { useScrollReveal } from './hooks/useScrollReveal';
@@ -24,6 +27,7 @@ import { useScrollReveal } from './hooks/useScrollReveal';
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
@@ -275,6 +279,7 @@ function App() {
       <main>
         <HeroSection />
         <AboutSection />
+        <ExperienceSection />
         <SkillsSection />
         <ProjectsSection projects={sortedProjects} />
         <ContactSection
@@ -472,14 +477,12 @@ function HeroSection() {
           >
             <div className="mb-6 inline-block lg:block">
               <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full inline-flex items-center gap-2">
-                <Sparkles className="w-4 h-4" /> 3+ Years of Professional Experience
+                <Sparkles className="w-4 h-4" /> 4+ Years of Professional Experience
               </span>
             </div>
 
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-white leading-tight">
-              DevOps Engineer <span className="text-orange-500 text-3d">&</span>
-              <br className="hidden lg:block" />
-              <span className="gradient-text"> MLOps Specialist</span>
+              <span className="gradient-text">DevOps Engineer</span>
             </h1>
 
             <p className="text-lg text-slate-300 mb-6 max-w-2xl lg:max-w-none leading-relaxed">
@@ -565,8 +568,7 @@ function AboutSection() {
         <div className="space-y-6 text-slate-300 leading-relaxed">
           <Reveal3D delay={100}>
             <p className="text-lg">
-              I'm a <span className="text-orange-500 font-semibold">DevOps Engineer</span> and{' '}
-              <span className="text-orange-500 font-semibold">MLOps Specialist</span> with a strong focus
+              I'm a <span className="text-orange-500 font-semibold">DevOps Engineer</span> with a strong focus
               on building scalable infrastructure for machine learning systems. My career is centered on
               bridging the gap between data science and infrastructure engineering.
             </p>
@@ -621,7 +623,7 @@ function AboutSection() {
           <div className="grid grid-cols-2 gap-6 mt-8 perspective-1000">
             <Reveal3D variant="left" delay={1000}>
               <TiltCard className="p-6 bg-slate-900 border border-slate-800 rounded-xl text-center h-full">
-                <div className="text-4xl font-bold gradient-text mb-2">3+</div>
+                <div className="text-4xl font-bold gradient-text mb-2">4+</div>
                 <div className="text-slate-300">Years of Professional Experience</div>
               </TiltCard>
             </Reveal3D>
@@ -632,6 +634,124 @@ function AboutSection() {
               </TiltCard>
             </Reveal3D>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Experience Section ────────────────────────────────────────────────────── */
+
+const EXPERIENCES = [
+  {
+    company: 'University of Houston College of Natural Sciences and Mathematics',
+    employmentType: 'Part-time · 1 yr 2 mos',
+    location: 'Houston, Texas, United States · On-site',
+    roles: [
+      {
+        title: 'Instructional Assistant',
+        duration: 'Aug 2025 - May 2026 · 10 mos',
+        skills: ['Smartsheet', 'Terraform', '+8 skills'],
+      },
+      {
+        title: 'System Administrator',
+        duration: 'Apr 2025 - Jul 2025 · 4 mos',
+        skills: ['Bash', 'GitHub', '+5 skills'],
+      },
+    ],
+  },
+  {
+    company: 'eGov Foundation',
+    employmentType: 'Full-time',
+    location: 'Banglore · On-site',
+    roles: [
+      {
+        title: 'DevOps Engineer',
+        duration: 'Aug 2022 - Jul 2024 · 2 yrs',
+        skills: ['Recruiting', 'Technical Recruiting', '+33 skills'],
+      },
+    ],
+  },
+  {
+    company: 'Wells Fargo',
+    employmentType: 'Full-time',
+    location: 'Bengaluru, Karnataka, India · Remote',
+    roles: [
+      {
+        title: 'Site Reliability Engineer',
+        duration: 'Aug 2020 - Jul 2022 · 2 yrs',
+        skills: ['Amazon Web Services (AWS)', 'Cloud Computing', '+7 skills'],
+      },
+    ],
+  },
+];
+
+function ExperienceSection() {
+  return (
+    <section
+      id="experience"
+      className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden"
+    >
+      <ParallaxOrbs />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <Reveal3D>
+          <h2 className="text-5xl font-bold mb-4 text-white">Experience</h2>
+        </Reveal3D>
+        <Reveal3D delay={100}>
+          <p className="text-slate-400 mb-12">My professional journey across DevOps, infrastructure, and academic roles.</p>
+        </Reveal3D>
+
+        <div className="relative perspective-2000">
+          {/* Timeline line */}
+          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-orange-500/60 via-slate-700 to-transparent" />
+
+          {EXPERIENCES.map((exp, ei) => (
+            <Reveal3D key={ei} variant="right" delay={ei * 150} className="mb-10">
+              <TiltCard className="relative pl-16 pr-6 py-6 bg-slate-900/60 border border-slate-800 rounded-2xl backdrop-blur-sm hover:border-orange-500/50 transition-colors">
+                {/* Timeline dot */}
+                <div className="absolute left-[18px] top-7 w-4 h-4 rounded-full bg-orange-500 border-4 border-slate-950 shadow-lg shadow-orange-500/50" />
+
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 text-white shadow-lg flex-shrink-0">
+                    <Building2 className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white leading-tight">{exp.company}</h3>
+                    <p className="text-sm text-orange-400 font-medium">{exp.employmentType}</p>
+                    <p className="text-xs text-slate-500 flex items-center gap-1 mt-1">
+                      <MapPin className="w-3 h-3" /> {exp.location}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {exp.roles.map((role, ri) => (
+                    <div key={ri} className="pl-1 border-l-2 border-slate-700 ml-1">
+                      <div className="pl-4">
+                        <div className="flex flex-wrap items-center gap-2 mb-1">
+                          <Briefcase className="w-4 h-4 text-cyan-400" />
+                          <h4 className="font-semibold text-white">{role.title}</h4>
+                        </div>
+                        <p className="text-xs text-slate-400 flex items-center gap-1 mb-2">
+                          <Calendar className="w-3 h-3" /> {role.duration}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {role.skills.map((skill, si) => (
+                            <span
+                              key={si}
+                              className="px-2.5 py-1 bg-slate-800/60 text-slate-300 text-xs font-medium rounded-md"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </TiltCard>
+            </Reveal3D>
+          ))}
         </div>
       </div>
     </section>
