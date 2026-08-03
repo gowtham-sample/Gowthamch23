@@ -129,7 +129,7 @@ const PROJECTS = [
     category: 'Desktop App, Python',
     impact: 'Complete task management solution with data persistence and analytics',
     technologies: ['Python 3.12', 'Tkinter', 'SQLite', 'Matplotlib', 'CSV Export'],
-    image: 'https://images.pexels.com/photos/3998356/pexels-photo-3998356.jpeg',
+    image: 'https://images.pexels.com/photos/33433704/pexels-photo-33433704.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     github: 'https://github.com/gowtham-org/tkinter-todo-app',
     priority: 9,
   },
