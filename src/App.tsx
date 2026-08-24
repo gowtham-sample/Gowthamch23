@@ -673,7 +673,7 @@ const EXPERIENCES = [
     ],
   },
   {
-    company: 'Wells Fargo',
+    company: 'Publicis Sapient',
     employmentType: 'Full-time',
     location: 'Bengaluru, Karnataka, India · Remote',
     roles: [
