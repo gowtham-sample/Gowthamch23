@@ -649,7 +649,7 @@ const EXPERIENCES = [
     location: 'Houston, Texas, United States · On-site',
     roles: [
       {
-        title: 'Instructional Assistant',
+        title: 'Cloud Engineer',
         duration: 'Aug 2025 - May 2026 · 10 mos',
         skills: ['Smartsheet', 'Terraform', '+8 skills'],
       },
