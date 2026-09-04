@@ -674,7 +674,7 @@ const EXPERIENCES = [
   },
   {
     company: 'Publicis Sapient',
-    employmentType: 'Full-time',
+    employmentType: 'Contract',
     location: 'Bengaluru, Karnataka, India · Remote',
     roles: [
       {
