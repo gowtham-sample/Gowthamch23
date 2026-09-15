@@ -673,13 +673,13 @@ const EXPERIENCES = [
     ],
   },
   {
-    company: 'Publicis Sapient',
+    company: 'Duplocloud',
     employmentType: 'Contract',
-    location: 'Bengaluru, Karnataka, India · Remote',
+    location: 'San Jose, California · Remote',
     roles: [
       {
-        title: 'Site Reliability Engineer',
-        duration: 'Aug 2020 - Jul 2022 · 2 yrs',
+        title: 'Cloud Engineer',
+        duration: 'May 2022 - May 2026 · 1 yr',
         skills: ['Amazon Web Services (AWS)', 'Cloud Computing', '+7 skills'],
       },
     ],
