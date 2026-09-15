@@ -679,7 +679,7 @@ const EXPERIENCES = [
     roles: [
       {
         title: 'Cloud Engineer',
-        duration: 'May 2022 - May 2026 · 1 yr',
+        duration: 'May 2025 - May 2026 · 1 yr',
         skills: ['Amazon Web Services (AWS)', 'Cloud Computing', '+7 skills'],
       },
     ],
