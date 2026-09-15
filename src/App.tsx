@@ -477,7 +477,7 @@ function HeroSection() {
           >
             <div className="mb-6 inline-block lg:block">
               <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full inline-flex items-center gap-2">
-                <Sparkles className="w-4 h-4" /> 4+ Years of Professional Experience
+                <Sparkles className="w-4 h-4" /> 3+ Years of Professional Experience
               </span>
             </div>
 
@@ -623,7 +623,7 @@ function AboutSection() {
           <div className="grid grid-cols-2 gap-6 mt-8 perspective-1000">
             <Reveal3D variant="left" delay={1000}>
               <TiltCard className="p-6 bg-slate-900 border border-slate-800 rounded-xl text-center h-full">
-                <div className="text-4xl font-bold gradient-text mb-2">4+</div>
+                <div className="text-4xl font-bold gradient-text mb-2">3+</div>
                 <div className="text-slate-300">Years of Professional Experience</div>
               </TiltCard>
             </Reveal3D>
