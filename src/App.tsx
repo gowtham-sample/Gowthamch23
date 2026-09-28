@@ -673,9 +673,9 @@ const EXPERIENCES = [
     ],
   },
   {
-    company: 'Duplocloud',
+    company: 'CGI',
     employmentType: 'Contract',
-    location: 'San Jose, California · Remote',
+    location: 'San Francisco, California · Remote',
     roles: [
       {
         title: 'Cloud Engineer',
