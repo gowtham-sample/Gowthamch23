@@ -675,7 +675,7 @@ const EXPERIENCES = [
   {
     company: 'CGI',
     employmentType: 'Contract',
-    location: 'San Francisco, California · Remote',
+    location: 'Austin, Texas · Remote',
     roles: [
       {
         title: 'Cloud Engineer',
