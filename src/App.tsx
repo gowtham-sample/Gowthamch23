@@ -1,6 +1,7 @@
 import Chatbot from './components/Chatbot';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import emailjs from '@emailjs/browser';
+import { motion } from 'framer-motion';
 import {
   Menu,
   X,
@@ -24,6 +25,63 @@ import {
 import { useTilt } from './hooks/useTilt';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
+const NetworkBackground = lazy(() => import('./components/NetworkBackground'));
+
+/* ── Capability detection for 3D background ─────────────────────────────────── */
+
+function shouldRender3D(): boolean {
+  if (typeof window === 'undefined') return false;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  if (window.innerWidth < 768) return false;
+  const canvas = document.createElement('canvas');
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  return !!gl;
+}
+
+/* ── Framer Motion variants ─────────────────────────────────────────────────── */
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0 },
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0 },
+};
+
+const viewportConfig = { once: true, margin: '-80px' };
+
+function MotionReveal({
+  children,
+  variant = fadeUp,
+  delay = 0,
+  className = '',
+}: {
+  children: React.ReactNode;
+  variant?: typeof fadeUp;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      variants={variant}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportConfig}
+      transition={{ duration: 0.5, delay, ease: [0.25, 0.4, 0.25, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
@@ -37,100 +95,118 @@ const PROJECTS = [
   {
     title: 'TriageIQ - AI-Powered IT Ticket Triage System',
     description:
+      'Intelligent IT ticket classification and prioritization system using multi-model AI pipeline.',
+    fullDescription:
       'Intelligent IT ticket classification and prioritization system using multi-model AI pipeline. Classifies tickets into Bug/Feature/Task/Incident categories, predicts priority levels (P1-P5), and generates AI-powered summaries and root cause analysis using LLaMA 3.3-70B. Creates Jira tickets automatically with all insights.',
     category: 'AI/ML, DevOps',
     impact: '98% classification accuracy with semantic search and SLA breach prediction',
     technologies: ['Python', 'FastAPI', 'Streamlit', 'BERT', 'XGBoost', 'ChromaDB', 'Groq LLaMA', 'Jira API', 'Docker', 'Kubernetes'],
-    image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg',
     github: 'https://github.com/gowtham-org/TriageIQ-Ticketing-System',
+    live: '',
     priority: 1,
   },
   {
     title: 'GitOps with ArgoCD on k3d',
     description:
+      'Hands-on GitOps implementation with ArgoCD on local Kubernetes clusters using k3d.',
+    fullDescription:
       'Hands-on GitOps implementation demonstrating ArgoCD on local Kubernetes clusters using k3d. Showcases multi-cluster deployments, sync waves, lifecycle hooks, and production-ready GitOps patterns with GitHub as the single source of truth for infrastructure and applications.',
     category: 'DevOps, GitOps',
     impact: 'Multi-cluster setup with ordered deployment workflows and automatic synchronization',
     technologies: ['ArgoCD', 'Kubernetes', 'k3d', 'Docker', 'Helm', 'YAML', 'GitHub', 'WSL2'],
-    image: 'https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg',
     github: 'https://github.com/gowtham-org/argocd-public-repo',
+    live: '',
     priority: 2,
   },
   {
     title: 'RBAC-Secured Internal AI Assistant',
     description:
+      'Secure enterprise AI chatbot with Role-Based Access Control and RAG using Google Gemini.',
+    fullDescription:
       'Secure, production-ready internal AI chatbot implementing Role-Based Access Control (RBAC) for enterprise environments. Uses Retrieval-Augmented Generation (RAG) with Google Gemini to provide department-specific information access.',
     category: 'AI/ML, Security',
     impact: 'Secure role-based document access across 6 different role types',
     technologies: ['Python', 'FastAPI', 'Streamlit', 'Google Gemini', 'ChromaDB', 'Kubernetes', 'Docker'],
-    image: 'https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg',
     github: 'https://github.com/gowtham-org/RBAC-Secured-Internal-AI-Assistant',
+    live: '',
     priority: 3,
   },
   {
     title: 'Kubernetes Pod Status Alertmanager',
     description:
+      'Kubernetes monitoring that tracks pod health and sends real-time alerts for failures.',
+    fullDescription:
       'Kubernetes monitoring solution that tracks pod health and sends real-time alerts for CrashLoopBackOff errors and other pod failures. Provides proactive monitoring with dashboard visualization.',
     category: 'DevOps, Monitoring',
     impact: 'Reduces mean time to detection (MTTD) for container failures',
     technologies: ['Kubernetes', 'Minikube', 'Python', 'Helm', 'SOPS'],
-    image: 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg',
     github: 'https://github.com/gowtham-org/Kubernetes-Pod-Status-Alertmanager',
+    live: '',
     priority: 4,
   },
   {
     title: 'IntelliMatch AI-ATS Resume Matcher',
     description:
+      'ATS companion tool that helps job seekers optimize resumes using Google Gemini Pro.',
+    fullDescription:
       'Application Tracking System (ATS) companion tool that helps job seekers optimize their resumes using Google Gemini Pro LLM. Analyzes resumes against job descriptions with AI-powered analysis.',
     category: 'AI/ML, Career Tools',
     impact: 'Helps job seekers improve chances of passing ATS filters',
     technologies: ['Python', 'Streamlit', 'Google Gemini Pro', 'PyPDF2', 'SQLite'],
-    image: 'https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg',
     github: 'https://github.com/gowtham-org/ATSPro-Gemini-Resume-Matcher',
+    live: '',
     priority: 5,
   },
   {
     title: 'AI-Powered Construction Cost Estimation',
     description:
+      'ML model for accurate construction project cost prediction with real-time market trends.',
+    fullDescription:
       'Machine learning model for accurate construction project cost prediction. Integrated historical data analysis with real-time market trends to provide precise cost estimates.',
     category: 'AI/ML',
     impact: 'Reduced cost estimation errors by 80%',
     technologies: ['Python', 'TensorFlow', 'Pandas', 'FastAPI', 'PostgreSQL'],
-    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg',
     github: 'https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning',
+    live: '',
     priority: 6,
   },
   {
     title: 'Cell Viability Prediction',
     description:
+      'Bioinformatics ML project predicting cell viability from gene expression data (DepMap).',
+    fullDescription:
       'Bioinformatics machine learning project that predicts cell viability based on gene expression data from the DepMap portal. Implements multiple regression models with comprehensive preprocessing.',
     category: 'AI/ML, Bioinformatics',
     impact: 'Predicts cell viability for pharmaceutical research',
     technologies: ['Python', 'Pandas', 'Scikit-learn', 'XGBoost', 'GridSearchCV'],
-    image: 'https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg',
     github: 'https://github.com/gowtham-org/Cell-Viability-Prediction',
+    live: '',
     priority: 7,
   },
   {
     title: 'Movie-Recommender-using-ML',
     description:
+      'Personalized movie recommendation system using collaborative filtering techniques.',
+    fullDescription:
       'Intelligent movie recommendation system that suggests personalized movie titles based on user preferences and past interactions. Emulates and enhances the recommendation capabilities of Netflix and Amazon Prime.',
     category: 'Machine Learning',
     impact: 'Personalized recommendations with collaborative filtering',
     technologies: ['Python', 'Pandas', 'Scikit-learn', 'NumPy'],
-    image: 'https://i.postimg.cc/SxWvJdYS/1-Aat-Bvnp-Vp-EPo-Qv-ZAMeq-U-A.webp',
     github: 'https://github.com/gowtham-org/Movie-Recommender-using-ML',
+    live: '',
     priority: 8,
   },
   {
     title: 'Todo Manager - Tkinter Desktop App',
     description:
+      'Feature-rich desktop todo app with prioritization, search, CSV export, and analytics.',
+    fullDescription:
       'Feature-rich desktop todo application built with Python and Tkinter backed by SQLite. Provides intuitive task management with prioritization, color-coded status tracking, live search filtering, CSV export, and visual dashboard analytics. Includes dark mode and professional UI/UX.',
     category: 'Desktop App, Python',
     impact: 'Complete task management solution with data persistence and analytics',
     technologies: ['Python 3.12', 'Tkinter', 'SQLite', 'Matplotlib', 'CSV Export'],
-    image: 'https://images.pexels.com/photos/33433704/pexels-photo-33433704.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     github: 'https://github.com/gowtham-org/tkinter-todo-app',
+    live: '',
     priority: 9,
   },
 ];
@@ -162,15 +238,64 @@ const SKILLS = [
   },
 ];
 
+const EXPERIENCES = [
+  {
+    company: 'University of Houston College of Natural Sciences and Mathematics',
+    employmentType: 'Part-time · 1 yr 2 mos',
+    location: 'Houston, Texas, United States · On-site',
+    roles: [
+      {
+        title: 'Instructional Assistant',
+        duration: 'Aug 2025 - May 2026 · 10 mos',
+        skills: ['Smartsheet', 'Terraform', '+8 skills'],
+      },
+      {
+        title: 'System Administrator',
+        duration: 'Apr 2025 - Jul 2025 · 4 mos',
+        skills: ['Bash', 'GitHub', '+5 skills'],
+      },
+    ],
+  },
+  {
+    company: 'eGov Foundation',
+    employmentType: 'Full-time',
+    location: 'Banglore · On-site',
+    roles: [
+      {
+        title: 'DevOps Engineer',
+        duration: 'Aug 2022 - Jul 2024 · 2 yrs',
+        skills: ['Recruiting', 'Technical Recruiting', '+33 skills'],
+      },
+    ],
+  },
+  {
+    company: 'CGI',
+    employmentType: 'Contract',
+    location: 'Austin, Texas · Remote',
+    roles: [
+      {
+        title: 'Cloud Engineer',
+        duration: 'May 2025 - Present · 1 yr 5 mos',
+        skills: ['Amazon Web Services (AWS)', 'Cloud Computing', '+7 skills'],
+      },
+    ],
+  },
+];
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+  const [canRender3D, setCanRender3D] = useState(false);
 
   useEffect(() => {
     emailjs.init('YOUR_PUBLIC_KEY');
+  }, []);
+
+  useEffect(() => {
+    setCanRender3D(shouldRender3D());
   }, []);
 
   useEffect(() => {
@@ -277,7 +402,7 @@ function App() {
       </nav>
 
       <main>
-        <HeroSection />
+        <HeroSection canRender3D={canRender3D} />
         <AboutSection />
         <ExperienceSection />
         <SkillsSection />
@@ -393,7 +518,7 @@ function TiltCard({
   );
 }
 
-/* ── Reveal wrapper ────────────────────────────────────────────────────────── */
+/* ── Legacy reveal wrapper (kept for components that use IntersectionObserver) ─ */
 
 function Reveal3D({
   children,
@@ -421,7 +546,7 @@ function Reveal3D({
 
 /* ── Hero Section ─────────────────────────────────────────────────────────── */
 
-function HeroSection() {
+function HeroSection({ canRender3D }: { canRender3D: boolean }) {
   const heroRef = useRef<HTMLDivElement>(null);
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
@@ -444,12 +569,25 @@ function HeroSection() {
       id="home"
       className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden pt-20"
     >
+      {/* 3D network background — lazy-loaded with gradient fallback */}
+      {canRender3D ? (
+        <Suspense
+          fallback={
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+          }
+        >
+          <NetworkBackground />
+        </Suspense>
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+      )}
+
       <ParallaxOrbs />
       <div className="absolute inset-0 bg-grid opacity-40" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center">
-          {/* 3D profile image with parallax — badges removed */}
+          {/* 3D profile image with parallax */}
           <div
             ref={heroRef}
             className="flex justify-center order-first perspective-2000"
@@ -475,23 +613,43 @@ function HeroSection() {
             className="text-center lg:text-left"
             style={{ transform: `translate3d(${parallax.x * 0.3}px, ${parallax.y * 0.3}px, 0)` }}
           >
-            <div className="mb-6 inline-block lg:block">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="mb-6 inline-block lg:block"
+            >
               <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full inline-flex items-center gap-2">
-                <Sparkles className="w-4 h-4" /> 3+ Years of Professional Experience
+                <Sparkles className="w-4 h-4" /> 4+ Years of Professional Experience
               </span>
-            </div>
+            </motion.div>
 
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-white leading-tight">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1, ease: 'easeOut' }}
+              className="text-5xl lg:text-7xl font-bold mb-6 text-white leading-tight"
+            >
               <span className="gradient-text">DevOps Engineer</span>
-            </h1>
+            </motion.h1>
 
-            <p className="text-lg text-slate-300 mb-6 max-w-2xl lg:max-w-none leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+              className="text-lg text-slate-300 mb-6 max-w-2xl lg:max-w-none leading-relaxed"
+            >
               Building scalable infrastructure for machine learning systems. Specializing in CI/CD
               pipelines, infrastructure automation, and cloud-native deployments with proven expertise
               in containerization, orchestration, and production reliability.
-            </p>
+            </motion.p>
 
-            <div className="space-y-4 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+              className="space-y-4 mb-8"
+            >
               {[
                 'Built and maintained CI/CD pipelines using GitHub Actions and Jenkins at eGovernments Foundation',
                 'Automated infrastructure provisioning with Terraform and AWS cloud deployments',
@@ -503,9 +661,14 @@ function HeroSection() {
                   <span className="text-slate-300">{text}</span>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4, ease: 'easeOut' }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
+            >
               <button
                 onClick={() => scrollToSection('projects')}
                 className="magnetic-btn px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"
@@ -518,9 +681,14 @@ function HeroSection() {
               >
                 Get In Touch <Mail className="w-4 h-4" />
               </button>
-            </div>
+            </motion.div>
 
-            <div className="flex justify-center lg:justify-start gap-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="flex justify-center lg:justify-start gap-6"
+            >
               <a
                 href="https://github.com/orgs/gowtham-org/repositories"
                 target="_blank"
@@ -543,7 +711,7 @@ function HeroSection() {
               >
                 <Mail className="w-6 h-6" />
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -561,20 +729,20 @@ function AboutSection() {
     >
       <ParallaxOrbs />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Reveal3D>
+        <MotionReveal>
           <h2 className="text-5xl font-bold mb-12 text-white">About Me</h2>
-        </Reveal3D>
+        </MotionReveal>
 
         <div className="space-y-6 text-slate-300 leading-relaxed">
-          <Reveal3D delay={100}>
+          <MotionReveal delay={0.05}>
             <p className="text-lg">
               I'm a <span className="text-orange-500 font-semibold">DevOps Engineer</span> with a strong focus
               on building scalable infrastructure for machine learning systems. My career is centered on
               bridging the gap between data science and infrastructure engineering.
             </p>
-          </Reveal3D>
+          </MotionReveal>
 
-          <Reveal3D delay={200}>
+          <MotionReveal delay={0.1}>
             <p className="text-lg">
               While I have a solid foundation in data science and machine learning, my primary expertise
               lies in <span className="text-orange-500 font-semibold">DevOps practices and infrastructure
@@ -583,11 +751,11 @@ function AboutSection() {
               <span className="text-orange-500 font-semibold">MLOps</span> — the practice of automating,
               managing, and monitoring machine learning workflows in production environments.
             </p>
-          </Reveal3D>
+          </MotionReveal>
 
-          <Reveal3D delay={300}>
+          <MotionReveal delay={0.15}>
             <p className="text-lg">My expertise spans:</p>
-          </Reveal3D>
+          </MotionReveal>
 
           <div className="grid md:grid-cols-2 gap-4">
             {[
@@ -597,7 +765,7 @@ function AboutSection() {
               ['Monitoring & Observability', 'Real-time monitoring for model performance and infra health'],
               ['Security & Access Control', 'Designing secure systems with role-based access and encryption'],
             ].map(([title, desc], i) => (
-              <Reveal3D key={i} variant={i % 2 === 0 ? 'left' : 'right'} delay={400 + i * 100}>
+              <MotionReveal key={i} variant={i % 2 === 0 ? fadeLeft : fadeRight} delay={0.2 + i * 0.08}>
                 <TiltCard className="p-5 bg-slate-900/60 border border-slate-800 rounded-xl backdrop-blur-sm h-full">
                   <div className="flex items-start gap-3">
                     <span className="text-orange-500 font-bold text-xl">•</span>
@@ -607,32 +775,32 @@ function AboutSection() {
                     </div>
                   </div>
                 </TiltCard>
-              </Reveal3D>
+              </MotionReveal>
             ))}
           </div>
 
-          <Reveal3D delay={900}>
+          <MotionReveal delay={0.45}>
             <p className="text-lg">
               I have worked on diverse projects including enterprise AI security systems, Kubernetes
               monitoring solutions, and bioinformatics applications. My approach combines rigorous
               engineering practices with modern DevOps tools to deliver robust, scalable, and
               maintainable systems that perform reliably in production.
             </p>
-          </Reveal3D>
+          </MotionReveal>
 
           <div className="grid grid-cols-2 gap-6 mt-8 perspective-1000">
-            <Reveal3D variant="left" delay={1000}>
+            <MotionReveal variant={fadeLeft} delay={0.5}>
               <TiltCard className="p-6 bg-slate-900 border border-slate-800 rounded-xl text-center h-full">
-                <div className="text-4xl font-bold gradient-text mb-2">3+</div>
+                <div className="text-4xl font-bold gradient-text mb-2">4+</div>
                 <div className="text-slate-300">Years of Professional Experience</div>
               </TiltCard>
-            </Reveal3D>
-            <Reveal3D variant="right" delay={1100}>
+            </MotionReveal>
+            <MotionReveal variant={fadeRight} delay={0.55}>
               <TiltCard className="p-6 bg-slate-900 border border-slate-800 rounded-xl text-center h-full">
                 <div className="text-4xl font-bold gradient-text mb-2">8+</div>
                 <div className="text-slate-300">Projects Completed</div>
               </TiltCard>
-            </Reveal3D>
+            </MotionReveal>
           </div>
         </div>
       </div>
@@ -642,50 +810,6 @@ function AboutSection() {
 
 /* ── Experience Section ────────────────────────────────────────────────────── */
 
-const EXPERIENCES = [
-  {
-    company: 'University of Houston College of Natural Sciences and Mathematics',
-    employmentType: 'Part-time · 1 yr 2 mos',
-    location: 'Houston, Texas, United States · On-site',
-    roles: [
-      {
-        title: 'Instructional Assistant',
-        duration: 'Aug 2025 - May 2026 · 10 mos',
-        skills: ['Smartsheet', 'Terraform', '+8 skills'],
-      },
-      {
-        title: 'System Administrator',
-        duration: 'Apr 2025 - Jul 2025 · 4 mos',
-        skills: ['Bash', 'GitHub', '+5 skills'],
-      },
-    ],
-  },
-  {
-    company: 'eGov Foundation',
-    employmentType: 'Full-time',
-    location: 'Banglore · On-site',
-    roles: [
-      {
-        title: 'DevOps Engineer',
-        duration: 'Aug 2022 - Jul 2024 · 2 yrs',
-        skills: ['Recruiting', 'Technical Recruiting', '+33 skills'],
-      },
-    ],
-  },
-  {
-    company: 'CGI',
-    employmentType: 'Contract',
-    location: 'Austin, Texas · Remote',
-    roles: [
-      {
-        title: 'Cloud Engineer',
-        duration: 'May 2025 - Present · 1 yr 5 mos',
-        skills: ['Amazon Web Services (AWS)', 'Cloud Computing', '+7 skills'],
-      },
-    ],
-  },
-];
-
 function ExperienceSection() {
   return (
     <section
@@ -694,19 +818,19 @@ function ExperienceSection() {
     >
       <ParallaxOrbs />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Reveal3D>
+        <MotionReveal>
           <h2 className="text-5xl font-bold mb-4 text-white">Experience</h2>
-        </Reveal3D>
-        <Reveal3D delay={100}>
+        </MotionReveal>
+        <MotionReveal delay={0.05}>
           <p className="text-slate-400 mb-12">My professional journey across DevOps, infrastructure, and academic roles.</p>
-        </Reveal3D>
+        </MotionReveal>
 
         <div className="relative perspective-2000">
           {/* Timeline line */}
           <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-orange-500/60 via-slate-700 to-transparent" />
 
           {EXPERIENCES.map((exp, ei) => (
-            <Reveal3D key={ei} variant="right" delay={ei * 150} className="mb-10">
+            <MotionReveal key={ei} variant={fadeRight} delay={ei * 0.1} className="mb-10">
               <TiltCard className="relative pl-16 pr-6 py-6 bg-slate-900/60 border border-slate-800 rounded-2xl backdrop-blur-sm hover:border-orange-500/50 transition-colors">
                 {/* Timeline dot */}
                 <div className="absolute left-[18px] top-7 w-4 h-4 rounded-full bg-orange-500 border-4 border-slate-950 shadow-lg shadow-orange-500/50" />
@@ -750,7 +874,7 @@ function ExperienceSection() {
                   ))}
                 </div>
               </TiltCard>
-            </Reveal3D>
+            </MotionReveal>
           ))}
         </div>
       </div>
@@ -770,18 +894,18 @@ function SkillsSection() {
     >
       <ParallaxOrbs />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Reveal3D>
+        <MotionReveal>
           <h2 className="text-5xl font-bold mb-4 text-white">Technical Skills</h2>
-        </Reveal3D>
-        <Reveal3D delay={100}>
+        </MotionReveal>
+        <MotionReveal delay={0.05}>
           <p className="text-slate-400 mb-12">
             Core competencies across DevOps, Data Science, and MLOps — hover or tap to flip
           </p>
-        </Reveal3D>
+        </MotionReveal>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 perspective-1000">
           {SKILLS.map((category, index) => (
-            <Reveal3D key={index} delay={index * 150}>
+            <MotionReveal key={index} delay={index * 0.08}>
               <div
                 className={`flip-card h-64 cursor-pointer ${flipped === index ? 'flipped' : ''}`}
                 onClick={() => setFlipped(flipped === index ? null : index)}
@@ -818,7 +942,7 @@ function SkillsSection() {
                   </div>
                 </div>
               </div>
-            </Reveal3D>
+            </MotionReveal>
           ))}
         </div>
       </div>
@@ -826,7 +950,7 @@ function SkillsSection() {
   );
 }
 
-/* ── Projects Section with 3D tilt cards ──────────────────────────────────── */
+/* ── Projects Section — clean cards with hover lift ────────────────────────── */
 
 function ProjectsSection({ projects }: { projects: typeof PROJECTS }) {
   return (
@@ -837,81 +961,84 @@ function ProjectsSection({ projects }: { projects: typeof PROJECTS }) {
       <ParallaxOrbs />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Reveal3D>
+        <MotionReveal>
           <h2 className="text-5xl font-bold mb-4 text-white">Featured Projects</h2>
-        </Reveal3D>
-        <Reveal3D delay={100}>
+        </MotionReveal>
+        <MotionReveal delay={0.05}>
           <p className="text-lg text-slate-400 mb-12">
             Organized by priority. Showcasing production-grade work in DevOps, AI/ML, and Infrastructure
           </p>
-        </Reveal3D>
+        </MotionReveal>
 
-        <div className="space-y-8 perspective-2000">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Reveal3D key={index} variant={index % 2 === 0 ? 'left' : 'right'} delay={index * 80}>
-              <TiltCard className="bg-slate-900/40 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden hover:border-orange-500/60 hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-300">
-                <div className="grid lg:grid-cols-3 gap-0">
-                  <div className="relative h-56 lg:h-full overflow-hidden lg:col-span-1">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/50 to-transparent" />
-                    <div className="absolute top-6 left-6 flex items-center gap-2" style={{ transform: 'translateZ(40px)' }}>
-                      <span className="px-4 py-2 bg-orange-500 text-white text-sm font-bold rounded-full shadow-lg">
-                        #{index + 1}
-                      </span>
-                      <span className="px-3 py-2 bg-slate-800/80 backdrop-blur text-slate-200 text-xs font-semibold rounded-full">
-                        {project.category}
-                      </span>
-                    </div>
+            <MotionReveal
+              key={index}
+              variant={index % 3 === 0 ? fadeLeft : index % 3 === 2 ? fadeRight : fadeUp}
+              delay={(index % 3) * 0.08}
+            >
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="h-full"
+              >
+                <div className="h-full p-6 bg-slate-900/60 border border-slate-800 rounded-2xl backdrop-blur-sm hover:border-orange-500/50 transition-colors flex flex-col">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold rounded-full">
+                      #{index + 1}
+                    </span>
+                    <span className="text-xs text-slate-500 font-medium">{project.category}</span>
                   </div>
 
-                  <div className="p-8 lg:col-span-2 flex flex-col justify-between" style={{ transform: 'translateZ(30px)' }}>
-                    <div>
-                      <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3">
-                        {project.title}
-                      </h3>
-                      <p className="text-slate-300 text-base leading-relaxed mb-5">
-                        {project.description}
+                  <h3 className="text-lg font-bold text-white mb-2 leading-tight">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+
+                  {project.impact && (
+                    <div className="mb-4 p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+                      <p className="text-orange-400 text-xs font-medium">
+                        {project.impact}
                       </p>
-
-                      {project.impact && (
-                        <div className="mb-6 p-4 bg-orange-500/10 border border-orange-500/30 rounded-lg">
-                          <p className="text-orange-400 font-semibold text-sm">
-                            <span className="text-orange-500">Impact:</span> {project.impact}
-                          </p>
-                        </div>
-                      )}
                     </div>
+                  )}
 
-                    <div className="space-y-4">
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech: string, idx: number) => (
-                          <span
-                            key={idx}
-                            className="px-3 py-1.5 bg-slate-800/60 hover:bg-orange-500/20 text-slate-300 hover:text-orange-400 text-xs font-medium rounded-lg transition-all duration-300 backdrop-blur-sm"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.technologies.map((tech: string, idx: number) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 bg-slate-800/60 text-slate-300 text-xs font-medium rounded-md"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
 
+                  <div className="flex items-center gap-3 mt-auto pt-4 border-t border-slate-800">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors"
+                    >
+                      <Github className="w-4 h-4" /> GitHub
+                    </a>
+                    {project.live && (
                       <a
-                        href={project.github}
+                        href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 w-fit"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 border border-slate-700 hover:border-orange-500 text-slate-300 hover:text-orange-400 text-sm font-semibold rounded-lg transition-colors"
                       >
-                        View on GitHub
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="w-4 h-4" /> Live
                       </a>
-                    </div>
+                    )}
                   </div>
                 </div>
-              </TiltCard>
-            </Reveal3D>
+              </motion.div>
+            </MotionReveal>
           ))}
         </div>
       </div>
@@ -929,17 +1056,17 @@ function ContactSection({ formData, handleInputChange, handleSubmit, isSubmittin
     >
       <ParallaxOrbs />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Reveal3D>
+        <MotionReveal>
           <h2 className="text-5xl font-bold mb-4 text-white">Get In Touch</h2>
-        </Reveal3D>
-        <Reveal3D delay={100}>
+        </MotionReveal>
+        <MotionReveal delay={0.05}>
           <p className="text-slate-400 mb-12">
             Let's discuss how we can work together on your next project.
           </p>
-        </Reveal3D>
+        </MotionReveal>
 
         <div className="grid lg:grid-cols-2 gap-12 perspective-1000">
-          <Reveal3D variant="left">
+          <MotionReveal variant={fadeLeft}>
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
 
@@ -978,9 +1105,9 @@ function ContactSection({ formData, handleInputChange, handleSubmit, isSubmittin
                 </div>
               </div>
             </div>
-          </Reveal3D>
+          </MotionReveal>
 
-          <Reveal3D variant="right" delay={150}>
+          <MotionReveal variant={fadeRight} delay={0.1}>
             <form
               onSubmit={handleSubmit}
               className="space-y-6 bg-slate-900/80 p-8 rounded-2xl border border-slate-800 backdrop-blur-md"
@@ -1054,7 +1181,7 @@ function ContactSection({ formData, handleInputChange, handleSubmit, isSubmittin
                 </div>
               )}
             </form>
-          </Reveal3D>
+          </MotionReveal>
         </div>
       </div>
     </section>
