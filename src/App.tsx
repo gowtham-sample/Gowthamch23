@@ -628,7 +628,8 @@ function HeroSection({ canRender3D }: { canRender3D: boolean }) {
               transition={{ duration: 0.5, ease: 'easeOut' }}
               className="mb-6 inline-block lg:block"
             >
-              <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full inline-flex3+ Years of Professional Experience
+              <span className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 text-sm font-semibold rounded-full inline-flex items-center gap-2">
+                <Sparkles className="w-4 h-4" /> 3+ Years of Professional Experience
               </span>
             </motion.div>
 
