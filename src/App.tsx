@@ -103,6 +103,7 @@ const PROJECTS = [
     technologies: ['Python', 'FastAPI', 'Streamlit', 'BERT', 'XGBoost', 'ChromaDB', 'Groq LLaMA', 'Jira API', 'Docker', 'Kubernetes'],
     github: 'https://github.com/gowtham-org/TriageIQ-Ticketing-System',
     live: '',
+    image: 'https://images.pexels.com/photos/8867631/pexels-photo-8867631.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 1,
   },
   {
@@ -116,6 +117,7 @@ const PROJECTS = [
     technologies: ['ArgoCD', 'Kubernetes', 'k3d', 'Docker', 'Helm', 'YAML', 'GitHub', 'WSL2'],
     github: 'https://github.com/gowtham-org/argocd-public-repo',
     live: '',
+    image: 'https://images.pexels.com/photos/38422417/pexels-photo-38422417.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 2,
   },
   {
@@ -129,6 +131,7 @@ const PROJECTS = [
     technologies: ['Python', 'FastAPI', 'Streamlit', 'Google Gemini', 'ChromaDB', 'Kubernetes', 'Docker'],
     github: 'https://github.com/gowtham-org/RBAC-Secured-Internal-AI-Assistant',
     live: '',
+    image: 'https://images.pexels.com/photos/5473956/pexels-photo-5473956.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 3,
   },
   {
@@ -142,6 +145,7 @@ const PROJECTS = [
     technologies: ['Kubernetes', 'Minikube', 'Python', 'Helm', 'SOPS'],
     github: 'https://github.com/gowtham-org/Kubernetes-Pod-Status-Alertmanager',
     live: '',
+    image: 'https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 4,
   },
   {
@@ -155,6 +159,7 @@ const PROJECTS = [
     technologies: ['Python', 'Streamlit', 'Google Gemini Pro', 'PyPDF2', 'SQLite'],
     github: 'https://github.com/gowtham-org/ATSPro-Gemini-Resume-Matcher',
     live: '',
+    image: 'https://images.pexels.com/photos/4101343/pexels-photo-4101343.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 5,
   },
   {
@@ -168,6 +173,7 @@ const PROJECTS = [
     technologies: ['Python', 'TensorFlow', 'Pandas', 'FastAPI', 'PostgreSQL'],
     github: 'https://github.com/gowtham-org/AI-Powered-Smart-Cost-Estimation-for-Construction-Planning',
     live: '',
+    image: 'https://images.pexels.com/photos/13758319/pexels-photo-13758319.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 6,
   },
   {
@@ -181,6 +187,7 @@ const PROJECTS = [
     technologies: ['Python', 'Pandas', 'Scikit-learn', 'XGBoost', 'GridSearchCV'],
     github: 'https://github.com/gowtham-org/Cell-Viability-Prediction',
     live: '',
+    image: 'https://images.pexels.com/photos/35967917/pexels-photo-35967917.png?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 7,
   },
   {
@@ -194,6 +201,7 @@ const PROJECTS = [
     technologies: ['Python', 'Pandas', 'Scikit-learn', 'NumPy'],
     github: 'https://github.com/gowtham-org/Movie-Recommender-using-ML',
     live: '',
+    image: 'https://images.pexels.com/photos/987586/pexels-photo-987586.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 8,
   },
   {
@@ -207,6 +215,7 @@ const PROJECTS = [
     technologies: ['Python 3.12', 'Tkinter', 'SQLite', 'Matplotlib', 'CSV Export'],
     github: 'https://github.com/gowtham-org/tkinter-todo-app',
     live: '',
+    image: 'https://images.pexels.com/photos/37116245/pexels-photo-37116245.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     priority: 9,
   },
 ];
@@ -982,13 +991,26 @@ function ProjectsSection({ projects }: { projects: typeof PROJECTS }) {
                 transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="h-full"
               >
-                <div className="h-full p-6 bg-slate-900/60 border border-slate-800 rounded-2xl backdrop-blur-sm hover:border-orange-500/50 transition-colors flex flex-col">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="px-3 py-1.5 bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold rounded-full">
-                      #{index + 1}
-                    </span>
-                    <span className="text-xs text-slate-500 font-medium">{project.category}</span>
+                <div className="h-full bg-slate-900/60 border border-slate-800 rounded-2xl backdrop-blur-sm hover:border-orange-500/50 transition-colors flex flex-col overflow-hidden">
+                  <div className="relative h-36 overflow-hidden flex-shrink-0">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+                    <div className="absolute top-3 left-3 flex items-center gap-2">
+                      <span className="px-3 py-1.5 bg-orange-500 text-white text-xs font-bold rounded-full shadow-lg">
+                        #{index + 1}
+                      </span>
+                      <span className="px-2.5 py-1.5 bg-slate-900/80 backdrop-blur text-slate-200 text-xs font-semibold rounded-full">
+                        {project.category}
+                      </span>
+                    </div>
                   </div>
+
+                  <div className="p-6 flex flex-col flex-1">
 
                   <h3 className="text-lg font-bold text-white mb-2 leading-tight">
                     {project.title}
@@ -1035,6 +1057,7 @@ function ProjectsSection({ projects }: { projects: typeof PROJECTS }) {
                         <ExternalLink className="w-4 h-4" /> Live
                       </a>
                     )}
+                  </div>
                   </div>
                 </div>
               </motion.div>
