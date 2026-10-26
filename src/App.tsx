@@ -946,7 +946,6 @@ function ContactSection({ formData, handleInputChange, handleSubmit, isSubmittin
               {[
                 [<Mail key="m" className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />, 'Email', 'gowthamchowdam2001@gmail.com'],
                 [<Phone key="p" className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />, 'Phone', '+1 (346) 599-8350'],
-                [<MapPin key="mp" className="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" />, 'Location', 'Houston, Texas, United States'],
               ].map(([icon, label, value], i) => (
                 <TiltCard key={i} className="flex items-start gap-4 p-4 bg-slate-900/60 border border-slate-800 rounded-xl backdrop-blur-sm">
                   {icon}
