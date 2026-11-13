@@ -6,7 +6,7 @@ export const portfolio = {
   github: 'https://github.com/gowtham-org',
   linkedin: 'https://www.linkedin.com/in/gowtham-chowdam-35ba96185/',
   roles: ['PLATFORM ENGINEER', 'SRE', 'MLOPS ENGINEER'],
-  about: 'DevOps/SRE engineer with 3+ years of production experience at eGovernments Foundation. Completed an MS in Engineering Data Science at the University of Houston. I build scalable infrastructure for ML systems: CI/CD, Kubernetes, Terraform, and production reliability.',
+  about: 'DevOps/SRE engineer with 3+ years of production experience at CGI and eGovernments Foundation. Completed an MS in Engineering Data Science at the University of Houston. I build scalable infrastructure for ML systems: CI/CD, Kubernetes, Terraform, and production reliability.',
   experience: [
     { role: 'DevOps Engineer', company: 'eGovernments Foundation', year: '2022—2024', description: 'Built CI/CD with GitHub Actions and Jenkins, automated infra with Terraform on AWS, ran Kubernetes and Docker workloads, and added Prometheus + Grafana monitoring.' },
     { role: 'Cloud Engineer', company: 'CGI · Contract · Remote · Austin TX', year: '2025', description: 'AWS cloud engineering and cloud deployments across reliable, repeatable delivery workflows.' },
