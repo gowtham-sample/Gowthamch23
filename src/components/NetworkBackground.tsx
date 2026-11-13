@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 const NODE_COUNT = 120;
@@ -35,8 +35,6 @@ function NetworkScene() {
   const linesRef = useRef<THREE.LineSegments>(null);
   const groupRef = useRef<THREE.Group>(null);
   const mouse = useRef({ x: 0, y: 0 });
-  const { viewport } = useThree();
-
   const { positions, velocities } = useNodes();
 
   const lineGeometry = useMemo(() => {

@@ -1,6 +1,7 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, FileText, Github, Linkedin, Mail, Menu, Send, X } from 'lucide-react';
+import { Body, Bodies, Composite, Engine, Events, Mouse, MouseConstraint, Runner, World } from 'matter-js';
+import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, FileText, Github, Linkedin, Menu, Send, X } from 'lucide-react';
 import { portfolio } from './data/portfolio';
 import { projects } from './data/projects';
 
@@ -55,12 +56,63 @@ function Projects() {
   const project = projects[index];
   const next = () => setIndex((value) => (value + 1) % projects.length);
   const previous = () => setIndex((value) => (value - 1 + projects.length) % projects.length);
-  return <section id="work" className="section-shell work-section"><Reveal><div className="work-heading"><div><p className="eyebrow">03 / SELECTED WORK</p><h2 className="section-title">My <span>Work</span></h2></div><div className="project-controls"><button onClick={previous} aria-label="Previous project"><ArrowLeft size={18} /></button><button onClick={next} aria-label="Next project"><ArrowRight size={18} /></button></div></div></Reveal><div className="project-frame"><div className="project-copy"><AnimatePresence mode="wait"><motion.div key={project.title} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -18 }} transition={{ duration: 0.35 }}><p className="project-number">{String(index + 1).padStart(2, '0')}</p><p className="project-subtitle">{project.subtitle}</p><h3>{project.title}</h3><p className="project-description">{project.description}</p><p className="eyebrow tool-label">TOOLS &amp; FEATURES</p><div className="tool-list">{project.tools.map((tool) => <span key={tool}>{tool}</span>)}</div><div className="project-links"><a href={project.github} target="_blank" rel="noreferrer">GITHUB <ArrowUpRight size={15} /></a>{project.live && <a href={project.live} target="_blank" rel="noreferrer">LIVE <ArrowUpRight size={15} /></a>}</div></motion.div></AnimatePresence></div><div className="project-preview"><div className="preview-grid" /><div><span className="preview-index">{String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span><p>{project.title}</p><small>{project.impact}</small></div></div></div><div className="pagination">{projects.map((item, dotIndex) => <button key={item.title} onClick={() => setIndex(dotIndex)} className={index === dotIndex ? 'selected' : ''} aria-label={`Show ${item.title}`} />)}</div></section>;
+  return <section id="work" className="section-shell work-section"><Reveal><div className="work-heading"><div><p className="eyebrow">03 / SELECTED WORK</p><h2 className="section-title">My <span>Work</span></h2></div><div className="project-controls"><button onClick={previous} aria-label="Previous project"><ArrowLeft size={18} /></button><button onClick={next} aria-label="Next project"><ArrowRight size={18} /></button></div></div></Reveal><div className="project-frame"><div className="project-copy"><AnimatePresence mode="wait"><motion.div key={project.title} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -18 }} transition={{ duration: 0.35 }}><p className="project-number">{String(index + 1).padStart(2, '0')}</p><p className="project-subtitle">{project.subtitle}</p><h3>{project.title}</h3><p className="project-description">{project.description}</p><p className="eyebrow tool-label">TOOLS &amp; FEATURES</p><div className="tool-list">{project.tools.map((tool) => <span key={tool}>{tool}</span>)}</div><div className="project-links"><a href={project.github} target="_blank" rel="noreferrer">GITHUB <ArrowUpRight size={15} /></a>{project.live && <a href={project.live} target="_blank" rel="noreferrer">LIVE <ArrowUpRight size={15} /></a>}</div></motion.div></AnimatePresence></div><div className="project-preview"><img className="project-preview-image" src={project.image} alt={`${project.title} project preview`} loading="lazy" /><div className="preview-grid" /><div><span className="preview-index">{String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span><p>{project.title}</p><small>{project.impact}</small></div></div></div><div className="pagination">{projects.map((item, dotIndex) => <button key={item.title} onClick={() => setIndex(dotIndex)} className={index === dotIndex ? 'selected' : ''} aria-label={`Show ${item.title}`} />)}</div></section>;
 }
 
 function TechStack() {
   const reduceMotion = useReducedMotion();
-  return <section className="section-shell tech-section"><Reveal><p className="eyebrow">04 / TOOLKIT</p><div className="tech-header"><h2 className="section-title">My Tech <span>Stack</span></h2><p>Tools I use to move from a blank repo to a dependable system.</p></div></Reveal><div className={`tech-field ${reduceMotion ? 'reduced' : ''}`}>{portfolio.tech.map((tech, index) => <motion.div key={tech} className="tech-ball" initial={reduceMotion ? false : { y: -80, opacity: 0 }} whileInView={reduceMotion ? undefined : { y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: (index % 9) * 0.06, type: 'spring', bounce: 0.35 }} whileHover={{ scale: 1.08, color: '#071117' }}>{tech}</motion.div>)}</div></section>;
+  const fieldRef = useRef<HTMLDivElement>(null);
+  const techRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  useEffect(() => {
+    if (reduceMotion || !fieldRef.current) return;
+    const field = fieldRef.current;
+    let started = false;
+    let cleanupPhysics = () => {};
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || started) return;
+      started = true;
+      const engine = Engine.create({ gravity: { x: 0, y: 1 } });
+      const runner = Runner.create();
+      const width = field.clientWidth;
+      const height = field.clientHeight;
+      const elements = techRefs.current.filter((element): element is HTMLDivElement => element !== null);
+      const bodies = elements.map((element, index) => {
+        const radius = element.offsetWidth / 2;
+        return Bodies.circle(radius + 12 + (index * 67) % Math.max(1, width - radius * 2 - 24), -radius - index * 32, radius, { restitution: 0.72, friction: 0.02, frictionAir: 0.008, label: 'tech-ball' });
+      });
+      const walls = [
+        Bodies.rectangle(width / 2, height + 25, width, 50, { isStatic: true }),
+        Bodies.rectangle(-25, height / 2, 50, height, { isStatic: true }),
+        Bodies.rectangle(width + 25, height / 2, 50, height, { isStatic: true }),
+      ];
+      const mouse = Mouse.create(field);
+      const mouseConstraint = MouseConstraint.create(engine, { mouse, constraint: { stiffness: 0.18, render: { visible: false } } });
+      Composite.add(engine.world, [...bodies, ...walls, mouseConstraint]);
+      const update = () => bodies.forEach((body, index) => {
+        const element = elements[index];
+        element.style.transform = `translate3d(${body.position.x - element.offsetWidth / 2}px, ${body.position.y - element.offsetHeight / 2}px, 0) rotate(${body.angle}rad)`;
+      });
+      Events.on(engine, 'afterUpdate', update);
+      Runner.run(runner, engine);
+      const impulseTimer = window.setInterval(() => {
+        const body = bodies[Math.floor(Math.random() * bodies.length)];
+        if (body) Body.applyForce(body, body.position, { x: (Math.random() - 0.5) * 0.0012, y: -0.002 });
+      }, 2300);
+      update();
+      cleanupPhysics = () => {
+        window.clearInterval(impulseTimer);
+        Events.off(engine, 'afterUpdate', update);
+        Runner.stop(runner);
+        World.clear(engine.world, false);
+        Engine.clear(engine);
+      };
+    }, { threshold: 0.2 });
+    observer.observe(field);
+    return () => { observer.disconnect(); cleanupPhysics(); };
+  }, [reduceMotion]);
+
+  return <section className="section-shell tech-section"><Reveal><p className="eyebrow">04 / TOOLKIT</p><div className="tech-header"><h2 className="section-title">My Tech <span>Stack</span></h2><p>Tools I use to move from a blank repo to a dependable system.</p></div></Reveal><div ref={fieldRef} className={`tech-field ${reduceMotion ? 'reduced' : ''}`}>{portfolio.tech.map((tech, index) => <div ref={(element) => { techRefs.current[index] = element; }} key={tech} className="tech-ball">{tech}</div>)}</div></section>;
 }
 
 function Contact() {
