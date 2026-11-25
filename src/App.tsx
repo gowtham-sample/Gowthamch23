@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion, useMotionValue, useSpring } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Body, Bodies, Composite, Engine, Events, Mouse, MouseConstraint, Runner, World } from 'matter-js';
 import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, FileText, Github, Linkedin, Menu, Send, X } from 'lucide-react';
 import { portfolio } from './data/portfolio';
@@ -38,47 +38,8 @@ function SideRail() {
 
 function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
-  const [isBreathing, setIsBreathing] = useState(false);
-  const reduceMotion = useReducedMotion();
-  const portraitX = useSpring(useMotionValue(0), { stiffness: 80, damping: 20, mass: 0.8 });
-  const portraitY = useSpring(useMotionValue(0), { stiffness: 80, damping: 20, mass: 0.8 });
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setRoleIndex((index) => (index + 1) % portfolio.roles.length), 2600);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    if (reduceMotion) return;
-    const timer = window.setTimeout(() => setIsBreathing(true), 1600);
-    return () => window.clearTimeout(timer);
-  }, [reduceMotion]);
-
-  useEffect(() => {
-    if (reduceMotion || window.innerWidth <= 800) return;
-    const movePortrait = (event: MouseEvent) => {
-      portraitX.set((window.innerWidth / 2 - event.clientX) / (window.innerWidth / 2) * 12);
-      portraitY.set((window.innerHeight / 2 - event.clientY) / (window.innerHeight / 2) * 12);
-    };
-    window.addEventListener('mousemove', movePortrait);
-    return () => window.removeEventListener('mousemove', movePortrait);
-  }, [portraitX, portraitY, reduceMotion]);
-
-  const portraitAnimation = reduceMotion
-    ? { opacity: 1 }
-    : isBreathing
-      ? { opacity: 1, scale: [1, 1.04, 1] }
-      : { opacity: 1, scale: 1, filter: 'blur(0px)' };
-  const portraitTransition = reduceMotion
-    ? { duration: 0.45, ease: 'easeOut' as const }
-    : isBreathing
-      ? { scale: { duration: 20, repeat: Infinity, ease: 'easeInOut' as const } }
-      : { duration: 1.6, ease: [0.22, 1, 0.36, 1] as const };
-  const textInitial = reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 };
-  const textAnimate = { opacity: 1, y: 0 };
-  const textTransition = (delay: number) => ({ duration: reduceMotion ? 0.45 : 0.6, delay, ease: [0.22, 1, 0.36, 1] as const });
-
-  return <section id="top" className="hero-section"><motion.img className="hero-photo" src="/images/profile.png" alt="Gowtham Chowdam portrait" initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.12, filter: 'blur(8px)' }} animate={portraitAnimation} transition={portraitTransition} style={{ x: portraitX, y: portraitY }} /><motion.div className="hero-glow" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduceMotion ? 0.45 : 1, delay: reduceMotion ? 0 : 0.4, ease: 'easeOut' }} /><div className="hero-grid" /><div className="hero-content"><div className="hero-intro"><motion.p className="eyebrow" initial={textInitial} animate={textAnimate} transition={textTransition(0)}>HELLO! I'M</motion.p><motion.h1 initial={textInitial} animate={textAnimate} transition={textTransition(0.15)}>Gowtham<br /><span>Chowdam.</span></motion.h1><motion.p className="hero-note" initial={textInitial} animate={textAnimate} transition={textTransition(0.3)}>I design the systems that let ambitious ideas run in production.</motion.p></div><motion.div className="hero-role" initial={textInitial} animate={textAnimate} transition={textTransition(0.45)}><p className="eyebrow">A DEVOPS ENGINEER</p><AnimatePresence mode="wait"><motion.h2 key={portfolio.roles[roleIndex]} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.35 }}>{portfolio.roles[roleIndex]}</motion.h2></AnimatePresence><a href="#about" className="scroll-cue">SCROLL TO EXPLORE <ArrowDownRight size={16} /></a></motion.div></div><div className="hero-bottom"><span>HOUSTON, TX · 2026</span><span>BUILDING FOR WHAT'S NEXT</span></div></section>;
+  useEffect(() => { const timer = window.setInterval(() => setRoleIndex((index) => (index + 1) % portfolio.roles.length), 2600); return () => window.clearInterval(timer); }, []);
+  return <section id="top" className="hero-section"><img className="hero-photo" src="/images/profile.png" alt="Gowtham Chowdam portrait" /><div className="hero-grid" /><div className="hero-content"><Reveal className="hero-intro"><p className="eyebrow">HELLO! I'M</p><h1>Gowtham<br /><span>Chowdam.</span></h1><p className="hero-note">I design the systems that let ambitious ideas run in production.</p></Reveal><Reveal delay={0.14} className="hero-role"><p className="eyebrow">A DEVOPS ENGINEER</p><AnimatePresence mode="wait"><motion.h2 key={portfolio.roles[roleIndex]} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.35 }}>{portfolio.roles[roleIndex]}</motion.h2></AnimatePresence><a href="#about" className="scroll-cue">SCROLL TO EXPLORE <ArrowDownRight size={16} /></a></Reveal></div><div className="hero-bottom"><span>HOUSTON, TX · 2026</span><span>BUILDING FOR WHAT'S NEXT</span></div></section>;
 }
 
 function About() {
